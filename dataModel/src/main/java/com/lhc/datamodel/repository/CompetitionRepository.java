@@ -18,4 +18,7 @@ public interface CompetitionRepository extends JpaRepository<CompetitionRecord, 
     @Query("Select cr from Competitions cr where :user in cr.allowedUsers")
     List<CompetitionRecord> findAllByUser(@Param("user") User user);
 
+    @Query("Select cr from Competitions cr where :username in cr.allowedUsers.username")
+    List<CompetitionRecord> findAllByUsername(@Param("username") String username);
+
 }

@@ -1,5 +1,6 @@
 package com.lhc.datamodel.entities;
 
+import com.lhc.datamodel.entities.rules.RuleRecord;
 import com.lhc.datamodel.entities.rules.Rules;
 import com.lhc.datamodel.entities.security.User;
 import lombok.Getter;
@@ -37,6 +38,6 @@ public class CompetitionRecord {
     private List<User> allowedUsers = new ArrayList<>();
 
     @OneToMany(mappedBy="competitionRecord", fetch= FetchType.EAGER, cascade= CascadeType.ALL )
-    private List<Rules> rules = new ArrayList<>();
+    private List<RuleRecord> rules = new ArrayList<>();
 
 }
