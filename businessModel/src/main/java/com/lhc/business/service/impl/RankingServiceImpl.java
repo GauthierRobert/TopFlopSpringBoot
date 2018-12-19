@@ -20,14 +20,12 @@ public class RankingServiceImpl implements RankingService {
 
     private MatchService matchService;
     private BallotService ballotService;
-    private CompetitionService competitionService;
 
 
     @Autowired
-    public RankingServiceImpl(MatchService matchService, BallotService ballotService, CompetitionService competitionService) {
+    public RankingServiceImpl(MatchService matchService, BallotService ballotService) {
         this.matchService = matchService;
         this.ballotService = ballotService;
-        this.competitionService = competitionService;
     }
 
     @Override

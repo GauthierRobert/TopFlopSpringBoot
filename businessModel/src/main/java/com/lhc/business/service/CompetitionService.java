@@ -14,6 +14,8 @@ public interface CompetitionService {
 
     List<Competition> findAllByUser(User user);
 
+    List<Competition> findAllByUsername(String username);
+
     CompetitionRecord findByReference(String ref);
 
     CompetitionRecord addUserToCompetition(User user, String postedName, String postedPassword) throws NoSuchAlgorithmException;

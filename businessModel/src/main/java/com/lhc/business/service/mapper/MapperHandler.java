@@ -21,5 +21,7 @@ public interface MapperHandler {
     MatchRecord mapMatchRecord(Match match, MatchRecord matchRecord);
     CompetitionRecord mapCompetitionRecord(Competition competition, CompetitionRecord competitionRecord);
 
+    RuleRecord mapRuleRecord(Rule rule, RuleRecord ruleRecord);
+    Rule mapRule(RuleRecord ruleRecord, Rule rule);
 
 }

@@ -90,6 +90,22 @@ public class CompetitionServiceImpl implements CompetitionService {
     public List<Competition> findAllByUser (User user){
 
         List<CompetitionRecord> competitionRecords = competitionRepository.findAllByUser(user);
+
+        return createCompetitionsFromCompetitionRecords(competitionRecords);
+    }
+
+
+    @Override
+    @Transactional
+    public List<Competition> findAllByUsername (String username){
+
+        List<CompetitionRecord> competitionRecords = competitionRepository.findAllByUsername(username);
+
+        return createCompetitionsFromCompetitionRecords(competitionRecords);
+    }
+
+    private List<Competition> createCompetitionsFromCompetitionRecords(List<CompetitionRecord> competitionRecords) {
+
         List<Competition> competitions = new ArrayList<>();
         competitionRecords.forEach(competitionRecord -> {
             Competition competition = new Competition();
@@ -97,7 +113,7 @@ public class CompetitionServiceImpl implements CompetitionService {
             competitions.add(competition);
         });
 
-        return competitions;
+        return; competitions;
     }
 
     @Override
