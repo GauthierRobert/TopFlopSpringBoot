@@ -19,7 +19,11 @@ public class Competition {
 
     private List<Match> matches;
 
+    private List<Rule> rules;
+
     public Competition() {
+        this.rules = new ArrayList<>();
         this.matches = new ArrayList<>();
     }
+
 }

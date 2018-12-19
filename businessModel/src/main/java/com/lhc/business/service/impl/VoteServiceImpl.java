@@ -11,12 +11,15 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.lhc.business.dto.Competition.getCompetitionRules;
+
 @Service
 public class VoteServiceImpl implements VoteService {
 
     private VoteRepository voteRepository;
 
     private MapperHandler mapperHandler;
+
 
 
     @Autowired
@@ -26,12 +29,15 @@ public class VoteServiceImpl implements VoteService {
     }
 
     @Override
-    public VoteRecord saveOrUpdate(Vote vote) {
+    public VoteRecord saveOrUpdate(Vote vote, String competition_ref) {
 
         VoteRecord voteRecord = null;
         if (vote.getReference() !=null) {
             voteRecord = voteRepository.findByReference(vote.getReference());
         }
+
+        RuleRecord rule=  getRuleWithVoteIndex(new ArrayList<RuleRecord>(), vote.getIndex());
+        vote.applyRule(rule);
 
         voteRecord = mapperHandler.mapVoteRecord(vote, voteRecord);
 
@@ -68,5 +74,16 @@ public class VoteServiceImpl implements VoteService {
         return votes;
     }
 
+
+    private RuleRecord getRuleWithVoteIndex(List<RuleRecord> rules, int index){
+
+        rules.forEach(rule -> {
+            if (index == rule.getIndex()){
+                return rule;
+            }
+        });
+
+        return null;
+    }
 
 }

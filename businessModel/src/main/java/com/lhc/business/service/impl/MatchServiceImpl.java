@@ -11,6 +11,7 @@ import com.lhc.datamodel.repository.MatchRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -30,16 +31,23 @@ public class MatchServiceImpl implements MatchService {
 
     @Override
     public List<Match> findAllMatchesByCompetitionReference(String competition_ref) {
-        return null;
+
+        List<MatchRecord> matchRecords = matchRepository.findAllByCompetitionReference(competition_ref);
+
+        final List<Match> matches = new ArrayList<Match>();
+        matchRecords.forEach(matchRecord -> {
+            matches.add(mapperHandler.mapMatch(matchRecord, null));
+        });
+
+        return matches;
     }
 
     @Override
     public Match findMatchById(Long Id) {
 
         MatchRecord matchRecord = matchRepository.findById(Id).get();
-        Match match = new Match();
-        mapperHandler.mapMatch(matchRecord, match);
-        return match;
+
+        return mapperHandler.mapMatch(matchRecord, match);;
     }
 
     @Override
