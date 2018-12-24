@@ -196,12 +196,4 @@ public class EndToEndCaseTests {
         System.out.println(sb.toString());
     }
 
-    @Test
-    public void name() {
-
-
-        List<Match> a= matchService.findAllMatchesByCompetitionReference("Linkebeek");
-
-        System.out.println("f");
-    }
 }

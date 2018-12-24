@@ -10,14 +10,14 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface MatchRepository extends JpaRepository<MatchRecord, Long> {
+public interface MatchRepository extends JpaRepository<Match, Long> {
 
-    @Query("Select mr from Matches mr where mr.reference = :ref")
-    MatchRecord findByReference(@Param("ref") String ref);
+    @Query("Select m from Matches m where m.reference = :ref")
+    Match findByReference(@Param("ref") String ref);
 
 
-    @Query("Select mr from Matches mr where mr.competitionRecord.reference = :competition_ref")
-    List<MatchRecorda> findAllByCompetitionReference(@Param("competition_ref") String competition_ref);
+    @Query("Select m from Matches m where m.competitionRecord.reference = :competition_ref")
+    List<Match> findAllByCompetitionReference(@Param("competition_ref") String competition_ref);
 
 
 }

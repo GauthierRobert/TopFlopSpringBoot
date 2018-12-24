@@ -1,8 +1,5 @@
 package com.lhc.business.service;
 
-import com.lhc.business.dto.Match;
-import com.lhc.datamodel.entities.MatchRecord;
-
 import java.util.List;
 
 public interface MatchService {
@@ -11,8 +8,8 @@ public interface MatchService {
 
     Match findMatchById(Long Id);
 
-    MatchRecord findMatchByReference(String ref);
+    Match findMatchByReference(String ref);
 
-    MatchRecord saveOrUpdate(Match match, String comp_ref);
+    Match saveOrUpdate(Match match, String comp_ref);
 
 }

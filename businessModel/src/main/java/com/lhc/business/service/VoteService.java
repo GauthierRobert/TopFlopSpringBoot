@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface VoteService {
 
-    VoteRecord saveOrUpdate(Vote vote);
+    Vote saveOrUpdate(Vote vote);
 
     List<Vote> findAllByMatchReference(String ref);
 

@@ -21,14 +21,14 @@ public class User {
     private String passwordConfirm;
 
     @ManyToMany(mappedBy = "allowedUsers")
-    private List<CompetitionRecord> competitions;
+    private List<Competition> competitions;
 
 	@ManyToMany
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
     @OneToMany(mappedBy="user", fetch= FetchType.LAZY, cascade= CascadeType.ALL )
-	private List<BallotRecord> ballotRecords;
+	private List<Ballot> ballots;
 
     public Long getId() {
         return id;
@@ -70,19 +70,19 @@ public class User {
         this.username = username;
     }
 
-    public List<BallotRecord> getBallotRecords() {
-        return ballotRecords;
+    public List<Ballot> getBallots() {
+        return ballots;
     }
     
-    public void setBallotRecords(List<BallotRecord> ballotRecords) {
-        this.ballotRecords = ballotRecords;
+    public void setBallots(List<Ballot> ballots) {
+        this.ballots = ballots;
     }
 
-    public List<CompetitionRecord> getCompetitions() {
+    public List<Competition> getCompetitions() {
         return competitions;
     }
 
-    public void setCompetitions(List<CompetitionRecord> competitions) {
+    public void setCompetitions(List<Competition> competitions) {
         this.competitions = competitions;
     }
 }

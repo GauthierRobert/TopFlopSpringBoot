@@ -9,12 +9,12 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface BallotRepository extends JpaRepository<BallotRecord, Long> {
+public interface BallotRepository extends JpaRepository<Ballot, Long> {
 
-    @Query("Select br from Ballots br where br.matchRecord.reference = :match_ref")
-    List<BallotRecord> findAllByMatchReference(@Param("match_ref") String match_ref);
+    @Query("Select b from Ballots b where b.match.reference = :match_ref")
+    List<Ballot> findAllByMatchReference(@Param("match_ref") String match_ref);
 
-    @Query("Select br from Ballots br where br.reference = :ref")
-    BallotRecord findByReference(@Param("ref") String ref);
+    @Query("Select b from Ballots b where b.reference = :ref")
+    Ballot findByReference(@Param("ref") String ref);
 
 }

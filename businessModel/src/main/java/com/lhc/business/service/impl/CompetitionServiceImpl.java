@@ -4,7 +4,6 @@ import com.lhc.business.dto.Competition;
 import com.lhc.business.enumeration.RoleType;
 import com.lhc.business.service.CompetitionService;
 import com.lhc.business.service.mapper.MapperHandler;
-import com.lhc.datamodel.entities.CompetitionRecord;
 import com.lhc.datamodel.entities.security.User;
 import com.lhc.datamodel.repository.CompetitionRepository;
 import com.lhc.datamodel.repository.Security.RoleRepository;
@@ -25,35 +24,32 @@ import java.util.List;
 public class CompetitionServiceImpl implements CompetitionService {
 
     private CompetitionRepository competitionRepository;
-    private MapperHandler mapperHandler;
     private RoleRepository roleRepository;
     private UserRepository userRepository;
 
 
     @Autowired
-    public CompetitionServiceImpl(CompetitionRepository competitionRepository, MapperHandler mapperHandler, RoleRepository roleRepository, UserRepository userRepository) {
+    public CompetitionServiceImpl(CompetitionRepository competitionRepository, RoleRepository roleRepository, UserRepository userRepository) {
         this.competitionRepository = competitionRepository;
-        this.mapperHandler = mapperHandler;
         this.roleRepository = roleRepository;
         this.userRepository = userRepository;
     }
 
     @Override
     @Transactional
-    public CompetitionRecord createCompetition(Competition competition, User user) throws NoSuchAlgorithmException {
+    public Competition createCompetition(Competition competition, User user) throws NoSuchAlgorithmException {
 
         competition.setReference(competition.getName());
 
         if (competition.getConfirmedPassword().equals(competition.getPassword())) {
 
-            CompetitionRecord competitionRecord = mapperHandler.mapCompetitionRecord(competition, new CompetitionRecord());
-            competitionRecord.setPassword(sha256(competition.getPassword()));
+            competition.setPassword(sha256(competition.getPassword()));
             user.setRoles(new HashSet<>(Arrays.asList(roleRepository.findByName(RoleType.ROLE_ADMIN.name()))));
-            competitionRecord.getAllowedUsers().add(user);
+            competition.getAllowedUsers().add(user);
 
             userRepository.save(user);
 
-            return competitionRepository.save(competitionRecord);
+            return competitionRepository.save(competition);
 
         } else {
             return null;
@@ -65,21 +61,21 @@ public class CompetitionServiceImpl implements CompetitionService {
 
     @Override
     @Transactional
-    public CompetitionRecord addUserToCompetition(User user, String postedName, String postedPassword) throws NoSuchAlgorithmException {
+    public Competition addUserToCompetition(User user, String postedName, String postedPassword) throws NoSuchAlgorithmException {
 
-        CompetitionRecord competitionRecord = competitionRepository.findByReference(postedName);
+        Competition competition = competitionRepository.findByReference(postedName);
 
-        if (competitionRecord == null)
+        if (competition == null)
         {
             return null;
         }
 
-        String sha256Password = competitionRecord.getPassword();
+        String sha256Password = competition.getPassword();
         String postedSha256Password = sha256(postedPassword);
 
         if(sha256Password.equals(postedSha256Password)){
-            competitionRecord.getAllowedUsers().add(user);
-            return competitionRepository.save(competitionRecord);
+            competition.getAllowedUsers().add(user);
+            return competitionRepository.save(competition);
         } else {
             return null;
         }
@@ -89,9 +85,7 @@ public class CompetitionServiceImpl implements CompetitionService {
     @Transactional
     public List<Competition> findAllByUser (User user){
 
-        List<CompetitionRecord> competitionRecords = competitionRepository.findAllByUser(user);
-
-        return createCompetitionsFromCompetitionRecords(competitionRecords);
+        return competitionRepository.findAllByUser(user);
     }
 
 
@@ -99,25 +93,12 @@ public class CompetitionServiceImpl implements CompetitionService {
     @Transactional
     public List<Competition> findAllByUsername (String username){
 
-        List<CompetitionRecord> competitionRecords = competitionRepository.findAllByUsername(username);
-
-        return createCompetitionsFromCompetitionRecords(competitionRecords);
+        return competitionRepository.findAllByUsername(username);
     }
 
-    private List<Competition> createCompetitionsFromCompetitionRecords(List<CompetitionRecord> competitionRecords) {
-
-        List<Competition> competitions = new ArrayList<>();
-        competitionRecords.forEach(competitionRecord -> {
-            Competition competition = new Competition();
-            competition = mapperHandler.mapCompetition(competitionRecord, competition);
-            competitions.add(competition);
-        });
-
-        return; competitions;
-    }
 
     @Override
-    public CompetitionRecord findByReference(String ref) {
+    public Competition findByReference(String ref) {
         return competitionRepository.findByReference(ref);
     }
 

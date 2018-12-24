@@ -10,15 +10,15 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface CompetitionRepository extends JpaRepository<CompetitionRecord, Long> {
+public interface CompetitionRepository extends JpaRepository<Competition, Long> {
 
-    @Query("Select cr from Competitions cr where cr.reference = :ref")
-    CompetitionRecord findByReference(@Param("ref") String ref);
+    @Query("Select c from Competitions c where c.reference = :ref")
+    Competition findByReference(@Param("ref") String ref);
 
-    @Query("Select cr from Competitions cr where :user in cr.allowedUsers")
-    List<CompetitionRecord> findAllByUser(@Param("user") User user);
+    @Query("Select c from Competitions c where :user in c.allowedUsers")
+    List<Competition> findAllByUser(@Param("user") User user);
 
-    @Query("Select cr from Competitions cr where :username in cr.allowedUsers.username")
-    List<CompetitionRecord> findAllByUsername(@Param("username") String username);
+    @Query("Select c from Competitions c where :username in c.allowedUsers.username")
+    List<Competition> findAllByUsername(@Param("username") String username);
 
 }

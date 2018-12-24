@@ -10,6 +10,6 @@ public interface BallotService {
 
     List<Ballot> findAllBallotsByMatchReference(String match_ref);
 
-    BallotRecord saveOrUpdate(Ballot ballot, User user, String match_ref);
+    Ballot saveOrUpdate(Ballot ballot, User user, String match_ref);
 
 }

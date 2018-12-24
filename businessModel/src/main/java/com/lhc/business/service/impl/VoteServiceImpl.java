@@ -3,7 +3,6 @@ package com.lhc.business.service.impl;
 import com.lhc.business.dto.Vote;
 import com.lhc.business.service.VoteService;
 import com.lhc.business.service.mapper.MapperHandler;
-import com.lhc.datamodel.entities.VoteRecord;
 import com.lhc.datamodel.repository.VoteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,64 +17,38 @@ public class VoteServiceImpl implements VoteService {
 
     private VoteRepository voteRepository;
 
-    private MapperHandler mapperHandler;
-
-
-
     @Autowired
-    public VoteServiceImpl(VoteRepository voteRepository, MapperHandler mapperHandler) {
+    public VoteServiceImpl(VoteRepository voteRepository) {
         this.voteRepository = voteRepository;
-        this.mapperHandler = mapperHandler;
     }
 
     @Override
-    public VoteRecord saveOrUpdate(Vote vote, String competition_ref) {
+    public Vote saveOrUpdate(Vote vote, String competition_ref) {
 
-        VoteRecord voteRecord = null;
         if (vote.getReference() !=null) {
-            voteRecord = voteRepository.findByReference(vote.getReference());
+            vote = voteRepository.findByReference(vote.getReference());
         }
 
-        RuleRecord rule=  getRuleWithVoteIndex(new ArrayList<RuleRecord>(), vote.getIndex());
+        Rule rule=  getRuleWithVoteIndex(new ArrayList<Rule>(), vote.getIndex());
         vote.applyRule(rule);
 
-        voteRecord = mapperHandler.mapVoteRecord(vote, voteRecord);
-
-
-        return voteRepository.save(voteRecord);
+        return voteRepository.save(vote);
     }
 
     @Override
     public List<Vote> findAllByMatchReference(String ref) {
 
-        List<VoteRecord> voteRecords = voteRepository.findAllByMatchReference(ref);
-        List<Vote> votes = new ArrayList<>();
-
-        voteRecords.forEach(voteRecord -> {
-            Vote vote = new Vote();
-            vote = mapperHandler.mapVote(voteRecord, vote);
-            votes.add(vote);
-        });
-
-        return votes;
+        return  voteRepository.findAllByMatchReference(ref);
     }
 
     @Override
     public List<Vote> findAllByBallotReference(String ref) {
-        List<VoteRecord> voteRecords = voteRepository.findAllByBallotReference(ref);
-        List<Vote> votes = new ArrayList<>();
 
-        voteRecords.forEach(voteRecord -> {
-            Vote vote = new Vote();
-            vote = mapperHandler.mapVote(voteRecord, vote);
-            votes.add(vote);
-        });
-
-        return votes;
+        return voteRepository.findAllByBallotReference(ref);
     }
 
 
-    private RuleRecord getRuleWithVoteIndex(List<RuleRecord> rules, int index){
+    private Rule getRuleWithVoteIndex(List<Rule> rules, int index){
 
         rules.forEach(rule -> {
             if (index == rule.getIndex()){

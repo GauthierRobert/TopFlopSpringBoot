@@ -1,6 +1,5 @@
 package com.lhc.webservices.restServices;
 
-import com.lhc.business.dto.Vote;
 import com.lhc.business.service.RankingService;
 import com.lhc.business.service.VoteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +32,7 @@ public class RankingEndPoint {
             method = RequestMethod.GET)
     public Response getRanking(@RequestParam(value = "match_ref") String match_ref){
 
-        List<Vote> votes = voteService.findAllByMatchReference(match_ref);
+        List<com.lhc.business.dto.VoteDto> votes = voteService.findAllByMatchReference(match_ref);
 
         Map<String, Integer> topFlop =  rankingService.createTopFlopByListVote(votes);
 

@@ -10,13 +10,15 @@ import java.util.List;
 
 public interface CompetitionService {
 
-    CompetitionRecord createCompetition(Competition competition, User user) throws NoSuchAlgorithmException;
+    Competition createCompetition(Competition competition, User user) throws NoSuchAlgorithmException;
+
+    Competition addUserToCompetition(User user, String postedName, String postedPassword) throws NoSuchAlgorithmException;
 
     List<Competition> findAllByUser(User user);
 
     List<Competition> findAllByUsername(String username);
 
-    CompetitionRecord findByReference(String ref);
+    Competition findByReference(String ref);
 
-    CompetitionRecord addUserToCompetition(User user, String postedName, String postedPassword) throws NoSuchAlgorithmException;
+
 }

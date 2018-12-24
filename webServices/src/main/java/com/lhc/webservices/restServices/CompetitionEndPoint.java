@@ -1,9 +1,5 @@
 package com.lhc.webservices.restServices;
 
-import com.lhc.business.dto.Ballot;
-import com.lhc.business.dto.Competition;
-import com.lhc.business.dto.Match;
-import com.lhc.business.dto.Vote;
 import com.lhc.business.service.BallotService;
 import com.lhc.business.service.CompetitionService;
 import com.lhc.business.service.MatchService;
@@ -40,7 +36,7 @@ public class CompetitionEndPoint {
     @RequestMapping(
             value = "/ballot",
             method = RequestMethod.POST)
-    public void postBallot(@RequestBody Ballot ballot, @RequestParam String match_ref){
+    public void postBallot(@RequestBody com.lhc.business.dto.BallotDto ballot, @RequestParam String match_ref){
 
         org.springframework.security.core.userdetails.User user =
                 (org.springframework.security.core.userdetails.User)
@@ -54,7 +50,7 @@ public class CompetitionEndPoint {
     @RequestMapping(
             value = "/competition",
             method = RequestMethod.POST)
-    public void postCompetition(@RequestBody Competition competition) throws NoSuchAlgorithmException {
+    public void postCompetition(@RequestBody com.lhc.business.dto.CompetitionDto competition) throws NoSuchAlgorithmException {
 
         org.springframework.security.core.userdetails.User user =
                 (org.springframework.security.core.userdetails.User)
@@ -68,7 +64,7 @@ public class CompetitionEndPoint {
     @RequestMapping(
             value = "/match",
             method = RequestMethod.POST)
-    public void postMatch(@RequestBody Match match){
+    public void postMatch(@RequestBody com.lhc.business.dto.MatchDto match){
 
         matchService.saveOrUpdate(match, "Linkebeek");
 
@@ -79,7 +75,7 @@ public class CompetitionEndPoint {
     @RequestMapping(
             value = "/match",
             method = RequestMethod.GET)
-    public List<Match> getMatchesWithCompetitionRef(@RequestParam(value = "competition_ref") String competition_ref){
+    public List<com.lhc.business.dto.MatchDto> getMatchesWithCompetitionRef(@RequestParam(value = "competition_ref") String competition_ref){
 
         return matchService.findAllMatchesByCompetitionReference(competition_ref);
 
@@ -89,7 +85,7 @@ public class CompetitionEndPoint {
     @RequestMapping(
             value = "/ballot",
             method = RequestMethod.GET)
-    public List<Ballot> getBallotsWithMatchRef(@RequestParam(value = "match_ref") String match_ref){
+    public List<com.lhc.business.dto.BallotDto> getBallotsWithMatchRef(@RequestParam(value = "match_ref") String match_ref){
 
         return ballotService.findAllBallotsByMatchReference(match_ref);
 
@@ -98,7 +94,7 @@ public class CompetitionEndPoint {
     @RequestMapping(
             value = "/vote",
             method = RequestMethod.GET)
-    public List<Vote> getVotesWithBallotRef(@RequestParam(value = "ballot_ref") String ballot_ref){
+    public List<com.lhc.business.dto.VoteDto> getVotesWithBallotRef(@RequestParam(value = "ballot_ref") String ballot_ref){
 
         return voteService.findAllByBallotReference(ballot_ref);
 
@@ -107,7 +103,7 @@ public class CompetitionEndPoint {
     @RequestMapping(
             value = "/competition",
             method = RequestMethod.GET)
-    public List<Competition> getCompetitionLinkToUser(@RequestBody User user){
+    public List<com.lhc.business.dto.CompetitionDto> getCompetitionLinkToUser(@RequestBody User user){
 
          return competitionService.findAllByUser(user);
 
