@@ -1,9 +1,9 @@
 package com.lhc.business.service.mapper.vote;
 
-public class VoteMapperHandler implements MapperHandler<Vote, VoteRecord>{
+public class VoteMapperHandler implements MapperHandler<Vote, VoteDto>{
 
     @Override
-    public Vote mapToEntity(VoteRecord voteRecord, Vote vote) {
+    public Vote mapToEntity(VoteDto voteDto, Vote vote) {
 
         if (vote ==null){
             vote = new Vote();
@@ -11,7 +11,7 @@ public class VoteMapperHandler implements MapperHandler<Vote, VoteRecord>{
 
         MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
 
-        mapperFactory.classMap(VoteRecord.class, Vote.class)
+        mapperFactory.classMap(VoteDto.class, Vote.class)
                 .field("reference", "reference")
                 .field("name", "name")
                 .field("points", "points")
@@ -19,31 +19,31 @@ public class VoteMapperHandler implements MapperHandler<Vote, VoteRecord>{
 
         MapperFacade mapper = mapperFactory.getMapperFacade();
 
-        mapper.map(voteRecord, vote);
+        mapper.map(voteDto, vote);
 
         return vote;
     }
 
 
     @Override
-    public VoteRecord mapToDto(Vote vote, VoteRecord voteRecord) {
+    public VoteDto mapToDto(Vote vote, VoteDto voteDto) {
 
-        if (voteRecord == null) {
-            voteRecord = new VoteRecord();
+        if (voteDto == null) {
+            voteDto = new VoteDto();
         }
 
         MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
 
-        mapperFactory.classMap(Vote.class, VoteRecord.class)
+        mapperFactory.classMap(Vote.class, VoteDto.class)
                 .field("reference", "reference")
                 .field("name", "name")
                 .field("points", "points")
                 .register();
 
         MapperFacade mapper = mapperFactory.getMapperFacade();
-        mapper.map(vote, voteRecord);
+        mapper.map(vote, voteDto);
 
-        return voteRecord;
+        return voteDto;
     }
 
 }
