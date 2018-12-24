@@ -124,8 +124,9 @@ public class CompetitionEndPoint {
     @RequestMapping(
             value = "/competition",
             method = RequestMethod.GET)
-    public List<CompetitionDto> getCompetitionLinkToUser(@RequestBody User user){
+    public List<CompetitionDto> getCompetitionLinkToUser(@RequestBody String username){
 
+        User user = userService.findByUsername(username);
         List<Competition> competitions = competitionService.findAllByUser(user);
         CompetitionMapperHandler competitionMapperHandler = new CompetitionMapperHandler();
         
