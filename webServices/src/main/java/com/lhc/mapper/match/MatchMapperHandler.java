@@ -6,7 +6,7 @@ public class MatchMapperHandler implements MapperHandler<Match, MatchRecord> {
 
 
     @Override
-    public Match map(MatchRecord matchRecord, Match match) {
+    public Match mapToEntity(MatchDto matchDto, Match match) {
 
         if (match ==null){
             match = new Match();
@@ -14,7 +14,7 @@ public class MatchMapperHandler implements MapperHandler<Match, MatchRecord> {
 
         MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
 
-        mapperFactory.classMap(MatchRecord.class, Match.class)
+        mapperFactory.classMap(MatchDto.class, Match.class)
                 .field("homeTeam", "homeTeam")
                 .field("homeScore", "homeScore")
                 .field("awayTeam", "awayTeam")
@@ -22,7 +22,7 @@ public class MatchMapperHandler implements MapperHandler<Match, MatchRecord> {
                 .field("reference", "reference")
                 .register();
         MapperFacade mapper = mapperFactory.getMapperFacade();
-        mapper.map(matchRecord, match);
+        mapper.map(matchDto, match);
 
         return match;
 
@@ -33,15 +33,15 @@ public class MatchMapperHandler implements MapperHandler<Match, MatchRecord> {
 
 
     @Override
-    public MatchRecord mapToDto(Match match, MatchRecord matchRecord) {
+    public MatchDto mapToDto(Match match, MatchDto matchDto) {
 
-        if (matchRecord ==null){
-            matchRecord = new MatchRecord();
+        if (matchDto ==null){
+            matchDto = new MatchDto();
         }
 
         MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
 
-        mapperFactory.classMap(Match.class, MatchRecord.class)
+        mapperFactory.classMap(Match.class, MatchDto.class)
                 .field("homeTeam", "homeTeam")
                 .field("homeScore", "homeScore")
                 .field("awayTeam", "awayTeam")
@@ -50,9 +50,9 @@ public class MatchMapperHandler implements MapperHandler<Match, MatchRecord> {
                 .register();
         MapperFacade mapper = mapperFactory.getMapperFacade();
 
-        mapper.map(match, matchRecord);
+        mapper.map(match, matchDto);
 
-        return matchRecord;
+        return matchDto;
 
     }
 

@@ -1,32 +1,9 @@
 package com.lhc.business.service.mapper.rule;
 
-public class RuleMapperHandler implements MapperHandler<Rule, RuleRecord> {
+public class RuleMapperHandler implements MapperHandler<RuleDto, Rule> {
 
     @Override
-    public RuleRecord mapRecord(Rule rule, RuleRecord ruleRecord){
-
-        if (ruleRecord ==null){
-            ruleRecord = new RuleRecord();
-        }
-
-        MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
-
-        mapperFactory.classMap(Rule.class, RuleRecord.class)
-                .field("description", "description")
-                .field("label", "label")
-                .field("points", "points")
-                .register();
-
-        MapperFacade mapper = mapperFactory.getMapperFacade();
-
-        mapper.map(rule, ruleRecord);
-
-        return ruleRecord;
-
-    }
-
-    @Override
-    public Rule map(RuleRecord ruleRecord, Rule rule){
+    public Rule maptoEntity(RuleDto ruleDto, Rule rule){
 
         if (rule ==null){
             rule = new Rule();
@@ -34,7 +11,7 @@ public class RuleMapperHandler implements MapperHandler<Rule, RuleRecord> {
 
         MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
 
-        mapperFactory.classMap(RuleRecord.class, Rule.class)
+        mapperFactory.classMap(RuleDto.class, Rule.class)
                 .field("description", "description")
                 .field("label", "label")
                 .field("points", "points")
@@ -42,9 +19,32 @@ public class RuleMapperHandler implements MapperHandler<Rule, RuleRecord> {
 
         MapperFacade mapper = mapperFactory.getMapperFacade();
 
-        mapper.map(ruleRecord, rule);
+        mapper.map(ruleDto, rule);
 
         return rule;
+
+    }
+
+    @Override
+    public RuleDto map(Rule rule, RuleDto ruleDto){
+
+        if (ruleDto ==null){
+            ruleDto = new RuleDto();
+        }
+
+        MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
+
+        mapperFactory.classMap(Rule.class, RuleDto.class)
+                .field("description", "description")
+                .field("label", "label")
+                .field("points", "points")
+                .register();
+
+        MapperFacade mapper = mapperFactory.getMapperFacade();
+
+        mapper.map(rule, ruleDto);
+
+        return ruleDto;
     }
 
 }

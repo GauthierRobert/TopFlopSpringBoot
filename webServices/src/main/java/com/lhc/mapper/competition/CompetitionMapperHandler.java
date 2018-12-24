@@ -5,14 +5,14 @@ public class CompetitionMapperHandler implements MapperHandler<Competition, Comp
 
 
     @Override
-    public Competition map(CompetitionRecord competitionRecord, Competition competition) {
+    public Competition mapToEntity(CompetitionDto competitionDto, Competition competition) {
         if (competition ==null){
             competition = new Competition();
         }
 
         MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
 
-        mapperFactory.classMap(CompetitionRecord.class, Competition.class)
+        mapperFactory.classMap(CompetitionDto.class, Competition.class)
                 .field("reference", "reference")
                 .field("name", "name")
                 .field("password", "password")
@@ -20,22 +20,22 @@ public class CompetitionMapperHandler implements MapperHandler<Competition, Comp
 
         MapperFacade mapper = mapperFactory.getMapperFacade();
 
-        mapper.map(competitionRecord, competition);
+        mapper.map(competitionDto, competition);
 
         return competition;
 
     }
 
     @Override
-    public CompetitionRecord mapRecord(Competition competition, CompetitionRecord competitionRecord) {
+    public CompetitionDto mapToDto(Competition competition, CompetitionDto competitionDto) {
 
-        if (competitionRecord ==null){
-            competitionRecord = new CompetitionRecord();
+        if (competitionDto ==null){
+            competitionDto = new CompetitionDto();
         }
 
         MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
 
-        mapperFactory.classMap(Competition.class, CompetitionRecord.class)
+        mapperFactory.classMap(Competition.class, CompetitionDto.class)
                 .field("reference", "reference")
                 .field("name", "name")
                 .field("password", "password")
@@ -43,9 +43,9 @@ public class CompetitionMapperHandler implements MapperHandler<Competition, Comp
 
         MapperFacade mapper = mapperFactory.getMapperFacade();
 
-        mapper.map(competition, competitionRecord);
+        mapper.map(competition, competitionDto);
 
-        return competitionRecord;
+        return competitionDto;
 
     }
 

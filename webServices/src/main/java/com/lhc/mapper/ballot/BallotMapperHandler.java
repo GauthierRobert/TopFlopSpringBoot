@@ -7,7 +7,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class BallotMapperHandler implements MapperHandler<Ballot, BallotDto> {
 
     @Override
-    public Ballot mapToEntitity(BallotDto ballotDto, Ballot ballot) {
+    public Ballot mapToEntity(BallotDto ballotDto, Ballot ballot) {
 
         if (ballot ==null){
             ballot = new Ballot();

@@ -3,7 +3,7 @@ package com.lhc.business.service.mapper.vote;
 public class VoteMapperHandler implements MapperHandler<Vote, VoteRecord>{
 
     @Override
-    public Vote mapToDto(VoteRecord voteRecord, Vote vote) {
+    public Vote mapToEntity(VoteRecord voteRecord, Vote vote) {
 
         if (vote ==null){
             vote = new Vote();
