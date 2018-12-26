@@ -1,6 +1,6 @@
 package com.lhc.datamodel.repository;
 
-import com.lhc.datamodel.entities.CompetitionRecord;
+import com.lhc.datamodel.entities.Competition;
 import com.lhc.datamodel.entities.security.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -12,13 +12,13 @@ import java.util.List;
 @Repository
 public interface CompetitionRepository extends JpaRepository<Competition, Long> {
 
-    @Query("Select c from Competitions c where c.reference = :ref")
+    @Query("SELECT c FROM Competitions c WHERE c.reference = :ref")
     Competition findByReference(@Param("ref") String ref);
 
-    @Query("Select c from Competitions c where :user in c.allowedUsers")
+    @Query("SELECT c FROM Competitions c WHERE :user in c.allowedUsers")
     List<Competition> findAllByUser(@Param("user") User user);
 
-    @Query("Select c from Competitions c where :username in c.allowedUsers.username")
+    @Query("SELECT c FROM Competitions c JOIN c.allowedUsers u where :username in u.username")
     List<Competition> findAllByUsername(@Param("username") String username);
 
 }

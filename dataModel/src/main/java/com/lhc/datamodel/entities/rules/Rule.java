@@ -1,13 +1,13 @@
 package com.lhc.datamodel.entities.rules;
 
-import com.lhc.datamodel.entities.CompetitionRecord;
+import com.lhc.datamodel.entities.Competition;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 
-@Table(name = "rules")
-@Entity(name = "rules")
+@Table(name = "Rules")
+@Entity(name = "Rules")
 @Getter
 @Setter
 public class Rule {
@@ -24,6 +24,13 @@ public class Rule {
 
     @ManyToOne
     private Competition competition;
+
+    // 1 for first top vote
+    // 2 for second top vote
+    // ...
+    // -1 for first flop vote
+    // -2 for second flop vote
+    private Integer indication;
 
 
 

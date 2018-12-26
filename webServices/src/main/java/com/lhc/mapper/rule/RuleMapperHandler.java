@@ -1,9 +1,16 @@
-package com.lhc.business.service.mapper.rule;
+package com.lhc.mapper.rule;
 
-public class RuleMapperHandler implements MapperHandler<RuleDto, Rule> {
+import com.lhc.datamodel.entities.rules.Rule;
+import com.lhc.dto.RuleDto;
+import com.lhc.mapper.MapperHandler;
+import ma.glasnost.orika.MapperFacade;
+import ma.glasnost.orika.MapperFactory;
+import ma.glasnost.orika.impl.DefaultMapperFactory;
+
+public class RuleMapperHandler implements MapperHandler<Rule, RuleDto> {
 
     @Override
-    public Rule maptoEntity(RuleDto ruleDto, Rule rule){
+    public Rule mapToEntity(RuleDto ruleDto, Rule rule){
 
         if (rule ==null){
             rule = new Rule();
@@ -26,7 +33,17 @@ public class RuleMapperHandler implements MapperHandler<RuleDto, Rule> {
     }
 
     @Override
-    public RuleDto map(Rule rule, RuleDto ruleDto){
+    public Rule createEntityFromDTO(RuleDto ruleDto) {
+        return mapToEntity(ruleDto, new Rule());
+    }
+
+    @Override
+    public RuleDto createDTOFromEntity(Rule rule) {
+        return mapToDto(rule, new RuleDto());
+    }
+
+    @Override
+    public RuleDto mapToDto(Rule rule, RuleDto ruleDto){
 
         if (ruleDto ==null){
             ruleDto = new RuleDto();

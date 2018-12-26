@@ -1,7 +1,7 @@
 package com.lhc.business.service;
 
-import com.lhc.business.dto.Match;
-import com.lhc.business.dto.Vote;
+import com.lhc.datamodel.entities.Match;
+import com.lhc.datamodel.entities.Vote;
 
 import java.util.List;
 import java.util.Map;

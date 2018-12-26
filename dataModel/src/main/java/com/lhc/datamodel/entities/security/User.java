@@ -1,8 +1,8 @@
 package com.lhc.datamodel.entities.security;
 
 
-import com.lhc.datamodel.entities.BallotRecord;
-import com.lhc.datamodel.entities.CompetitionRecord;
+import com.lhc.datamodel.entities.Ballot;
+import com.lhc.datamodel.entities.Competition;
 
 import javax.persistence.*;
 import java.util.List;

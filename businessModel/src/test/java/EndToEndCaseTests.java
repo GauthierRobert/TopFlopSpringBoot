@@ -1,19 +1,16 @@
 import com.lhc.business.BusinessConfig;
-import com.lhc.business.dto.Ballot;
-import com.lhc.business.dto.Competition;
-import com.lhc.business.dto.Match;
-import com.lhc.business.dto.Vote;
 import com.lhc.business.enumeration.RoleType;
 import com.lhc.business.service.*;
 import com.lhc.business.service.security.UserService;
-import com.lhc.datamodel.entities.CompetitionRecord;
-import com.lhc.datamodel.entities.MatchRecord;
+import com.lhc.datamodel.entities.Ballot;
+import com.lhc.datamodel.entities.Competition;
+import com.lhc.datamodel.entities.Match;
+import com.lhc.datamodel.entities.Vote;
 import com.lhc.datamodel.entities.security.Role;
 import com.lhc.datamodel.entities.security.User;
 import com.lhc.datamodel.repository.Security.RoleRepository;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +18,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -103,7 +100,7 @@ public class EndToEndCaseTests {
 
         User user = userService.findByUsername(username);
 
-        CompetitionRecord competitionRecord = competitionService.addUserToCompetition(
+        Competition competition = competitionService.addUserToCompetition(
                 user,
                 "Linkebeek","AAAA");
 
@@ -111,9 +108,9 @@ public class EndToEndCaseTests {
 
     public String addMatch(String comp){
 
-        CompetitionRecord competitionRecord = competitionService.findByReference(comp);
+        Competition competition = competitionService.findByReference(comp);
 
-        Assert.assertEquals(competitionRecord.getName(),comp);
+        Assert.assertEquals(competition.getName(),comp);
 
         Match match = new Match();
         match.setHomeTeam("Linkebeek");
@@ -121,7 +118,7 @@ public class EndToEndCaseTests {
         match.setHomeScore(3);
         match.setAwayScore(3);
 
-        MatchRecord matchRecord = matchService.saveOrUpdate(match, comp);
+        Match matchRecord = matchService.saveOrUpdate(match, comp);
 
         return matchRecord.getReference();
 
@@ -145,10 +142,12 @@ public class EndToEndCaseTests {
         vote_4.setPoints(4);
 
         Ballot ballot = new Ballot();
-        ballot.getVotes().add(vote_1);
-        ballot.getVotes().add(vote_2);
-        ballot.getVotes().add(vote_3);
-        ballot.getVotes().add(vote_4);
+        List<Vote> votes = new ArrayList<>();
+        votes.add(vote_1);
+        votes.add(vote_2);
+        votes.add(vote_3);
+        votes.add(vote_4);
+        ballot.setVotes(votes);
 
         ballotService.saveOrUpdate(ballot, user, match_ref);
 

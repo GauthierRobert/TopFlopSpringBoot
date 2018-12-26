@@ -1,7 +1,6 @@
 package com.lhc.business.service;
 
-import com.lhc.business.dto.Ballot;
-import com.lhc.datamodel.entities.BallotRecord;
+import com.lhc.datamodel.entities.Ballot;
 import com.lhc.datamodel.entities.security.User;
 
 import java.util.List;

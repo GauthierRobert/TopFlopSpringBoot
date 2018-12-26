@@ -1,8 +1,8 @@
 import com.lhc.business.BusinessConfig;
-import com.lhc.business.dto.Ballot;
-import com.lhc.business.dto.Match;
-import com.lhc.business.dto.Vote;
 import com.lhc.business.service.RankingService;
+import com.lhc.datamodel.entities.Ballot;
+import com.lhc.datamodel.entities.Match;
+import com.lhc.datamodel.entities.Vote;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,6 +11,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @RunWith(SpringRunner.class)
@@ -38,15 +40,19 @@ public class RankingTests {
         vote_4.setPoints(4);
 
         Ballot ballot = new Ballot();
-        ballot.getVotes().add(vote_1);
-        ballot.getVotes().add(vote_2);
-        ballot.getVotes().add(vote_3);
-        ballot.getVotes().add(vote_4);
+        List<Vote> votes = new ArrayList<>();
+        votes.add(vote_1);
+        votes.add(vote_2);
+        votes.add(vote_3);
+        votes.add(vote_4);
+        ballot.setVotes(votes);
 
         Match match = new Match();
-        match.getBallots().add(ballot);
-        match.getBallots().add(ballot);
-        match.getBallots().add(ballot);
+        List<Ballot> ballots = new ArrayList<>();
+        ballots.add(ballot);
+        ballots.add(ballot);
+        ballots.add(ballot);
+        match.setBallots(ballots);
 
         Map<String, Integer> ranking = rankingService.createTopFlopByMatch(match);
 

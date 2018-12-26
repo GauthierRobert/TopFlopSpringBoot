@@ -1,9 +1,7 @@
 package com.lhc.datamodel.entities;
 
-import com.lhc.datamodel.entities.rules.RuleRecord;
-import com.lhc.datamodel.entities.rules.Rules;
+import com.lhc.datamodel.entities.rules.Rule;
 import com.lhc.datamodel.entities.security.User;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -25,10 +23,13 @@ public class Competition {
 
     private String password;
 
+    @Transient
+    private String confirmedPassword;
+
     private String reference;
 
     @OneToMany(mappedBy="competition", fetch= FetchType.LAZY, cascade= CascadeType.ALL )
-    private List<com.lhc.datamodel.entities.Match> Matches = new ArrayList<>();
+    private List<Match> Matches = new ArrayList<>();
 
     @ManyToMany
     @JoinTable(name = "users_competitions",
@@ -39,6 +40,6 @@ public class Competition {
     private List<User> allowedUsers = new ArrayList<>();
 
     @OneToMany(mappedBy="competition", fetch= FetchType.EAGER, cascade= CascadeType.ALL )
-    private List<com.lhc.datamodel.entities.rules.Rule> rules = new ArrayList<>();
+    private List<Rule> rules = new ArrayList<>();
 
 }

@@ -1,14 +1,13 @@
 package com.lhc.business.service.impl;
 
-import com.lhc.business.dto.Match;
 import com.lhc.business.service.CompetitionService;
 import com.lhc.business.service.MatchService;
-import com.lhc.business.service.mapper.MapperHandler;
+import com.lhc.datamodel.entities.Competition;
+import com.lhc.datamodel.entities.Match;
 import com.lhc.datamodel.repository.MatchRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -27,7 +26,7 @@ public class MatchServiceImpl implements MatchService {
     @Override
     public List<Match> findAllMatchesByCompetitionReference(String competition_ref) {
 
-        return matchRepository.findAllByCompetitionReference(competition_ref);;
+        return matchRepository.findAllByCompetitionReference(competition_ref);
     }
 
     @Override

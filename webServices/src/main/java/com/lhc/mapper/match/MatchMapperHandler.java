@@ -1,6 +1,13 @@
-package com.lhc.business.service.mapper.match;
+package com.lhc.mapper.match;
 
-public class MatchMapperHandler implements MapperHandler<Match, MatchRecord> {
+import com.lhc.datamodel.entities.Match;
+import com.lhc.dto.MatchDto;
+import com.lhc.mapper.MapperHandler;
+import ma.glasnost.orika.MapperFacade;
+import ma.glasnost.orika.MapperFactory;
+import ma.glasnost.orika.impl.DefaultMapperFactory;
+
+public class MatchMapperHandler implements MapperHandler<Match, MatchDto> {
 
 
 
@@ -28,8 +35,15 @@ public class MatchMapperHandler implements MapperHandler<Match, MatchRecord> {
 
     }
 
+    @Override
+    public Match createEntityFromDTO(MatchDto matchDto) {
+        return mapToEntity(matchDto, new Match());
+    }
 
-
+    @Override
+    public MatchDto createDTOFromEntity(Match match) {
+        return mapToDto(match, new MatchDto());
+    }
 
 
     @Override

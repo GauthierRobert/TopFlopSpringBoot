@@ -1,11 +1,10 @@
 package com.lhc.business.service.impl;
 
-import com.lhc.business.dto.Match;
-import com.lhc.business.dto.Vote;
 import com.lhc.business.service.BallotService;
-import com.lhc.business.service.CompetitionService;
 import com.lhc.business.service.MatchService;
 import com.lhc.business.service.RankingService;
+import com.lhc.datamodel.entities.Match;
+import com.lhc.datamodel.entities.Vote;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

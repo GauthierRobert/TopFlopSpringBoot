@@ -1,5 +1,7 @@
 package com.lhc.business.service;
 
+import com.lhc.datamodel.entities.Match;
+
 import java.util.List;
 
 public interface MatchService {

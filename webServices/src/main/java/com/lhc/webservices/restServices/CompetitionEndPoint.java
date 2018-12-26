@@ -4,16 +4,26 @@ import com.lhc.business.service.BallotService;
 import com.lhc.business.service.CompetitionService;
 import com.lhc.business.service.MatchService;
 import com.lhc.business.service.VoteService;
-import com.lhc.business.service.mapper.competition.CompetitionMapperHandler;
 import com.lhc.business.service.security.UserService;
+import com.lhc.datamodel.entities.Ballot;
+import com.lhc.datamodel.entities.Competition;
+import com.lhc.datamodel.entities.Match;
+import com.lhc.datamodel.entities.Vote;
 import com.lhc.datamodel.entities.security.User;
+import com.lhc.dto.BallotDto;
+import com.lhc.dto.CompetitionDto;
+import com.lhc.dto.MatchDto;
+import com.lhc.dto.VoteDto;
+import com.lhc.mapper.ballot.BallotMapperHandler;
+import com.lhc.mapper.competition.CompetitionMapperHandler;
+import com.lhc.mapper.match.MatchMapperHandler;
+import com.lhc.mapper.vote.VoteMapperHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-import javax.ws.rs.*;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
@@ -46,7 +56,7 @@ public class CompetitionEndPoint {
         User currentUser = userService.findByUsername(user.getUsername());
 
         BallotMapperHandler ballotMapperHandler = new BallotMapperHandler();
-        Ballot ballot = ballotMapperHandler.mapToEntity(ballotDto, new Ballot);
+        Ballot ballot = ballotMapperHandler.mapToEntity(ballotDto, new Ballot());
 
 
         ballotService.saveOrUpdate(ballot, currentUser, match_ref);
@@ -64,9 +74,11 @@ public class CompetitionEndPoint {
         User currentUser = userService.findByUsername(user.getUsername());
 
         CompetitionMapperHandler competitionMapperHandler = new CompetitionMapperHandler();
-        Competition competition = competitionMapperHandler.mapToEntity(competitionDto, new Competition());
 
-        competitionService.createCompetition(competition, currentUser);
+        if (competitionDto.getConfirmedPassword().equals(competitionDto.getPassword())) {
+            Competition competition = competitionMapperHandler.mapToEntity(competitionDto, new Competition());
+            competitionService.createCompetition(competition, currentUser);
+        }
     }
 
     @RequestMapping(
@@ -91,7 +103,7 @@ public class CompetitionEndPoint {
         List<Match> matches = matchService.findAllMatchesByCompetitionReference(competition_ref);
 
         MatchMapperHandler matchMapperHandler = new MatchMapperHandler();
-        return matchMapperHandler.mapToDtos(matches);
+        return matchMapperHandler.mapToListDtos(matches);
 
     }
 
@@ -105,7 +117,7 @@ public class CompetitionEndPoint {
 
         BallotMapperHandler ballotMapperHandler = new BallotMapperHandler();
         
-        return ballotMapperHandler.mapToDtos(ballots);
+        return ballotMapperHandler.mapToListDtos(ballots);
 
     }
 
@@ -117,7 +129,7 @@ public class CompetitionEndPoint {
         List<Vote> votes = voteService.findAllByBallotReference(ballot_ref);
         VoteMapperHandler voteMapperHandler = new VoteMapperHandler();
         
-        return voteMapperHandler.mapToDtos(votes);
+        return voteMapperHandler.mapToListDtos(votes);
 
     }
 
@@ -130,7 +142,7 @@ public class CompetitionEndPoint {
         List<Competition> competitions = competitionService.findAllByUser(user);
         CompetitionMapperHandler competitionMapperHandler = new CompetitionMapperHandler();
         
-        return competitionMapperHandler.mapToEntities(competitions);
+        return competitionMapperHandler.mapToListDtos(competitions);
 
     }
 

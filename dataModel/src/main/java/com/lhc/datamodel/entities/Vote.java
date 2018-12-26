@@ -1,6 +1,7 @@
 package com.lhc.datamodel.entities;
 
-import com.lhc.datamodel.entities.rules.RuleRecord;
+import com.lhc.datamodel.entities.rules.Rule;
+import com.lhc.datamodel.entities.rules.VoteType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -28,15 +29,16 @@ public class Vote {
     // ...
     // -1 for first flop vote
     // -2 for second flop vote
-    private Integer index;
+    private Integer indication;
 
     @ManyToOne
     private Ballot ballot;
 
+    private VoteType voteType;
 
     public Vote applyRule(Rule rule){
 
-        this.setPoints(rule.getPoints*(int)Math.signum(index));
+        this.setPoints(rule.getPoints()*(int)Math.signum(indication));
         return this;
 
     }

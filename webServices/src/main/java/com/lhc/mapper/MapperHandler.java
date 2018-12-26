@@ -1,6 +1,5 @@
-package com.lhc.business.service.mapper;
+package com.lhc.mapper;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -9,16 +8,18 @@ public interface MapperHandler<ENTITY,DTO> {
     DTO mapToDto(ENTITY entity, DTO dto);
     ENTITY mapToEntity(DTO dto, ENTITY entity);
 
-    default List mapToListEntities(final Collection dtos) {
+    ENTITY createEntityFromDTO(DTO dto);
+    DTO createDTOFromEntity(ENTITY entity);
+
+    default List<ENTITY> mapToListEntities(final List<DTO> dtos) {
         return dtos.stream()
-                .map(this::mapToEntity)
+                .map(dto -> this.createEntityFromDTO(dto))
                 .collect(Collectors.toList());
     }
 
-    default List mapToListDtos(final Collection entities) {
+    default List<DTO> mapToListDtos(final List<ENTITY> entities) {
         return entities.stream()
-                .map(this::mapToDto)
+                .map(entity -> this.createDTOFromEntity(entity))
                 .collect(Collectors.toList());
     }
-
 }

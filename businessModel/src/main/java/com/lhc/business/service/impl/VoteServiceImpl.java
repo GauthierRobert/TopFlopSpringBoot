@@ -1,16 +1,14 @@
 package com.lhc.business.service.impl;
 
-import com.lhc.business.dto.Vote;
 import com.lhc.business.service.VoteService;
-import com.lhc.business.service.mapper.MapperHandler;
+import com.lhc.datamodel.entities.Vote;
+import com.lhc.datamodel.entities.rules.Rule;
 import com.lhc.datamodel.repository.VoteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.lhc.business.dto.Competition.getCompetitionRules;
 
 @Service
 public class VoteServiceImpl implements VoteService {
@@ -29,7 +27,7 @@ public class VoteServiceImpl implements VoteService {
             vote = voteRepository.findByReference(vote.getReference());
         }
 
-        Rule rule=  getRuleWithVoteIndex(new ArrayList<Rule>(), vote.getIndex());
+        Rule rule = getRuleWithVoteIndex(new ArrayList<>(), vote.getIndication());
         vote.applyRule(rule);
 
         return voteRepository.save(vote);
@@ -50,13 +48,8 @@ public class VoteServiceImpl implements VoteService {
 
     private Rule getRuleWithVoteIndex(List<Rule> rules, int index){
 
-        rules.forEach(rule -> {
-            if (index == rule.getIndex()){
-                return rule;
-            }
-        });
-
-        return null;
+        return rules.stream().filter(rule -> rule.getIndication().equals(index))
+                .findFirst().orElse(null);
     }
 
 }

@@ -1,6 +1,13 @@
-package com.lhc.business.service.mapper.competition;
+package com.lhc.mapper.competition;
 
-public class CompetitionMapperHandler implements MapperHandler<Competition, CompetitionRecord> {
+import com.lhc.datamodel.entities.Competition;
+import com.lhc.dto.CompetitionDto;
+import com.lhc.mapper.MapperHandler;
+import ma.glasnost.orika.MapperFacade;
+import ma.glasnost.orika.MapperFactory;
+import ma.glasnost.orika.impl.DefaultMapperFactory;
+
+public class CompetitionMapperHandler implements MapperHandler<Competition, CompetitionDto> {
 
 
 
@@ -24,6 +31,16 @@ public class CompetitionMapperHandler implements MapperHandler<Competition, Comp
 
         return competition;
 
+    }
+
+    @Override
+    public Competition createEntityFromDTO(CompetitionDto competitionDto) {
+        return mapToEntity(competitionDto, new Competition());
+    }
+
+    @Override
+    public CompetitionDto createDTOFromEntity(Competition competition) {
+        return mapToDto(competition, new CompetitionDto());
     }
 
     @Override

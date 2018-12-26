@@ -1,6 +1,13 @@
-package com.lhc.business.service.mapper.vote;
+package com.lhc.mapper.vote;
 
-public class VoteMapperHandler implements MapperHandler<Vote, VoteDto>{
+import com.lhc.datamodel.entities.Vote;
+import com.lhc.dto.VoteDto;
+import com.lhc.mapper.MapperHandler;
+import ma.glasnost.orika.MapperFacade;
+import ma.glasnost.orika.MapperFactory;
+import ma.glasnost.orika.impl.DefaultMapperFactory;
+
+public class VoteMapperHandler implements MapperHandler<Vote, VoteDto> {
 
     @Override
     public Vote mapToEntity(VoteDto voteDto, Vote vote) {
@@ -22,6 +29,16 @@ public class VoteMapperHandler implements MapperHandler<Vote, VoteDto>{
         mapper.map(voteDto, vote);
 
         return vote;
+    }
+
+    @Override
+    public Vote createEntityFromDTO(VoteDto voteDto) {
+        return mapToEntity(voteDto, new Vote());
+    }
+
+    @Override
+    public VoteDto createDTOFromEntity(Vote vote) {
+        return mapToDto(vote, new VoteDto());
     }
 
 

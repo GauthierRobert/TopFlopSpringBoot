@@ -1,7 +1,6 @@
 package com.lhc.business.service;
 
-import com.lhc.business.dto.Competition;
-import com.lhc.datamodel.entities.CompetitionRecord;
+import com.lhc.datamodel.entities.Competition;
 import com.lhc.datamodel.entities.security.User;
 
 import java.security.NoSuchAlgorithmException;

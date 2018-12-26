@@ -1,4 +1,13 @@
-package com.lhc.business.service.mapper.ballot;
+package com.lhc.mapper.ballot;
+
+import com.lhc.datamodel.entities.Ballot;
+import com.lhc.datamodel.entities.Vote;
+import com.lhc.dto.BallotDto;
+import com.lhc.mapper.MapperHandler;
+import com.lhc.mapper.vote.VoteMapperHandler;
+import ma.glasnost.orika.MapperFacade;
+import ma.glasnost.orika.MapperFactory;
+import ma.glasnost.orika.impl.DefaultMapperFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,10 +31,10 @@ public class BallotMapperHandler implements MapperHandler<Ballot, BallotDto> {
         mapper.map(ballotDto, ballot);
 
         List<Vote> votes = new ArrayList<>();
-        final String ref_f = ref;
+        final String ref_f = ballotDto.getReference();
         final AtomicInteger i = new AtomicInteger(0);
         final Ballot finalBallot = ballot;
-        ballotDto.getVotes().forEach(voteDto -> {
+        ballotDto.getVoteDtos().forEach(voteDto -> {
             i.addAndGet(1);
             Vote vote = new Vote();
             MapperHandler voteMapperHandler = new VoteMapperHandler();
@@ -37,6 +46,16 @@ public class BallotMapperHandler implements MapperHandler<Ballot, BallotDto> {
 
         return ballot;
 
+    }
+
+    @Override
+    public Ballot createEntityFromDTO(BallotDto ballotDto) {
+        return mapToEntity(ballotDto, new Ballot());
+    }
+
+    @Override
+    public BallotDto createDTOFromEntity(Ballot ballot) {
+        return mapToDto(ballot, new BallotDto());
     }
 
     @Override
