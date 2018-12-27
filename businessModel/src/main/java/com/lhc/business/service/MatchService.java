@@ -14,6 +14,6 @@ public interface MatchService {
 
     Match saveOrUpdate(Match match, String comp_ref);
     
-    void closeMatch(String match_ref);
+    void close(String match_ref);
 
 }
