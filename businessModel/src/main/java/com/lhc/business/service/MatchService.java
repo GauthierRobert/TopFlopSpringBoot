@@ -13,5 +13,7 @@ public interface MatchService {
     Match findMatchByReference(String ref);
 
     Match saveOrUpdate(Match match, String comp_ref);
+    
+    void UpdateMatchStatus(String match_ref);
 
 }
