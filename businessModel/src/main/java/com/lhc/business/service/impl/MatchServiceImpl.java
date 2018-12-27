@@ -59,4 +59,13 @@ public class MatchServiceImpl implements MatchService {
 
         return matchRepository.save(match);
     }
+    
+    @Override
+    public void closeMatch(String match_ref){
+        
+        Match match = matchService.findByReference(match_ref);
+        match.setStatus(MatchStatus.CLOSE);
+        matchRepository.save(match);
+        
+    }
 }
