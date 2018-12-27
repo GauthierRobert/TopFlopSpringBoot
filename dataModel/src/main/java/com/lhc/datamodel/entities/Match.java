@@ -28,6 +28,8 @@ public class Match {
     private String awayTeam;
 
     private Integer awayScore;
+   
+    private MatchStatus status;
 
     @ManyToOne
     private Competition competition;
