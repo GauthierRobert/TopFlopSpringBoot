@@ -33,5 +33,9 @@ public class Match {
 
     @ManyToOne
     private Competition competition;
+    
+    public Match close(){
+        this.status = MatchStatus.CLOSE;
+    }
 
 }
