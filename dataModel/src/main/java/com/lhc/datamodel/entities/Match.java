@@ -36,6 +36,7 @@ public class Match {
     
     public Match close(){
         this.status = MatchStatus.CLOSE;
+        return this;
     }
 
 }
