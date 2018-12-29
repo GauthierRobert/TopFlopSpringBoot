@@ -19,5 +19,6 @@ public class VoteDto {
 
     private Integer points;
 
-
+    public VoteDto() {
+    }
 }

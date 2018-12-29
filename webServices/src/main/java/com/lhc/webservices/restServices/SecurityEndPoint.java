@@ -2,19 +2,19 @@ package com.lhc.webservices.restServices;
 
 import com.lhc.business.service.security.SecurityService;
 import com.lhc.business.service.security.UserService;
-import com.lhc.business.validator.UserValidator;
 import com.lhc.datamodel.entities.security.User;
+import com.lhc.dto.UserDto;
+import com.lhc.mapper.user.UserMapperHandler;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.ws.rs.ApplicationPath;
+import javax.security.sasl.AuthenticationException;
 import javax.ws.rs.core.MediaType;
 import java.text.ParseException;
 
-@ApplicationPath("/authentication")
 @RestController
 public class SecurityEndPoint {
 
@@ -24,52 +24,41 @@ public class SecurityEndPoint {
     @Autowired
     private SecurityService securityService;
 
-    @Autowired
-    private UserValidator userValidator;
-
-    @RequestMapping(
-            value = "/signUp",
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON )
-    public String registration(Model model) {
-        model.addAttribute("userForm", new User());
-
-        return "signUp";
-    }
 
     @RequestMapping(
             value = "/signUp",
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON)
-    public String registration(@RequestBody User userForm, BindingResult bindingResult)
-            throws ParseException {
+    public void registration(@RequestBody UserDto userDto) {
 
-        userValidator.validate(userForm, bindingResult);
-
-        if (bindingResult.hasErrors()) {
-            return "Error";
-        }
+        UserMapperHandler userMapperHandler = new UserMapperHandler();
+        User userForm = userMapperHandler.createEntityFromDTO(userDto);
 
         userService.save(userForm);
 
         securityService.autologin(userForm.getUsername(), userForm.getPasswordConfirm());
 
-        return "Ok";
     }
 
 
     @RequestMapping(
             value = "/login",
-            method = RequestMethod.GET,
+            method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON)
-    public String login(Model model, String error, String logout) {
-        if (error != null)
-            model.addAttribute("error", "Your username and password is invalid.");
+    public boolean login(@RequestBody UserDto userDto) {
 
-        if (logout != null)
-            model.addAttribute("message", "You have been logged out successfully.");
+        boolean authenticate = false;
+        try {
+            authenticate = userService.authenticate(
+                    userDto.getUsername(),
+                    userDto.getPassword());
+        } catch (AuthenticationException e) {
+            e.printStackTrace();
+        }
 
-        return "login";
+        return authenticate;
+
     }
+
 
 }

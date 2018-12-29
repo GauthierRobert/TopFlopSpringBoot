@@ -26,7 +26,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private UserDetailsService userDetailsService;
 
     @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+    private BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
@@ -38,7 +38,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .and()
                 .logout()
                     .permitAll()
-                    ;
+                    .and()
+                .csrf().disable();
     }
 
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {

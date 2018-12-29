@@ -18,4 +18,6 @@ public class RuleDto {
     // -2 for second flop vote
     private Integer indication;
 
+    public RuleDto() {
+    }
 }

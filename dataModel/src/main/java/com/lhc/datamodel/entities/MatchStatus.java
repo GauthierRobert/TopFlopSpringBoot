@@ -8,7 +8,7 @@ public enum MatchStatus {
 
     private int value;
 
-    VoteType(int value) {
+    MatchStatus(int value) {
         this.value = value;
 
     }
