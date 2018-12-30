@@ -72,9 +72,9 @@ public class UserServiceImpl implements UserService {
         }
 
         String bCryptUserPassword = user.getPassword();
-        String bCryptEncodedPassword = (bCryptPasswordEncoder.encode(password));
+        boolean matches  = bCryptPasswordEncoder.matches(bCryptUserPassword, password);
 
-        if (bCryptEncodedPassword != null && bCryptEncodedPassword.equalsIgnoreCase(bCryptUserPassword)) {
+        if (matches) {
             if (username != null && username.equalsIgnoreCase(user.getUsername())) {
                 authenticated = true;
             }

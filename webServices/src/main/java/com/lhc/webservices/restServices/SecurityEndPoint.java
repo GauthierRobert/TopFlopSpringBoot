@@ -36,7 +36,7 @@ public class SecurityEndPoint {
 
         userService.save(userForm);
 
-        securityService.autologin(userForm.getUsername(), userForm.getPasswordConfirm());
+        //securityService.autologin(userForm.getUsername(), userForm.getPasswordConfirm());
 
     }
 
