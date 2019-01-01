@@ -2,10 +2,12 @@ package com.lhc.webservices.restServices;
 
 import com.lhc.business.service.security.SecurityService;
 import com.lhc.business.service.security.UserService;
+import com.lhc.business.service.validation.ValidationService;
 import com.lhc.datamodel.entities.security.User;
 import com.lhc.dto.UserDto;
 import com.lhc.mapper.user.UserMapperHandler;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -13,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.security.sasl.AuthenticationException;
 import javax.ws.rs.core.MediaType;
-import java.text.ParseException;
 
 @RestController
 public class SecurityEndPoint {
@@ -24,6 +25,9 @@ public class SecurityEndPoint {
     @Autowired
     private SecurityService securityService;
 
+    @Autowired
+    @Qualifier(value = "userValidationService")
+    private ValidationService<User> validationService;
 
     @RequestMapping(
             value = "/signUp",
@@ -31,12 +35,12 @@ public class SecurityEndPoint {
             produces = MediaType.APPLICATION_JSON)
     public void registration(@RequestBody UserDto userDto) {
 
+
         UserMapperHandler userMapperHandler = new UserMapperHandler();
         User userForm = userMapperHandler.createEntityFromDTO(userDto);
+        validationService.validate(userForm);
 
         userService.save(userForm);
-
-        //securityService.autologin(userForm.getUsername(), userForm.getPasswordConfirm());
 
     }
 

@@ -1,11 +1,11 @@
 package com.lhc.business.service.validation;
 
+import org.springframework.validation.Errors;
+
 /**
  * Created by exi380 on 17/12/2018.
  */
-public class AbstractValidationService<DTO> implements ValidationService<DTO> {
+public abstract class AbstractValidationService<DTO> implements ValidationService<DTO> {
 
-    public void validate(DTO object) {
-
-    }
+    public abstract String validate(DTO object);
 }

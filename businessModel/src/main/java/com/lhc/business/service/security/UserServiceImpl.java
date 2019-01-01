@@ -62,8 +62,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean authenticate(String username, String password) throws AuthenticationException {
 
-        boolean authenticated = false;
-
 
         User user = findByUsername(username);
 
@@ -72,19 +70,16 @@ public class UserServiceImpl implements UserService {
         }
 
         String bCryptUserPassword = user.getPassword();
-        boolean matches  = bCryptPasswordEncoder.matches(bCryptUserPassword, password);
+        boolean matches  = bCryptPasswordEncoder.matches(password, bCryptUserPassword);
 
         if (matches) {
             if (username != null && username.equalsIgnoreCase(user.getUsername())) {
-                authenticated = true;
+                return true;
             }
         }
 
-        if (!authenticated) {
-            throw new AuthenticationException("Authentication failed");
-        }
+        throw new AuthenticationException("Authentication failed");
 
-        return false;
     }
 
     @Override

@@ -17,6 +17,8 @@ public class CompetitionDto {
 
     private String confirmedPassword;
 
+    private String usernameCreator;
+
     private List<MatchDto> matchDtos;
 
     private List<RuleDto> ruleDtos;

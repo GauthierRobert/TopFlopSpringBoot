@@ -8,8 +8,8 @@ public class DBConnectionTests {
 
     @Test
     public void ConnectionTest(){
-        String databaseURL = "jdbc:mysql://localhost:3306/topflop?autoReconnect=true&useLegacyDatetimeCode=false&serverTimezone=UTC&useSSL=false";
-        String user = "root";
+        String databaseURL = "jdbc:mysql://topflopdatabaseinstance.cvzudmjp9i63.eu-west-3.rds.amazonaws.com:3306/topflop";
+        String user = "gauthier";
         String password = "Aldebaran63!";
         Connection conn = null;
         try {

@@ -65,13 +65,9 @@ public class CompetitionEndPoint {
     @RequestMapping(
             value = "/competition",
             method = RequestMethod.POST)
-    public void postCompetition(@RequestBody CompetitionDto competitionDto) throws NoSuchAlgorithmException {
+    public void postCompetition(@RequestBody CompetitionDto competitionDto ) throws NoSuchAlgorithmException {
 
-        org.springframework.security.core.userdetails.User user =
-                (org.springframework.security.core.userdetails.User)
-                        SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-        User currentUser = userService.findByUsername(user.getUsername());
+        User currentUser = userService.findByUsername(competitionDto.getUsernameCreator());
 
         CompetitionMapperHandler competitionMapperHandler = new CompetitionMapperHandler();
 
@@ -136,10 +132,9 @@ public class CompetitionEndPoint {
     @RequestMapping(
             value = "/competition",
             method = RequestMethod.GET)
-    public List<CompetitionDto> getCompetitionLinkToUser(@RequestBody String username){
+    public List<CompetitionDto> getCompetitionLinkToUser(@RequestParam(value = "username") String username){
 
-        User user = userService.findByUsername(username);
-        List<Competition> competitions = competitionService.findAllByUser(user);
+        List<Competition> competitions = competitionService.findAllByUsername(username);
         CompetitionMapperHandler competitionMapperHandler = new CompetitionMapperHandler();
         
         return competitionMapperHandler.mapToListDtos(competitions);

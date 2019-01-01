@@ -11,6 +11,7 @@ import com.lhc.datamodel.entities.security.User;
 import com.lhc.datamodel.repository.Security.RoleRepository;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+@Ignore
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @ContextConfiguration(classes =  BusinessConfig.class)
@@ -155,6 +157,12 @@ public class EndToEndCaseTests {
     }
 
     @Test
+    public void name() throws ParseException {
+
+        createRole();
+    }
+
+    @Test
     public void globalTest() throws NoSuchAlgorithmException, ParseException{
 
         createRole();
@@ -177,6 +185,7 @@ public class EndToEndCaseTests {
 
         List<Vote> votes = voteService.findAllByMatchReference(ref);
 
+
         Map<String, Integer> ranking = rankingService.createTopFlopByListVote(votes);
 
         StringBuilder sb = new StringBuilder();
@@ -195,4 +204,10 @@ public class EndToEndCaseTests {
         System.out.println(sb.toString());
     }
 
+    @Test
+    public void name2() {
+
+        List<Competition> competitions = competitionService.findAllByUsername("AAAA");
+        System.out.println(competitions.toString());
+    }
 }
