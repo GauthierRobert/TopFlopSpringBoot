@@ -19,6 +19,12 @@ public class Vote {
     private Long id;
 
     private String reference;
+    
+    private String ballot_ref
+    
+    private String match_ref;
+    
+    private String competition_ref;
 
     private String name;
 
