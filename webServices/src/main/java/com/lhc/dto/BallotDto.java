@@ -9,6 +9,10 @@ import java.util.List;
 public class BallotDto {
 
     private String reference;
+    
+    private String match_ref;
+    
+    private String competition_ref
 
     private List<VoteDto> voteDtos;
 
