@@ -11,8 +11,6 @@ public class MatchDto {
 
     private String reference;
 
-    private List<BallotDto> ballotDtos;
-
     private String homeTeam;
 
     private Integer homeScore;
@@ -20,8 +18,7 @@ public class MatchDto {
     private Integer awayScore;
 
     private String awayTeam;
+    
+    private String competition_ref;
 
-    public MatchDto() {
-        this.ballotDtos = new ArrayList<>();
-    }
 }
