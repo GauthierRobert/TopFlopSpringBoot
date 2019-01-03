@@ -47,19 +47,15 @@ public class CompetitionEndPoint {
     @RequestMapping(
             value = "/ballot",
             method = RequestMethod.POST)
-    public void postBallot(@RequestBody BallotDto ballotDto, @RequestParam String match_ref){
+    public void postBallot(@RequestBody BallotDto ballotDto, @RequestParam String username){
 
-        org.springframework.security.core.userdetails.User user =
-                (org.springframework.security.core.userdetails.User)
-                        SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-        User currentUser = userService.findByUsername(user.getUsername());
+        User currentUser = userService.findByUsername(username);
 
         BallotMapperHandler ballotMapperHandler = new BallotMapperHandler();
         Ballot ballot = ballotMapperHandler.mapToEntity(ballotDto, new Ballot());
 
 
-        ballotService.saveOrUpdate(ballot, currentUser, match_ref);
+        ballotService.saveOrUpdate(ballot, currentUser);
     }
 
     @RequestMapping(
@@ -85,7 +81,7 @@ public class CompetitionEndPoint {
         MatchMapperHandler matchMapperHandler = new MatchMapperHandler();
         Match match = matchMapperHandler.mapToEntity(matchDto, new Match());
 
-        matchService.saveOrUpdate(match, "Linkebeek");
+        matchService.saveOrUpdate(match);
 
     }
 
