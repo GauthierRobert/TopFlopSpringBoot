@@ -20,5 +20,7 @@ public class MatchDto {
     private String awayTeam;
     
     private String competition_ref;
+    
+    private Date date;
 
 }
