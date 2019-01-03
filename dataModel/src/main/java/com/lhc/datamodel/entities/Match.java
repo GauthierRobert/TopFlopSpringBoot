@@ -29,12 +29,14 @@ public class Match {
 
     private Integer awayScore;
    
-    private MatchStatus status
+    private MatchStatus status;
     
     private Date date;
 
     @ManyToOne
     private Competition competition;
+    
+    private String competition_ref;
     
     public void close(){
         this.status = MatchStatus.CLOSE;
