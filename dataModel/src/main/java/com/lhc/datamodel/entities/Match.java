@@ -29,7 +29,9 @@ public class Match {
 
     private Integer awayScore;
    
-    private MatchStatus status;
+    private MatchStatus status
+    
+    private Date date;
 
     @ManyToOne
     private Competition competition;
