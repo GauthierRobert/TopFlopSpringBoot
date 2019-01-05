@@ -47,21 +47,22 @@ public class CompetitionEndPoint {
     @RequestMapping(
             value = "/ballot",
             method = RequestMethod.POST)
-    public void postBallot(@RequestBody BallotDto ballotDto, @RequestParam String username){
+    public BallotDto postBallot(@RequestBody BallotDto ballotDto, @RequestParam String username){
 
         User currentUser = userService.findByUsername(username);
 
         BallotMapperHandler ballotMapperHandler = new BallotMapperHandler();
         Ballot ballot = ballotMapperHandler.mapToEntity(ballotDto, new Ballot());
 
+        ballotService.saveOrUpdate(ballot, currentUser, ballot.getMatch_ref());
 
-        ballotService.saveOrUpdate(ballot, currentUser);
+        return ballotDto;
     }
 
     @RequestMapping(
             value = "/competition",
             method = RequestMethod.POST)
-    public void postCompetition(@RequestBody CompetitionDto competitionDto ) throws NoSuchAlgorithmException {
+    public CompetitionDto postCompetition(@RequestBody CompetitionDto competitionDto ) throws NoSuchAlgorithmException {
 
         User currentUser = userService.findByUsername(competitionDto.getUsernameCreator());
 
@@ -70,18 +71,23 @@ public class CompetitionEndPoint {
         if (competitionDto.getConfirmedPassword().equals(competitionDto.getPassword())) {
             Competition competition = competitionMapperHandler.mapToEntity(competitionDto, new Competition());
             competitionService.createCompetition(competition, currentUser);
+            return competitionDto;
+        } else {
+            return null;
         }
     }
 
     @RequestMapping(
             value = "/match",
             method = RequestMethod.POST)
-    public void postMatch(@RequestBody MatchDto matchDto){
+    public MatchDto postMatch(@RequestBody MatchDto matchDto){
 
         MatchMapperHandler matchMapperHandler = new MatchMapperHandler();
         Match match = matchMapperHandler.mapToEntity(matchDto, new Match());
 
-        matchService.saveOrUpdate(match);
+        matchService.saveOrUpdate(match, matchDto.getCompetition_ref());
+
+        return matchDto;
 
     }
 

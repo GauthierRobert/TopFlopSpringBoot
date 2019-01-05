@@ -12,7 +12,7 @@ public class BallotDto {
     
     private String match_ref;
     
-    private String competition_ref
+    private String competition_ref;
 
     private List<VoteDto> voteDtos;
 

@@ -1,5 +1,6 @@
 import com.lhc.business.BusinessConfig;
 import com.lhc.business.service.security.UserService;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import javax.security.sasl.AuthenticationException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@Ignore
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @ContextConfiguration(classes =  BusinessConfig.class)

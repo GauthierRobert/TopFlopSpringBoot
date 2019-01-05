@@ -19,14 +19,17 @@ public class Competition {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    private String reference;
+
     private String name;
 
-    private String password;
+    private int season;
 
+    private String division;
+
+    private String password;
     @Transient
     private String confirmedPassword;
-
-    private String reference;
 
     @OneToMany(mappedBy="competition", fetch= FetchType.LAZY, cascade= CascadeType.ALL )
     private List<Match> Matches = new ArrayList<>();

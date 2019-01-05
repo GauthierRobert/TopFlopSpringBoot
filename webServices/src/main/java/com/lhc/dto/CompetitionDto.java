@@ -28,4 +28,5 @@ public class CompetitionDto {
         this.matchDtos = new ArrayList<>();
     }
 
+
 }

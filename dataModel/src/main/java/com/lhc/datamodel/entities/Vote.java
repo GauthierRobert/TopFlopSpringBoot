@@ -20,7 +20,7 @@ public class Vote {
 
     private String reference;
     
-    private String ballot_ref
+    private String ballot_ref;
     
     private String match_ref;
     
