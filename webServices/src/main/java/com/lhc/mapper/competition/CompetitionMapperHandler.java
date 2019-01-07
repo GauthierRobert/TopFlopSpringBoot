@@ -28,7 +28,10 @@ public class CompetitionMapperHandler implements MapperHandler<Competition, Comp
         MapperFacade mapper = mapperFactory.getMapperFacade();
 
         mapper.map(competitionDto, competition);
-
+        
+        RuleMapperHandler ruleMapperHandler = new RuleMapperHandler();
+        competition.setRules(ruleMapperHandler.mapToListEntities(competitionDto.getRuleDtos));
+        
         return competition;
 
     }
@@ -61,10 +64,14 @@ public class CompetitionMapperHandler implements MapperHandler<Competition, Comp
         MapperFacade mapper = mapperFactory.getMapperFacade();
 
         mapper.map(competition, competitionDto);
-
+        RuleMapperHandler ruleMapperHandler = new RuleMapperHandler();
+        competitionDto.setRuleDtos(ruleMapperHandler.mapToListDtos(competition.getRules));
         return competitionDto;
 
     }
+    
+    
+   
 
 
 }
