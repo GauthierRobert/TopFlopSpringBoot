@@ -24,4 +24,6 @@ public class MatchDto {
     
     private Date date;
 
+    private String creatorUsername;
+
 }

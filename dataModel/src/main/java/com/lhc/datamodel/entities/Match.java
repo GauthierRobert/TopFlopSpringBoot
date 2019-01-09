@@ -35,6 +35,8 @@ public class Match {
     
     private Date date;
 
+    private String creatorUsername;
+
     @ManyToOne
     private Competition competition;
     
