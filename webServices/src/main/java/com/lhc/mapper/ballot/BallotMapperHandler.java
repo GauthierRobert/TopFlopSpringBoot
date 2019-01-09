@@ -26,6 +26,8 @@ public class BallotMapperHandler implements MapperHandler<Ballot, BallotDto> {
 
         mapperFactory.classMap(BallotDto.class, Ballot.class)
                 .field("reference", "reference")
+                .field("match_ref", "match_ref")
+                .field("competition_ref", "competition_ref")
                 .register();
         MapperFacade mapper = mapperFactory.getMapperFacade();
         mapper.map(ballotDto, ballot);

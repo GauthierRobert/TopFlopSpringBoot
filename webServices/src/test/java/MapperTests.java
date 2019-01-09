@@ -1,6 +1,9 @@
 import com.lhc.business.BusinessConfig;
+import com.lhc.datamodel.entities.Competition;
 import com.lhc.datamodel.entities.Vote;
+import com.lhc.dto.CompetitionDto;
 import com.lhc.dto.VoteDto;
+import com.lhc.mapper.competition.CompetitionMapperHandler;
 import com.lhc.mapper.vote.VoteMapperHandler;
 import org.junit.Assert;
 import org.junit.Test;
@@ -8,6 +11,12 @@ import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -39,4 +48,21 @@ public class MapperTests {
 
     }
 
+    @Test
+    public void ListCompetitionMapping() {
+
+        List<Competition> competitionList = new ArrayList<>();
+        Competition competition = new Competition();
+        competition.setName("Linkebeek");
+        competition.setSeason(2018);
+        competition.setPassword("AAAA");
+        competitionList.add(competition);
+
+        CompetitionMapperHandler competitionMapperHandler = new CompetitionMapperHandler();
+        List<CompetitionDto> competitionDtos = competitionMapperHandler.mapToListDtos(competitionList);
+        int actual = competitionDtos.size();
+
+        assertThat(actual).isEqualTo(competitionList.size());
+
+    }
 }

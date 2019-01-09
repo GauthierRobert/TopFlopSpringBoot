@@ -31,6 +31,8 @@ public class Competition {
     @Transient
     private String confirmedPassword;
 
+    private String creatorUsername;
+
     @OneToMany(mappedBy="competition", fetch= FetchType.LAZY, cascade= CascadeType.ALL )
     private List<Match> Matches = new ArrayList<>();
 

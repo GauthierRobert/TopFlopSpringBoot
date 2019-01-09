@@ -26,6 +26,8 @@ public class MatchMapperHandler implements MapperHandler<Match, MatchDto> {
                 .field("homeScore", "homeScore")
                 .field("awayTeam", "awayTeam")
                 .field("awayScore", "awayScore")
+                .field("date", "date")
+                .field("competition_ref", "competition_ref")
                 .field("reference", "reference")
                 .register();
         MapperFacade mapper = mapperFactory.getMapperFacade();

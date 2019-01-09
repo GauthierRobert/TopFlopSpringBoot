@@ -26,7 +26,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-@Ignore
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @ContextConfiguration(classes =  BusinessConfig.class)
@@ -69,11 +68,10 @@ public class EndToEndCaseTests {
 
     }
 
-    public void saveUser(String username, Long id) throws ParseException {
+    public void saveUser(String username) throws ParseException {
 
 
         User user = new User();
-        user.setId(id);
         user.setUsername(username);
         user.setPassword("AAAA");
         user.setPasswordConfirm("AAAA");
@@ -166,17 +164,17 @@ public class EndToEndCaseTests {
     public void globalTest() throws NoSuchAlgorithmException, ParseException{
 
         createRole();
-        saveUser("AAAA",new Long(10));
-        saveUser("CCCC",new Long(11));
-        saveUser("DDDD",new Long(99));
-        saveUser("EEEE",new Long(101));
+        saveUser("AAAA" + Math.random());
+        saveUser("CCCC" + Math.random());
+        saveUser("DDDD" + Math.random());
+        saveUser("EEEE" + Math.random());
         saveCompetition("Linkebeek");
         addUserToCompetition("AAAA");
         addUserToCompetition("EEEE");
         addUserToCompetition("CCCC");
         addUserToCompetition("DDDD");
         String ref = addMatch("Linkebeek");
-        saveUser("BBBB",new Long(95));
+        saveUser("BBBB" + Math.random());
         addUserToCompetition("BBBB");
         userIsVoting("AAAA", ref);
         userIsVoting("BBBB", ref);

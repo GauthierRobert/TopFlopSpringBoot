@@ -33,7 +33,7 @@ public class SecurityEndPoint {
             value = "/signUp",
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON)
-    public void registration(@RequestBody UserDto userDto) {
+    public UserDto registration(@RequestBody UserDto userDto) {
 
 
         UserMapperHandler userMapperHandler = new UserMapperHandler();
@@ -42,6 +42,8 @@ public class SecurityEndPoint {
 
         userService.save(userForm);
 
+        return userDto;
+
     }
 
 
@@ -49,7 +51,7 @@ public class SecurityEndPoint {
             value = "/login",
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON)
-    public boolean login(@RequestBody UserDto userDto) {
+    public Boolean login(@RequestBody UserDto userDto) {
 
         boolean authenticate = false;
         try {

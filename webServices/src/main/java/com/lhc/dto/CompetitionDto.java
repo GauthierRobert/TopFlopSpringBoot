@@ -17,7 +17,11 @@ public class CompetitionDto {
 
     private String confirmedPassword;
 
-    private String usernameCreator;
+    private String creatorUsername;
+
+    private String division;
+
+    private String season;
 
     private List<MatchDto> matchDtos;
 

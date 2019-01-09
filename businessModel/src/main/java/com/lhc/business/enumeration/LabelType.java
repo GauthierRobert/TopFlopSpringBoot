@@ -2,8 +2,9 @@ package com.lhc.business.enumeration;
 
 public enum LabelType {
 
-    NUMBER_VOTE(1),
-    POINT_VOTE(2);
+    NUMBER_VOTE_TOP(1),
+    NUMBER_VOTE_FLOP(2),
+    POINT_VOTE(3);
 
     private int value;
 

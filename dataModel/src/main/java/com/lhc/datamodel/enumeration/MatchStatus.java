@@ -1,5 +1,5 @@
 
-package com.lhc.datamodel.entities;
+package com.lhc.datamodel.enumeration;
 
 public enum MatchStatus {
 

@@ -1,5 +1,6 @@
 package com.lhc.datamodel.entities;
 
+import com.lhc.datamodel.enumeration.MatchStatus;
 import lombok.Getter;
 import lombok.Setter;
 
