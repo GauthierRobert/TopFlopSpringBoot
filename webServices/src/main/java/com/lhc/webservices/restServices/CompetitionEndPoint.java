@@ -64,7 +64,7 @@ public class CompetitionEndPoint {
             method = RequestMethod.POST)
     public CompetitionDto postCompetition(@RequestBody CompetitionDto competitionDto ) throws NoSuchAlgorithmException {
 
-        User currentUser = userService.findByUsername(competitionDto.getUsernameCreator());
+        User currentUser = userService.findByUsername(competitionDto.getCreatorUsername());
 
         CompetitionMapperHandler competitionMapperHandler = new CompetitionMapperHandler();
 
