@@ -14,6 +14,7 @@ import com.lhc.dto.BallotDto;
 import com.lhc.dto.CompetitionDto;
 import com.lhc.dto.MatchDto;
 import com.lhc.dto.VoteDto;
+import com.lhc.mapper.MapperHandler;
 import com.lhc.mapper.ballot.BallotMapperHandler;
 import com.lhc.mapper.competition.CompetitionMapperHandler;
 import com.lhc.mapper.match.MatchMapperHandler;
@@ -45,7 +46,7 @@ public class CompetitionEndPoint {
 
     //--------- POST
     @RequestMapping(
-            value = "/ballot",
+            value = "/ballot/save",
             method = RequestMethod.POST)
     public BallotDto postBallot(@RequestBody BallotDto ballotDto, @RequestParam String username){
 
@@ -60,7 +61,7 @@ public class CompetitionEndPoint {
     }
 
     @RequestMapping(
-            value = "/competition",
+            value = "/competition/save",
             method = RequestMethod.POST)
     public CompetitionDto postCompetition(@RequestBody CompetitionDto competitionDto ) throws NoSuchAlgorithmException {
 
@@ -78,7 +79,7 @@ public class CompetitionEndPoint {
     }
 
     @RequestMapping(
-            value = "/match",
+            value = "/match/save",
             method = RequestMethod.POST)
     public MatchDto postMatch(@RequestBody MatchDto matchDto){
 
@@ -91,10 +92,25 @@ public class CompetitionEndPoint {
 
     }
 
-
-    //----------- GET
     @RequestMapping(
-            value = "/match",
+            value = "/competition/addUser",
+            method = RequestMethod.POST)
+    public CompetitionDto addUserToCompetition(@RequestParam(value = "competition_ref") String competition_ref,
+                                               @RequestParam(value = "username") String username,
+                                               @RequestParam(value = "password") String password) throws NoSuchAlgorithmException {
+
+        User currentUser = userService.findByUsername(username);
+        Competition competition = competitionService.addUserToCompetition(currentUser, competition_ref, password);
+
+        CompetitionMapperHandler competitionMapperHandler = new CompetitionMapperHandler();
+        CompetitionDto competitionDto = competitionMapperHandler.createDTOFromEntity(competition);
+        return competitionDto;
+
+    }
+
+    //------------------------------------------- GET
+    @RequestMapping(
+            value = "/match/get",
             method = RequestMethod.GET)
     public List<MatchDto> getMatchesWithCompetitionRef(@RequestParam(value = "competition_ref") String competition_ref){
 
@@ -107,7 +123,7 @@ public class CompetitionEndPoint {
 
 
     @RequestMapping(
-            value = "/ballot",
+            value = "/ballot/get",
             method = RequestMethod.GET)
     public List<BallotDto> getBallotsWithMatchRef(@RequestParam(value = "match_ref") String match_ref){
 
@@ -120,7 +136,7 @@ public class CompetitionEndPoint {
     }
 
     @RequestMapping(
-            value = "/vote",
+            value = "/vote/get",
             method = RequestMethod.GET)
     public List<VoteDto> getVotesWithBallotRef(@RequestParam(value = "ballot_ref") String ballot_ref){
 
@@ -132,7 +148,7 @@ public class CompetitionEndPoint {
     }
 
     @RequestMapping(
-            value = "/competition",
+            value = "/competition/get",
             method = RequestMethod.GET)
     public List<CompetitionDto> getCompetitionLinkToUser(@RequestParam(value = "username") String username){
 
@@ -142,8 +158,4 @@ public class CompetitionEndPoint {
         return competitionMapperHandler.mapToListDtos(competitions);
 
     }
-
-
-
-
 }
