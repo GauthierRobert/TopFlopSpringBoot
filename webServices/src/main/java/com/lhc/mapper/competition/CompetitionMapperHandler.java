@@ -9,8 +9,6 @@ import ma.glasnost.orika.impl.DefaultMapperFactory;
 
 public class CompetitionMapperHandler implements MapperHandler<Competition, CompetitionDto> {
 
-
-
     @Override
     public Competition mapToEntity(CompetitionDto competitionDto, Competition competition) {
         if (competition ==null){
@@ -22,7 +20,11 @@ public class CompetitionMapperHandler implements MapperHandler<Competition, Comp
         mapperFactory.classMap(CompetitionDto.class, Competition.class)
                 .field("reference", "reference")
                 .field("name", "name")
+                .field("season", "season")
+                .field("division", "division")
+                .field("status", "status")
                 .field("password", "password")
+                .field("creatorUsername", "creatorUsername")
                 .register();
 
         MapperFacade mapper = mapperFactory.getMapperFacade();
