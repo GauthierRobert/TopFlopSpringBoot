@@ -16,7 +16,7 @@ public class MatchMapperHandler implements MapperHandler<Match, MatchDto> {
     public Match mapToEntity(MatchDto matchDto, Match match) {
 
         if (match ==null){
-            match = new Match();
+            match = Match.match();
         }
 
         MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
@@ -40,7 +40,7 @@ public class MatchMapperHandler implements MapperHandler<Match, MatchDto> {
 
     @Override
     public Match createEntityFromDTO(MatchDto matchDto) {
-        return mapToEntity(matchDto, new Match());
+        return mapToEntity(matchDto, Match.match());
     }
 
     @Override

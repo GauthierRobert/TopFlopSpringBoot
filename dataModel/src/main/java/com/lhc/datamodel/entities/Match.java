@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -12,7 +14,39 @@ import java.util.List;
 @Setter
 @Table(name = "Matches")
 @Entity(name = "Matches")
-public class Match {
+public class Match implements Serializable  {
+
+    public static final Match EMPTY_MATCH = new Match(){
+        @Override
+        public Boolean isExist() {
+            return false;
+        }
+    };
+
+    private Match() {
+    }
+
+    public Match(Long id, String reference, List<Ballot> ballots, String homeTeam, Integer homeScore, String awayTeam, Integer awayScore, MatchStatus status, LocalDate date, String creatorUsername, Competition competition, String competition_ref) {
+        this.id = id;
+        this.reference = reference;
+        this.ballots = ballots;
+        this.homeTeam = homeTeam;
+        this.homeScore = homeScore;
+        this.awayTeam = awayTeam;
+        this.awayScore = awayScore;
+        this.status = status;
+        this.date = date;
+        this.creatorUsername = creatorUsername;
+        this.competition = competition;
+        this.competition_ref = competition_ref;
+    }
+
+    public static Match match(){
+        Match match = new Match();
+        match.setDate(LocalDate.now());
+        match.setStatus(MatchStatus.OPEN);
+        return match;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -33,7 +67,7 @@ public class Match {
    
     private MatchStatus status;
     
-    private Date date;
+    private LocalDate date;
 
     private String creatorUsername;
 
@@ -44,6 +78,10 @@ public class Match {
     
     public void close(){
         this.status = MatchStatus.CLOSE;
+    }
+
+    public Boolean isExist(){
+        return true;
     }
 
 }

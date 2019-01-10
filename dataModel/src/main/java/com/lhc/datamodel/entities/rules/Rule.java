@@ -5,12 +5,20 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Table(name = "Rules")
 @Entity(name = "Rules")
 @Getter
 @Setter
-public class Rule {
+public class Rule implements Serializable {
+
+    public static final Rule EMPTY_RULE = new Rule(){
+        @Override
+        public Boolean isExist() {
+            return false;
+        }
+    };
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -32,7 +40,8 @@ public class Rule {
     // -2 for second flop vote
     private Integer indication;
 
-
-
+    public Boolean isExist(){
+        return true;
+    }
 
 }

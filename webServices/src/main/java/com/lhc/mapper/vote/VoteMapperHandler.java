@@ -12,8 +12,8 @@ public class VoteMapperHandler implements MapperHandler<Vote, VoteDto> {
     @Override
     public Vote mapToEntity(VoteDto voteDto, Vote vote) {
 
-        if (vote ==null){
-            vote = new Vote();
+        if (vote == null){
+            vote = Vote.vote();
         }
 
         MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
@@ -33,7 +33,7 @@ public class VoteMapperHandler implements MapperHandler<Vote, VoteDto> {
 
     @Override
     public Vote createEntityFromDTO(VoteDto voteDto) {
-        return mapToEntity(voteDto, new Vote());
+        return mapToEntity(voteDto, Vote.vote());
     }
 
     @Override

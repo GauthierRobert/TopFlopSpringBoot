@@ -19,7 +19,7 @@ public class BallotMapperHandler implements MapperHandler<Ballot, BallotDto> {
     public Ballot mapToEntity(BallotDto ballotDto, Ballot ballot) {
 
         if (ballot ==null){
-            ballot = new Ballot();
+            ballot = Ballot.ballot();
         }
 
         MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
@@ -52,7 +52,7 @@ public class BallotMapperHandler implements MapperHandler<Ballot, BallotDto> {
 
     @Override
     public Ballot createEntityFromDTO(BallotDto ballotDto) {
-        return mapToEntity(ballotDto, new Ballot());
+        return mapToEntity(ballotDto, Ballot.ballot());
     }
 
     @Override

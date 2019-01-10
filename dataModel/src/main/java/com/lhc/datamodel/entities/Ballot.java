@@ -2,17 +2,34 @@ package com.lhc.datamodel.entities;
 
 
 import com.lhc.datamodel.entities.security.User;
+import com.sun.org.apache.bcel.internal.generic.BALOAD;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Getter
 @Setter
 @Table(name = "Ballots")
 @Entity(name = "Ballots")
-public class Ballot {
+public class Ballot implements Serializable {
+
+    public static final Ballot EMPTY_BALLOT = new Ballot(){
+        @Override
+        public Boolean isExist() {
+            return false;
+        }
+    };
+
+    private Ballot() {
+
+    }
+
+    public static Ballot ballot(){
+        return new Ballot();
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -33,6 +50,8 @@ public class Ballot {
     @ManyToOne
     private User user;
 
-
+    public Boolean isExist(){
+        return true;
+    }
 
 }

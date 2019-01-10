@@ -82,11 +82,11 @@ public class EndToEndCaseTests {
 
 
     public void saveCompetition(String name) throws NoSuchAlgorithmException {
-        Competition competition = new Competition();
+        Competition competition = Competition.competition();
         competition.setName(name);
         competition.setPassword("AAAA");
         competition.setConfirmedPassword("AAAA");
-        competition.getMatches().add(new Match());
+        competition.getMatches().add(Match.match());
         User user = userService.findByUsername("AAAA");
 
         competitionService.createCompetition(competition, user );
@@ -128,20 +128,20 @@ public class EndToEndCaseTests {
 
         User user = userService.findByUsername(username);
 
-        Vote vote_1 = new Vote();
+        Vote vote_1 = Vote.vote();
         vote_1.setName("AAAA");
         vote_1.setPoints(1);
-        Vote vote_2 = new Vote();
+        Vote vote_2 = Vote.vote();
         vote_2.setName("BBBB");
         vote_2.setPoints(2);
-        Vote vote_3 = new Vote();
+        Vote vote_3 = Vote.vote();
         vote_3.setName("CCCC");
         vote_3.setPoints(3);
-        Vote vote_4 = new Vote();
+        Vote vote_4 = Vote.vote();
         vote_4.setName("DDDD");
         vote_4.setPoints(4);
 
-        Ballot ballot = new Ballot();
+        Ballot ballot = Ballot.ballot()
         List<Vote> votes = new ArrayList<>();
         votes.add(vote_1);
         votes.add(vote_2);

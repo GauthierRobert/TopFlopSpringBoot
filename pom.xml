@@ -83,6 +83,34 @@
 			<version>1.5.1</version>
 		</dependency>
 	</dependencies>
+	<repositories>
+		<repository>
+			<id>artifactory</id>
+			<url>http://iictzidvlv006:8081/artifactory/repo</url>
+		</repository>
+		<repository>
+			<id>fallback</id>
+			<url>http://hictblockhul001:8081/artifactory/repo</url>
+		</repository>
+		<repository>
+			<id>ext-release</id>
+			<name>ext-release</name>
+			<url>http://pc130020502:8081/artifactory/ext-release-local</url>
+		</repository>
+	</repositories>
+
+	<distributionManagement>
+		<repository>
+			<id>artifactory</id>
+			<name>hictblockhul001.msnet.railb.be-releases</name>
+			<url>http://iictzidvlv006:8081/artifactory/arte2-release-local</url>
+		</repository>
+		<snapshotRepository>
+			<id>artifactory</id>
+			<name>hictblockhul001.msnet.railb.be-snapshots</name>
+			<url>http://iictzidvlv006:8081/artifactory/arte2-snapshot-local</url>
+		</snapshotRepository>
+	</distributionManagement>
 
 
 </project>

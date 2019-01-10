@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +14,22 @@ import java.util.List;
 @Setter
 @Entity(name = "Competitions")
 @Table(name = "Competitions")
-public class Competition {
+public class Competition implements Serializable {
+
+    public static final Competition EMPTY_COMPETITION = new Competition(){
+        @Override
+        public Boolean isExist() {
+            return false;
+        }
+    };
+
+    private Competition() {
+
+    }
+
+    public static Competition competition(){
+        return new Competition();
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -46,5 +62,13 @@ public class Competition {
 
     @OneToMany(mappedBy="competition", fetch= FetchType.EAGER, cascade= CascadeType.ALL )
     private List<Rule> rules = new ArrayList<>();
+
+    public Boolean isExist(){
+        return true;
+    }
+
+    public String hasError(){
+        return null;
+    }
 
 }

@@ -13,7 +13,7 @@ public class CompetitionMapperHandler implements MapperHandler<Competition, Comp
     @Override
     public Competition mapToEntity(CompetitionDto competitionDto, Competition competition) {
         if (competition ==null){
-            competition = new Competition();
+            competition = Competition.competition();
         }
 
         MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
@@ -41,7 +41,7 @@ public class CompetitionMapperHandler implements MapperHandler<Competition, Comp
 
     @Override
     public Competition createEntityFromDTO(CompetitionDto competitionDto) {
-        return mapToEntity(competitionDto, new Competition());
+        return mapToEntity(competitionDto, Competition.competition());
     }
 
     @Override
