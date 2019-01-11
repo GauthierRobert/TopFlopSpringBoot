@@ -53,7 +53,7 @@ public class CompetitionEndPoint {
         User currentUser = userService.findByUsername(username);
 
         BallotMapperHandler ballotMapperHandler = new BallotMapperHandler();
-        Ballot ballot = ballotMapperHandler.mapToEntity(ballotDto, new Ballot());
+        Ballot ballot = ballotMapperHandler.createEntityFromDTO(ballotDto);
 
         ballotService.saveOrUpdate(ballot, currentUser, ballot.getMatch_ref());
 
@@ -70,7 +70,7 @@ public class CompetitionEndPoint {
         CompetitionMapperHandler competitionMapperHandler = new CompetitionMapperHandler();
 
         if (competitionDto.getConfirmedPassword().equals(competitionDto.getPassword())) {
-            Competition competition = competitionMapperHandler.mapToEntity(competitionDto, new Competition());
+            Competition competition = competitionMapperHandler.createEntityFromDTO(competitionDto);
             competitionService.createCompetition(competition, currentUser);
             return competitionDto;
         } else {
@@ -84,7 +84,7 @@ public class CompetitionEndPoint {
     public MatchDto postMatch(@RequestBody MatchDto matchDto){
 
         MatchMapperHandler matchMapperHandler = new MatchMapperHandler();
-        Match match = matchMapperHandler.mapToEntity(matchDto, new Match());
+        Match match = matchMapperHandler.createEntityFromDTO(matchDto);
 
         matchService.saveOrUpdate(match, matchDto.getCompetition_ref());
 

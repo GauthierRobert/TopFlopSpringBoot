@@ -38,9 +38,8 @@ public class BallotMapperHandler implements MapperHandler<Ballot, BallotDto> {
         final Ballot finalBallot = ballot;
         ballotDto.getVoteDtos().forEach(voteDto -> {
             i.addAndGet(1);
-            Vote vote = new Vote();
-            MapperHandler voteMapperHandler = new VoteMapperHandler();
-            voteMapperHandler.mapToEntity(voteDto, vote);
+            VoteMapperHandler voteMapperHandler = new VoteMapperHandler();
+            Vote vote = voteMapperHandler.createEntityFromDTO(voteDto);
             vote.setBallot(finalBallot);
             vote.setReference(ref_f +"_"+ i.toString());
             votes.add(vote);

@@ -37,7 +37,7 @@ public class MapperTests {
 
         Assert.assertEquals(voteDto.getReference(), vote_mapped.getReference());
 
-        Vote vote = new Vote();
+        Vote vote = Vote.vote();
         vote.setId(Long.valueOf("545454"));
         vote.setPoints(0);
         VoteDto voteDto_mapped = voteMapperHandler.mapToDto(vote, null);
@@ -52,9 +52,9 @@ public class MapperTests {
     public void ListCompetitionMapping() {
 
         List<Competition> competitionList = new ArrayList<>();
-        Competition competition = new Competition();
+        Competition competition = Competition.competition();
         competition.setName("Linkebeek");
-        competition.setSeason(2018);
+        competition.setSeason("2018");
         competition.setPassword("AAAA");
         competitionList.add(competition);
 
