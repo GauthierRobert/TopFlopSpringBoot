@@ -20,6 +20,23 @@ public class Rule implements Serializable {
         }
     };
 
+    public Rule(String label, Integer points, Integer indication) {
+        this(null, null,label, points, null, indication);
+    }
+
+    public Rule() {
+
+    }
+
+    public Rule(Long id, String description, String label, Integer points, Competition competition, Integer indication) {
+        this.id = id;
+        this.description = description;
+        this.label = label;
+        this.points = points;
+        this.competition = competition;
+        this.indication = indication;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;

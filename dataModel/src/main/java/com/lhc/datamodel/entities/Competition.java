@@ -31,6 +31,42 @@ public class Competition implements Serializable {
         return new Competition();
     }
 
+    public static Competition competition(Long id, String name, int season, String division, String password, String confirmedPassword, String creatorUsername, List<Rule> rules) {
+        return new Competition(
+                id,
+                name,
+                name,
+                createSeason(season),
+                division,
+                password,
+                confirmedPassword,
+                creatorUsername,
+                new ArrayList<>(),
+                new ArrayList<>(),
+                rules
+        );
+    }
+
+    private static String createSeason(int season) {
+
+        return season + " - " + (season + 1);
+
+    }
+
+    public Competition(Long id, String reference, String name, String season, String division, String password, String confirmedPassword, String creatorUsername, List<Match> matches, List<User> allowedUsers, List<Rule> rules) {
+        this.id = id;
+        this.reference = reference;
+        this.name = name;
+        this.season = season;
+        this.division = division;
+        this.password = password;
+        this.confirmedPassword = confirmedPassword;
+        this.creatorUsername = creatorUsername;
+        this.matches = matches;
+        this.allowedUsers = allowedUsers;
+        this.rules = rules;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -39,7 +75,7 @@ public class Competition implements Serializable {
 
     private String name;
 
-    private int season;
+    private String season;
 
     private String division;
 
@@ -50,7 +86,7 @@ public class Competition implements Serializable {
     private String creatorUsername;
 
     @OneToMany(mappedBy="competition", fetch= FetchType.LAZY, cascade= CascadeType.ALL )
-    private List<Match> Matches = new ArrayList<>();
+    private List<Match> matches;
 
     @ManyToMany
     @JoinTable(name = "users_competitions",
@@ -58,10 +94,10 @@ public class Competition implements Serializable {
                     name = "competition_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(
                     name = "user_id", referencedColumnName = "id"))
-    private List<User> allowedUsers = new ArrayList<>();
+    private List<User> allowedUsers;
 
     @OneToMany(mappedBy="competition", fetch= FetchType.EAGER, cascade= CascadeType.ALL )
-    private List<Rule> rules = new ArrayList<>();
+    private List<Rule> rules;
 
     public Boolean isExist(){
         return true;
