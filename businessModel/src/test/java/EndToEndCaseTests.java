@@ -1,5 +1,5 @@
 import com.lhc.business.BusinessConfig;
-import com.lhc.business.enumeration.RoleType;
+import com.lhc.datamodel.enumeration.RoleType;
 import com.lhc.business.service.*;
 import com.lhc.business.service.security.UserService;
 import com.lhc.datamodel.entities.Ballot;
@@ -11,7 +11,6 @@ import com.lhc.datamodel.entities.security.User;
 import com.lhc.datamodel.repository.Security.RoleRepository;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -112,7 +111,7 @@ public class EndToEndCaseTests {
 
         Assert.assertEquals(competition.getName(),comp);
 
-        Match match = new Match();
+        Match match = Match.match();
         match.setHomeTeam("Linkebeek");
         match.setAwayTeam("WaterDucks");
         match.setHomeScore(3);
@@ -141,7 +140,7 @@ public class EndToEndCaseTests {
         vote_4.setName("DDDD");
         vote_4.setPoints(4);
 
-        Ballot ballot = Ballot.ballot()
+        Ballot ballot = Ballot.ballot();
         List<Vote> votes = new ArrayList<>();
         votes.add(vote_1);
         votes.add(vote_2);

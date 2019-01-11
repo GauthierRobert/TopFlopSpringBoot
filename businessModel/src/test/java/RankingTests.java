@@ -26,20 +26,20 @@ public class RankingTests {
     @Test
     public void createRanking(){
 
-        Vote vote_1 = new Vote();
+        Vote vote_1 = Vote.vote();
         vote_1.setName("A");
         vote_1.setPoints(1);
-        Vote vote_2 = new Vote();
+        Vote vote_2 = Vote.vote();
         vote_2.setName("B");
         vote_2.setPoints(2);
-        Vote vote_3 = new Vote();
+        Vote vote_3 = Vote.vote();
         vote_3.setName("C");
         vote_3.setPoints(3);
-        Vote vote_4 = new Vote();
+        Vote vote_4 = Vote.vote();
         vote_4.setName("D");
         vote_4.setPoints(4);
 
-        Ballot ballot = new Ballot();
+        Ballot ballot = Ballot.ballot();
         List<Vote> votes = new ArrayList<>();
         votes.add(vote_1);
         votes.add(vote_2);
@@ -47,7 +47,7 @@ public class RankingTests {
         votes.add(vote_4);
         ballot.setVotes(votes);
 
-        Match match = new Match();
+        Match match = Match.match();
         List<Ballot> ballots = new ArrayList<>();
         ballots.add(ballot);
         ballots.add(ballot);

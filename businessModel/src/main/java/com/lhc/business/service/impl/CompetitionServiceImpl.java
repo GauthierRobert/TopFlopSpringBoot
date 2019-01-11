@@ -1,6 +1,6 @@
 package com.lhc.business.service.impl;
 
-import com.lhc.business.enumeration.RoleType;
+import com.lhc.datamodel.enumeration.RoleType;
 import com.lhc.business.service.CompetitionService;
 import com.lhc.datamodel.entities.Competition;
 import com.lhc.datamodel.entities.security.User;
