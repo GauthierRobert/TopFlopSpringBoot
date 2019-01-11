@@ -5,7 +5,9 @@ import com.lhc.dto.CompetitionDto;
 import com.lhc.dto.RuleDto;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static com.lhc.dto.CompetitionDto.competitionDto;
 
@@ -17,7 +19,7 @@ public class CompetitionDtoBuilder {
     private String password;
     private String confirmedPassword;
     private String creatorUsername;
-    private List<RuleDto> RuleDtos = new ArrayList<>();
+    private List<RuleDto> ruleDtos = new ArrayList<>();
 
     public static CompetitionDtoBuilder aCompetitionDto(){
         return new CompetitionDtoBuilder();
@@ -59,11 +61,12 @@ public class CompetitionDtoBuilder {
 
         private final CompetitionDtoCompletion competitionCompletion = new CompetitionDtoCompletion();
 
+
         public RuleDtoDtoBuilder(int numberOfTopVote, int numberOfFlopVote) {
             RuleDto RuleDtoTop = new RuleDto(LabelType.NUMBER_VOTE_TOP.name(),numberOfTopVote, 0);
             RuleDto RuleDtoFlop = new RuleDto(LabelType.NUMBER_VOTE_FLOP.name(), numberOfFlopVote, 0);
-            CompetitionDtoBuilder.this.RuleDtos.add(RuleDtoTop);
-            CompetitionDtoBuilder.this.RuleDtos.add(RuleDtoFlop);
+            CompetitionDtoBuilder.this.ruleDtos.add(RuleDtoTop);
+            CompetitionDtoBuilder.this.ruleDtos.add(RuleDtoFlop);
         }
 
         public RuleDtoDtoBuilder withTopRuleDtos(Integer ... points){
@@ -71,7 +74,7 @@ public class CompetitionDtoBuilder {
             for (Integer point:points) {
                 i++;
                 RuleDto RuleDto = new RuleDto(LabelType.POINT_VOTE.name(),point,i);
-                CompetitionDtoBuilder.this.RuleDtos.add(RuleDto);
+                CompetitionDtoBuilder.this.ruleDtos.add(RuleDto);
             }
             return this;
         }
@@ -81,7 +84,7 @@ public class CompetitionDtoBuilder {
             for (Integer point:points) {
                 i++;
                 RuleDto RuleDto = new RuleDto(LabelType.POINT_VOTE.name(),point,-i);
-                CompetitionDtoBuilder.this.RuleDtos.add(RuleDto);
+                CompetitionDtoBuilder.this.ruleDtos.add(RuleDto);
             }
             return this;
         }
@@ -99,9 +102,10 @@ public class CompetitionDtoBuilder {
         }
 
         public CompetitionDto build(){
-            return competitionDto(name, season, division, password, confirmedPassword, creatorUsername, RuleDtos);
+            return competitionDto(name, season, division, password, confirmedPassword, creatorUsername, ruleDtos);
         }
     }
+
 
 
 }
