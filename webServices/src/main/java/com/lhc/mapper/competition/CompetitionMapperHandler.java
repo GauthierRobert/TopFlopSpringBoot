@@ -16,25 +16,13 @@ public class CompetitionMapperHandler implements MapperHandler<Competition, Comp
             competition = Competition.competition();
         }
 
-        MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
-
-        mapperFactory.classMap(CompetitionDto.class, Competition.class)
-                .field("reference", "reference")
-                .field("name", "name")
-                .field("season", "season")
-                .field("division", "division")
-                .field("status", "status")
-                .field("password", "password")
-                .field("creatorUsername", "creatorUsername")
-                .register();
-
-        MapperFacade mapper = mapperFactory.getMapperFacade();
-
+        MapperFacade mapper = CompetitionSingletonMapper.getInstanceEntity();
         mapper.map(competitionDto, competition);
         
         RuleMapperHandler ruleMapperHandler = new RuleMapperHandler();
-        competition.setRules(ruleMapperHandler.mapToListEntities(competitionDto.getRuleDtos()));
-        
+        if (competitionDto.getRuleDtos() !=null) {
+            competition.setRules(ruleMapperHandler.mapToListEntities(competitionDto.getRuleDtos()));
+        }
         return competition;
 
     }
@@ -56,22 +44,17 @@ public class CompetitionMapperHandler implements MapperHandler<Competition, Comp
             competitionDto = new CompetitionDto();
         }
 
-        MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
-
-        mapperFactory.classMap(Competition.class, CompetitionDto.class)
-                .field("reference", "reference")
-                .field("name", "name")
-                .field("password", "password")
-                .register();
-
-        MapperFacade mapper = mapperFactory.getMapperFacade();
-
+        MapperFacade mapper = CompetitionSingletonMapper.getInstanceDto();
         mapper.map(competition, competitionDto);
+
         RuleMapperHandler ruleMapperHandler = new RuleMapperHandler();
-        competitionDto.setRuleDtos(ruleMapperHandler.mapToListDtos(competition.getRules()));
+        if (competition.getRules() !=null) {
+            competitionDto.setRuleDtos(ruleMapperHandler.mapToListDtos(competition.getRules()));
+        }
         return competitionDto;
 
     }
+
     
     
    

@@ -86,4 +86,12 @@ public class User {
     public void setCompetitions(List<Competition> competitions) {
         this.competitions = competitions;
     }
+
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
+    public User() {
+    }
 }

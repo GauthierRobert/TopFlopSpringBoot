@@ -105,10 +105,11 @@ public class BallotDtoBuilder {
 
         Map<Integer, Integer> rules = new HashMap<>();
         ruleDtos.forEach(ruleDto -> {
-            if (ruleDto.getIndicator() != 0) {
-                rules.put(ruleDto.getIndicator(), ruleDto.getPoints());
+            if (ruleDto.getIndication() != 0) {
+                rules.put(ruleDto.getIndication(), ruleDto.getPoints());
             }
         });
+        return rules;
     }
 
 }

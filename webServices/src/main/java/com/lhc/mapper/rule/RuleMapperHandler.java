@@ -16,16 +16,8 @@ public class RuleMapperHandler implements MapperHandler<Rule, RuleDto> {
             rule = new Rule();
         }
 
-        MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
 
-        mapperFactory.classMap(RuleDto.class, Rule.class)
-                .field("description", "description")
-                .field("label", "label")
-                .field("points", "points")
-                .register();
-
-        MapperFacade mapper = mapperFactory.getMapperFacade();
-
+        MapperFacade mapper = RuleSingletonMapper.getInstanceEntity();
         mapper.map(ruleDto, rule);
 
         return rule;
@@ -49,17 +41,8 @@ public class RuleMapperHandler implements MapperHandler<Rule, RuleDto> {
             ruleDto = new RuleDto();
         }
 
-        MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
-
-        mapperFactory.classMap(Rule.class, RuleDto.class)
-                .field("description", "description")
-                .field("label", "label")
-                .field("points", "points")
-                .register();
-
-        MapperFacade mapper = mapperFactory.getMapperFacade();
-
-        mapper.map(rule, ruleDto);
+        MapperFacade mapper = RuleSingletonMapper.getInstanceDto();
+        mapper.map(ruleDto, rule);
 
         return ruleDto;
     }

@@ -11,6 +11,7 @@ import com.lhc.datamodel.entities.security.User;
 import com.lhc.datamodel.repository.Security.RoleRepository;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,6 +86,9 @@ public class EndToEndCaseTests {
         competition.setName(name);
         competition.setPassword("AAAA");
         competition.setConfirmedPassword("AAAA");
+        competition.setCreatorUsername("AAAA");
+        competition.setDivision("D1");
+        competition.setSeason("Z018-2019");
         competition.getMatches().add(Match.match());
         User user = userService.findByUsername("AAAA");
 
@@ -154,7 +158,7 @@ public class EndToEndCaseTests {
     }
 
     @Test
-    public void name() throws ParseException {
+    public void createRoleTest() throws ParseException {
 
         createRole();
     }
@@ -163,17 +167,17 @@ public class EndToEndCaseTests {
     public void globalTest() throws NoSuchAlgorithmException, ParseException{
 
         createRole();
-        saveUser("AAAA" + Math.random());
-        saveUser("CCCC" + Math.random());
-        saveUser("DDDD" + Math.random());
-        saveUser("EEEE" + Math.random());
+        saveUser("AAAA");
+        saveUser("CCCC");
+        saveUser("DDDD");
+        saveUser("EEEE");
         saveCompetition("Linkebeek");
         addUserToCompetition("AAAA");
         addUserToCompetition("EEEE");
         addUserToCompetition("CCCC");
         addUserToCompetition("DDDD");
         String ref = addMatch("Linkebeek");
-        saveUser("BBBB" + Math.random());
+        saveUser("BBBB");
         addUserToCompetition("BBBB");
         userIsVoting("AAAA", ref);
         userIsVoting("BBBB", ref);
@@ -202,9 +206,9 @@ public class EndToEndCaseTests {
     }
 
     @Test
-    public void name2() {
+    public void findAllByUsername_competitionsTest() {
 
-        List<Competition> competitions = competitionService.findAllByUsername("AAAA");
+        List<Competition> competitions = competitionService.findAllByUsername("Gauthier");
         System.out.println(competitions.toString());
     }
 }

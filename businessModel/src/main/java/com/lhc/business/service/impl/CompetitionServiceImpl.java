@@ -38,7 +38,6 @@ public class CompetitionServiceImpl implements CompetitionService {
 
         competition.setReference(competition.getName());
 
-
         competition.setPassword(sha256(competition.getPassword()));
         user.setRoles(new HashSet<>(Arrays.asList(roleRepository.findByName(RoleType.ROLE_ADMIN.name()))));
         competition.getAllowedUsers().add(user);

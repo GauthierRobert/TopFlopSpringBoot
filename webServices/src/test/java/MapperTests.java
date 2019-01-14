@@ -15,14 +15,13 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.lhc.dto.builder.CompetitionDtoBuilderTest.competitionDtoTest;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
-@ContextConfiguration(classes =  BusinessConfig.class)
 public class MapperTests {
 
+    private static final String COMPETITION_NAME = "Linkebeek";
 
     @Test
     public void VoteMapping(){
@@ -50,19 +49,47 @@ public class MapperTests {
 
     @Test
     public void ListCompetitionMapping() {
-
         List<Competition> competitionList = new ArrayList<>();
-        Competition competition = Competition.competition();
-        competition.setName("Linkebeek");
-        competition.setSeason("2018");
-        competition.setPassword("AAAA");
+        Competition competition = getCompetition();
         competitionList.add(competition);
 
         CompetitionMapperHandler competitionMapperHandler = new CompetitionMapperHandler();
-        List<CompetitionDto> competitionDtos = competitionMapperHandler.mapToListDtos(competitionList);
-        int actual = competitionDtos.size();
+        List<CompetitionDto> actual = competitionMapperHandler.mapToListDtos(competitionList);
 
-        assertThat(actual).isEqualTo(competitionList.size());
 
+        assertThat(actual.get(0).getName()).isEqualTo(COMPETITION_NAME);
+        assertThat(actual.size()).isEqualTo(competitionList.size());
+
+    }
+
+    @Test
+    public void createDTO() {
+        Competition competition = getCompetition();
+        CompetitionMapperHandler competitionMapperHandler = new CompetitionMapperHandler();
+        CompetitionDto actual = competitionMapperHandler.createDTOFromEntity(competition);
+
+        assertThat(actual.getName()).isEqualTo(COMPETITION_NAME);
+
+    }
+
+    private Competition getCompetition() {
+
+        Competition competition = Competition.competition();
+        competition.setName(COMPETITION_NAME);
+        competition.setSeason("2018");
+        competition.setPassword("AAAA");
+        competition.setDivision("D1");
+        competition.setCreatorUsername("AAAA");
+
+        return competition;
+    }
+
+    @Test
+    public void CreateEntityFromDto_Competition() {
+
+        CompetitionMapperHandler competitionMapperHandler =  new CompetitionMapperHandler();
+        Competition actual = competitionMapperHandler.createEntityFromDTO(competitionDtoTest);
+
+        assertThat(actual.getDivision()).isEqualTo(competitionDtoTest.getDivision());
     }
 }

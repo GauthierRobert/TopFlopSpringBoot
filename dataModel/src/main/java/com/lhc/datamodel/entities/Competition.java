@@ -24,7 +24,8 @@ public class Competition implements Serializable {
     };
 
     private Competition() {
-
+        this.matches = new ArrayList<>();
+        this.allowedUsers = new ArrayList<>();
     }
 
     public static Competition competition(){
@@ -53,7 +54,7 @@ public class Competition implements Serializable {
 
     }
 
-    public Competition(Long id, String reference, String name, String season, String division, String password, String confirmedPassword, String creatorUsername, List<Match> matches, List<User> allowedUsers, List<Rule> rules) {
+    private Competition(Long id, String reference, String name, String season, String division, String password, String confirmedPassword, String creatorUsername, List<Match> matches, List<User> allowedUsers, List<Rule> rules) {
         this.id = id;
         this.reference = reference;
         this.name = name;

@@ -2,7 +2,6 @@ package com.lhc.datamodel.entities;
 
 
 import com.lhc.datamodel.entities.security.User;
-import com.sun.org.apache.bcel.internal.generic.BALOAD;
 import lombok.Getter;
 import lombok.Setter;
 

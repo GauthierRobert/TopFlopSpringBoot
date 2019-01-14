@@ -10,24 +10,25 @@ import static com.lhc.dto.builder.CompetitionDtoBuilder.aCompetitionDto;
 
 public class CompetitionDtoBuilderTest {
 
+    public static CompetitionDto competitionDtoTest = aCompetitionDto()
+            .withName("Linkebeek")
+            .withDivision("D1")
+            .withSeason(2018)
+            .withCreatorUsername("AAAA")
+            .withPassword("AAAA")
+            .withConfirmedPassword("AAAA")
+            .withRuleDtos(4,2)
+            .withTopRuleDtos(4,3,2,1)
+            .withFlopRuleDtos(4,2)
+            .build();
 
     @Test
     public void BuilderDtoTest() {
 
-        CompetitionDto competitionDto = aCompetitionDto()
-                .withName("Linkebeek")
-                .withDivision("D1")
-                .withSeason(2018)
-                .withCreatorUsername("Me")
-                .withPassword("AAAA")
-                .withConfirmedPassword("AAAA")
-                .withRuleDtos(4,2)
-                .withTopRuleDtos(4,3,2,1)
-                .withFlopRuleDtos(4,2)
-                .build();
+
 
         Gson gson = new Gson();
-        String json = gson.toJson(competitionDto);
+        String json = gson.toJson(competitionDtoTest);
         JSONObject jsonObject = null;
         try {
             jsonObject = new JSONObject(json);
