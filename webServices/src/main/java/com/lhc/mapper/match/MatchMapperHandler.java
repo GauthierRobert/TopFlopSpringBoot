@@ -69,7 +69,7 @@ public class MatchMapperHandler implements MapperHandler<Match, MatchDto> {
         MapperFacade mapper = mapperFactory.getMapperFacade();
 
         mapper.map(match, matchDto);
-
+        matchDto.setDate(match.getDate().toString());
         return matchDto;
 
     }

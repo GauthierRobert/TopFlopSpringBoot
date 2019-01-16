@@ -164,6 +164,7 @@ public class EndToEndCaseTests {
     }
 
     @Test
+    @Ignore
     public void globalTest() throws NoSuchAlgorithmException, ParseException{
 
         createRole();
@@ -206,6 +207,7 @@ public class EndToEndCaseTests {
     }
 
     @Test
+    @Ignore
     public void findAllByUsername_competitionsTest() {
 
         List<Competition> competitions = competitionService.findAllByUsername("Gauthier");
