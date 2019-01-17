@@ -18,7 +18,6 @@ import java.util.List;
 import java.util.Map;
 
 @Produces(MediaType.APPLICATION_JSON)
-@ApplicationPath("/final")
 @RestController
 public class RankingEndPoint {
 
@@ -27,17 +26,16 @@ public class RankingEndPoint {
     @Autowired
     private VoteService voteService;
 
-    @RolesAllowed("USER_ADMIN")
     @RequestMapping(
             value = "/ranking",
             method = RequestMethod.GET)
-    public Response getRanking(@RequestParam(value = "match_ref") String match_ref){
+    public Map<String, Integer> getRanking(@RequestParam(value = "match_ref") String match_ref){
 
         List<Vote> votes = voteService.findAllByMatchReference(match_ref);
 
         Map<String, Integer> topFlop =  rankingService.createTopFlopByListVote(votes);
 
-        return Response.status(200).entity(topFlop).build();
+        return topFlop;
 
     }
 

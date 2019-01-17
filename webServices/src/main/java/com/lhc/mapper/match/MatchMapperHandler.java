@@ -70,6 +70,7 @@ public class MatchMapperHandler implements MapperHandler<Match, MatchDto> {
 
         mapper.map(match, matchDto);
         matchDto.setDate(match.getDate().toString());
+        matchDto.setStatus(match.getStatus().name());
         return matchDto;
 
     }
