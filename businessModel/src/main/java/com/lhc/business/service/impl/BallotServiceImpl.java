@@ -38,7 +38,6 @@ public class BallotServiceImpl implements BallotService {
         String ref;
         if (ballot.getReference() !=null) {
             ballot = ballotRepository.findByReference(ballot.getReference());
-            ref = ballot.getReference();
         } else {
             ref = UUID.randomUUID().toString();
             ballot.setReference(ref);

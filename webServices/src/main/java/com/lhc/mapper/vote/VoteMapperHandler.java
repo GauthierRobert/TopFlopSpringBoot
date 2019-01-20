@@ -22,6 +22,8 @@ public class VoteMapperHandler implements MapperHandler<Vote, VoteDto> {
                 .field("reference", "reference")
                 .field("name", "name")
                 .field("points", "points")
+                .field("indication", "indication")
+                .field("competition_ref", "competition_ref")
                 .register();
 
         MapperFacade mapper = mapperFactory.getMapperFacade();
@@ -55,6 +57,8 @@ public class VoteMapperHandler implements MapperHandler<Vote, VoteDto> {
                 .field("reference", "reference")
                 .field("name", "name")
                 .field("points", "points")
+                .field("indication", "indication")
+                .field("competition_ref", "competition_ref")
                 .register();
 
         MapperFacade mapper = mapperFactory.getMapperFacade();

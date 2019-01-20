@@ -22,7 +22,7 @@ public class BallotDto {
     }
 
 
-    public BallotDto(String reference, String match_ref, String competition_ref, List<VoteDto> voteDtos, List<RuleDto> ruleDtos) {
+    private BallotDto(String reference, String match_ref, String competition_ref, List<VoteDto> voteDtos, List<RuleDto> ruleDtos) {
         this.reference = reference;
         this.match_ref = match_ref;
         this.competition_ref = competition_ref;

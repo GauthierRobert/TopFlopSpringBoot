@@ -1,4 +1,4 @@
-package lhc.com.dtos.builder;
+package com.lhc.dto.builder;
 
 import com.lhc.dto.MatchDto;
 

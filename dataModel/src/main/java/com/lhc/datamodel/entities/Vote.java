@@ -1,7 +1,5 @@
 package com.lhc.datamodel.entities;
 
-import com.lhc.datamodel.entities.rules.Rule;
-import com.lhc.datamodel.enumeration.VoteType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -41,10 +39,6 @@ public class Vote  implements Serializable {
 
     private String reference;
     
-    private String ballot_ref;
-    
-    private String match_ref;
-    
     private String competition_ref;
 
     private String name;
@@ -60,13 +54,6 @@ public class Vote  implements Serializable {
 
     @ManyToOne
     private Ballot ballot;
-
-    private VoteType voteType;
-
-    public Vote applyRule(Rule rule){
-        this.setPoints(rule.getPoints()*(int)Math.signum(indication));
-        return this;
-    }
 
     public Boolean isExist(){
         return true;

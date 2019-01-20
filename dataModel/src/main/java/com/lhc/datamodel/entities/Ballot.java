@@ -40,7 +40,7 @@ public class Ballot implements Serializable {
     
     private String competition_ref;
 
-    @OneToMany(mappedBy="ballot", fetch= FetchType.LAZY, cascade= CascadeType.ALL )
+    @OneToMany(mappedBy="ballot", fetch= FetchType.EAGER, cascade= CascadeType.ALL )
     private List<Vote> votes;
 
     @ManyToOne

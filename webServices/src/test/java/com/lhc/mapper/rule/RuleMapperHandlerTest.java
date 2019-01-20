@@ -3,7 +3,6 @@ package com.lhc.mapper.rule;
 import com.lhc.datamodel.entities.rules.Rule;
 import com.lhc.datamodel.enumeration.LabelType;
 import com.lhc.dto.RuleDto;
-import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
 import static com.lhc.datamodel.entities.rules.Rule.rule;

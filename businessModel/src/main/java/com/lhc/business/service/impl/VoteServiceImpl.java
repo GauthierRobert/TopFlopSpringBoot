@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class VoteServiceImpl implements VoteService {
@@ -23,12 +24,13 @@ public class VoteServiceImpl implements VoteService {
     @Override
     public Vote saveOrUpdate(Vote vote, String competition_ref) {
 
+        String ref;
         if (vote.getReference() !=null) {
             vote = voteRepository.findByReference(vote.getReference());
+        } else {
+            ref = UUID.randomUUID().toString();
+            vote.setReference(ref);
         }
-
-        Rule rule = getRuleWithVoteIndex(new ArrayList<>(), vote.getIndication());
-        vote.applyRule(rule);
 
         return voteRepository.save(vote);
     }
