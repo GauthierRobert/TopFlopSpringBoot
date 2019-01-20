@@ -63,8 +63,8 @@ public class CompetitionDtoBuilder {
 
 
         public RuleDtoDtoBuilder(int numberOfTopVote, int numberOfFlopVote) {
-            RuleDto RuleDtoTop = new RuleDto(LabelType.NUMBER_VOTE_TOP.name(),numberOfTopVote, 0);
-            RuleDto RuleDtoFlop = new RuleDto(LabelType.NUMBER_VOTE_FLOP.name(), numberOfFlopVote, 0);
+            RuleDto RuleDtoTop = RuleDto.ruleDto(LabelType.NUMBER_VOTE_TOP.name(),numberOfTopVote, 0);
+            RuleDto RuleDtoFlop = RuleDto.ruleDto(LabelType.NUMBER_VOTE_FLOP.name(), numberOfFlopVote, 0);
             CompetitionDtoBuilder.this.ruleDtos.add(RuleDtoTop);
             CompetitionDtoBuilder.this.ruleDtos.add(RuleDtoFlop);
         }
@@ -73,8 +73,8 @@ public class CompetitionDtoBuilder {
             int i = 0;
             for (Integer point:points) {
                 i++;
-                RuleDto RuleDto = new RuleDto(LabelType.POINT_VOTE.name(),point,i);
-                CompetitionDtoBuilder.this.ruleDtos.add(RuleDto);
+                RuleDto ruleDto = RuleDto.ruleDto(LabelType.POINT_VOTE.name(),point,i);
+                CompetitionDtoBuilder.this.ruleDtos.add(ruleDto);
             }
             return this;
         }
@@ -83,8 +83,8 @@ public class CompetitionDtoBuilder {
             int i = 0;
             for (Integer point:points) {
                 i++;
-                RuleDto RuleDto = new RuleDto(LabelType.POINT_VOTE.name(),point,-i);
-                CompetitionDtoBuilder.this.ruleDtos.add(RuleDto);
+                RuleDto ruleDto = RuleDto.ruleDto(LabelType.POINT_VOTE.name(),point,-i);
+                CompetitionDtoBuilder.this.ruleDtos.add(ruleDto);
             }
             return this;
         }

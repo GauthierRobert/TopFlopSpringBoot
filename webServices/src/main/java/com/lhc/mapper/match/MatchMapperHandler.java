@@ -7,6 +7,10 @@ import ma.glasnost.orika.MapperFacade;
 import ma.glasnost.orika.MapperFactory;
 import ma.glasnost.orika.impl.DefaultMapperFactory;
 
+import static com.lhc.dto.MatchDto.matchDto;
+import static com.lhc.mapper.match.MatchSingletonMapper.getInstanceDto;
+import static com.lhc.mapper.match.MatchSingletonMapper.getInstanceEntity;
+
 public class MatchMapperHandler implements MapperHandler<Match, MatchDto> {
 
 
@@ -19,18 +23,7 @@ public class MatchMapperHandler implements MapperHandler<Match, MatchDto> {
             match = Match.match();
         }
 
-        MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
-
-        mapperFactory.classMap(MatchDto.class, Match.class)
-                .field("homeTeam", "homeTeam")
-                .field("homeScore", "homeScore")
-                .field("awayTeam", "awayTeam")
-                .field("awayScore", "awayScore")
-                .field("competition_ref", "competition_ref")
-                .field("creatorUsername", "creatorUsername")
-                .field("reference", "reference")
-                .register();
-        MapperFacade mapper = mapperFactory.getMapperFacade();
+        MapperFacade mapper = getInstanceEntity();
         mapper.map(matchDto, match);
 
         return match;
@@ -44,7 +37,7 @@ public class MatchMapperHandler implements MapperHandler<Match, MatchDto> {
 
     @Override
     public MatchDto createDTOFromEntity(Match match) {
-        return mapToDto(match, new MatchDto());
+        return mapToDto(match, matchDto());
     }
 
 
@@ -52,22 +45,11 @@ public class MatchMapperHandler implements MapperHandler<Match, MatchDto> {
     public MatchDto mapToDto(Match match, MatchDto matchDto) {
 
         if (matchDto ==null){
-            matchDto = new MatchDto();
+            matchDto = matchDto();
         }
 
-        MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
 
-        mapperFactory.classMap(Match.class, MatchDto.class)
-                .field("homeTeam", "homeTeam")
-                .field("homeScore", "homeScore")
-                .field("awayTeam", "awayTeam")
-                .field("awayScore", "awayScore")
-                .field("competition_ref", "competition_ref")
-                .field("creatorUsername", "creatorUsername")
-                .field("reference", "reference")
-                .register();
-        MapperFacade mapper = mapperFactory.getMapperFacade();
-
+        MapperFacade mapper = getInstanceDto();
         mapper.map(match, matchDto);
         matchDto.setDate(match.getDate().toString());
         matchDto.setStatus(match.getStatus().name());

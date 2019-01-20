@@ -7,13 +7,16 @@ import ma.glasnost.orika.MapperFacade;
 import ma.glasnost.orika.MapperFactory;
 import ma.glasnost.orika.impl.DefaultMapperFactory;
 
+import static com.lhc.datamodel.entities.rules.Rule.rule;
+import static com.lhc.dto.RuleDto.ruleDto;
+
 public class RuleMapperHandler implements MapperHandler<Rule, RuleDto> {
 
     @Override
     public Rule mapToEntity(RuleDto ruleDto, Rule rule){
 
         if (rule ==null){
-            rule = new Rule();
+            rule = rule();
         }
 
 
@@ -26,23 +29,23 @@ public class RuleMapperHandler implements MapperHandler<Rule, RuleDto> {
 
     @Override
     public Rule createEntityFromDTO(RuleDto ruleDto) {
-        return mapToEntity(ruleDto, new Rule());
+        return mapToEntity(ruleDto, rule());
     }
 
     @Override
     public RuleDto createDTOFromEntity(Rule rule) {
-        return mapToDto(rule, new RuleDto());
+        return mapToDto(rule, ruleDto());
     }
 
     @Override
     public RuleDto mapToDto(Rule rule, RuleDto ruleDto){
 
         if (ruleDto ==null){
-            ruleDto = new RuleDto();
+            ruleDto = ruleDto();
         }
 
         MapperFacade mapper = RuleSingletonMapper.getInstanceDto();
-        mapper.map(ruleDto, rule);
+        mapper.map(rule, ruleDto);
 
         return ruleDto;
     }

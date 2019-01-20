@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.lhc.datamodel.entities.Competition.competition;
+import static com.lhc.datamodel.entities.rules.Rule.rule;
 
 public class CompetitionBuilder {
 
@@ -62,8 +63,8 @@ public class CompetitionBuilder {
         private final CompetitionCompletion competitionCompletion = new CompetitionCompletion();
 
         public RuleBuilder(int numberOfTopVote, int numberOfFlopVote) {
-            Rule ruleTop = new Rule(LabelType.NUMBER_VOTE_TOP.name(),numberOfTopVote, 0);
-            Rule ruleFlop = new Rule(LabelType.NUMBER_VOTE_FLOP.name(), numberOfFlopVote, 0);
+            Rule ruleTop = rule(LabelType.NUMBER_VOTE_TOP.name(),numberOfTopVote, 0);
+            Rule ruleFlop = rule(LabelType.NUMBER_VOTE_FLOP.name(), numberOfFlopVote, 0);
             CompetitionBuilder.this.rules.add(ruleTop);
             CompetitionBuilder.this.rules.add(ruleFlop);
         }
@@ -72,7 +73,7 @@ public class CompetitionBuilder {
             int i = 0;
             for (Integer point:points) {
                 i++;
-                Rule rule = new Rule(LabelType.POINT_VOTE.name(),point,i);
+                Rule rule = rule(LabelType.POINT_VOTE.name(),point,i);
                 CompetitionBuilder.this.rules.add(rule);
             }
             return this;
@@ -82,7 +83,7 @@ public class CompetitionBuilder {
             int i = 0;
             for (Integer point:points) {
                 i++;
-                Rule rule = new Rule(LabelType.POINT_VOTE.name(),point,-i);
+                Rule rule = rule(LabelType.POINT_VOTE.name(),point,-i);
                 CompetitionBuilder.this.rules.add(rule);
             }
             return this;

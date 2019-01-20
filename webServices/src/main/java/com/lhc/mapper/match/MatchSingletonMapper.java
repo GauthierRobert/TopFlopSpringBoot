@@ -1,12 +1,15 @@
-package com.lhc.mapper.rule;
+package com.lhc.mapper.match;
 
-import com.lhc.datamodel.entities.rules.Rule;
-import com.lhc.dto.RuleDto;
+import com.lhc.datamodel.entities.Competition;
+import com.lhc.datamodel.entities.Match;
+import com.lhc.dto.CompetitionDto;
+import com.lhc.dto.MatchDto;
 import ma.glasnost.orika.MapperFacade;
 import ma.glasnost.orika.MapperFactory;
 import ma.glasnost.orika.impl.DefaultMapperFactory;
 
-public class RuleSingletonMapper {
+public class MatchSingletonMapper {
+
 
     /** Instance unique pré-initialisée */
     private static MapperFacade INSTANCE_ENTITY = getMapperFacadeEntity();
@@ -29,34 +32,36 @@ public class RuleSingletonMapper {
 
 
     private static MapperFacade getMapperFacadeEntity() {
-
         MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
 
-        mapperFactory.classMap(RuleDto.class, Rule.class)
-                .field("description", "description")
-                .field("label", "label")
-                .field("points", "points")
-                .field("indication", "indication")
+        mapperFactory.classMap(MatchDto.class, Match.class)
+                .field("homeTeam", "homeTeam")
+                .field("homeScore", "homeScore")
+                .field("awayTeam", "awayTeam")
+                .field("awayScore", "awayScore")
+                .field("competition_ref", "competition_ref")
+                .field("creatorUsername", "creatorUsername")
+                .field("reference", "reference")
                 .register();
-
         return mapperFactory.getMapperFacade();
-
     }
 
     private static MapperFacade getMapperFacadeDto() {
-
         MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
 
-        mapperFactory.classMap(Rule.class, RuleDto.class)
-                .field("description", "description")
-                .field("label", "label")
-                .field("points", "points")
-                .field("indication", "indication")
+        mapperFactory.classMap(Match.class, MatchDto.class)
+                .field("homeTeam", "homeTeam")
+                .field("homeScore", "homeScore")
+                .field("awayTeam", "awayTeam")
+                .field("awayScore", "awayScore")
+                .field("competition_ref", "competition_ref")
+                .field("creatorUsername", "creatorUsername")
+                .field("reference", "reference")
                 .register();
-
         return mapperFactory.getMapperFacade();
-
     }
 
-
 }
+
+
+

@@ -18,17 +18,22 @@ public class RuleDto {
     // -2 for second flop vote
     private Integer indication;
 
-    public RuleDto() {
+    private RuleDto() {
     }
 
-    public RuleDto(String description, String label, Integer points, Integer indication) {
+    private RuleDto(String description, String label, Integer points, Integer indication) {
         this.description = description;
         this.label = label;
         this.points = points;
         this.indication = indication;
     }
 
-    public RuleDto(String label, Integer points, Integer indication) {
-        this(null, label, points, indication);
+
+    public static  RuleDto ruleDto(String label, Integer points, Integer indication) {
+        return new RuleDto(null, label, points, indication);
+    }
+
+    public static  RuleDto ruleDto() {
+        return new RuleDto();
     }
 }

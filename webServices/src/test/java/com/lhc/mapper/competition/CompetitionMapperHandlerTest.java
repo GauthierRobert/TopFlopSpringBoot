@@ -1,13 +1,13 @@
-package com.lhc.datamodel.builder;
+package com.lhc.mapper.competition;
 
 import com.lhc.datamodel.entities.Competition;
+import com.lhc.dto.CompetitionDto;
 import org.junit.Test;
 
 import static com.lhc.datamodel.builder.CompetitionBuilder.aCompetition;
-import static org.junit.Assert.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class CompetitionBuilderTest {
-
+public class CompetitionMapperHandlerTest {
 
     private static Competition competitionTest = aCompetition()
             .withName("Linkebeek")
@@ -22,9 +22,13 @@ public class CompetitionBuilderTest {
             .build();
 
     @Test
-    public void builderTest() {
+    public void createDTOFromEntity() {
 
+        Competition entity = competitionTest;
+        CompetitionMapperHandler competitionMapperHandler = new CompetitionMapperHandler();
+        CompetitionDto actual = competitionMapperHandler.createDTOFromEntity(entity);
 
-        System.out.println(competitionTest);
+        assertThat(actual.getName()).isEqualTo(entity.getName());
+
     }
 }

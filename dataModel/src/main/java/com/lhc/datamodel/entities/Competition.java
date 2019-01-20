@@ -33,7 +33,7 @@ public class Competition implements Serializable {
     }
 
     public static Competition competition(Long id, String name, int season, String division, String password, String confirmedPassword, String creatorUsername, List<Rule> rules) {
-        return new Competition(
+        Competition competition = new Competition(
                 id,
                 name,
                 name,
@@ -44,8 +44,10 @@ public class Competition implements Serializable {
                 creatorUsername,
                 new ArrayList<>(),
                 new ArrayList<>(),
-                rules
+                new ArrayList<>()
         );
+        competition.setRules(rules);
+        return competition;
     }
 
     private static String createSeason(int season) {
@@ -96,6 +98,14 @@ public class Competition implements Serializable {
             inverseJoinColumns = @JoinColumn(
                     name = "user_id", referencedColumnName = "id"))
     private List<User> allowedUsers;
+
+    public void setRules(List<Rule> rules) {
+        for(Rule rule : rules){
+            rule.setCompetition(this);
+        }
+        this.rules = rules;
+    }
+
 
     @OneToMany(mappedBy="competition", fetch= FetchType.EAGER, cascade= CascadeType.ALL )
     private List<Rule> rules;

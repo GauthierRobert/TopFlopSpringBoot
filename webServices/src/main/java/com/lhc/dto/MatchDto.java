@@ -28,19 +28,24 @@ public class MatchDto {
 
     private String status;
 
-    public MatchDto(String competition_ref, String homeTeam, Integer homeScore, Integer awayScore, String awayTeam) {
+    private MatchDto(String competition_ref, String homeTeam, Integer homeScore, Integer awayScore, String awayTeam, String creatorUsername) {
         this.homeTeam = homeTeam;
         this.homeScore = homeScore;
         this.awayScore = awayScore;
         this.awayTeam = awayTeam;
         this.competition_ref = competition_ref;
+        this.creatorUsername = creatorUsername;
     }
 
-    public MatchDto() {
+    private MatchDto() {
     }
 
-    public static MatchDto matchDto(String competition_ref, String homeTeam, Integer homeScore, Integer awayScore, String awayTeam){
-        return new MatchDto(competition_ref, homeTeam,homeScore, awayScore,awayTeam);
+    public static MatchDto matchDto(String competition_ref, String homeTeam, Integer homeScore, Integer awayScore, String awayTeam, String creatorUsername){
+        return new MatchDto(competition_ref, homeTeam,homeScore, awayScore,awayTeam, creatorUsername);
+    }
+
+    public static MatchDto matchDto(){
+        return new MatchDto();
     }
 
 }

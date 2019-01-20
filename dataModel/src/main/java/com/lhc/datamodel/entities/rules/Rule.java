@@ -20,22 +20,6 @@ public class Rule implements Serializable {
         }
     };
 
-    public Rule(String label, Integer points, Integer indication) {
-        this(null, null,label, points, null, indication);
-    }
-
-    public Rule() {
-
-    }
-
-    public Rule(Long id, String description, String label, Integer points, Competition competition, Integer indication) {
-        this.id = id;
-        this.description = description;
-        this.label = label;
-        this.points = points;
-        this.competition = competition;
-        this.indication = indication;
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -61,4 +45,32 @@ public class Rule implements Serializable {
         return true;
     }
 
-}
+    private Rule() {
+
+    }
+
+    private Rule(Long id, String description, String label, Integer points, Competition competition, Integer indication) {
+        this.id = id;
+        this.description = description;
+        this.label = label;
+        this.points = points;
+        this.competition = competition;
+        this.indication = indication;
+    }
+
+    public static Rule rule(Long id, String description, String label, Integer points, Competition competition, Integer indication){
+        return new Rule(id, description, label, points, competition, indication);
+    }
+
+    public static Rule rule(){
+        return new Rule();
+    }
+
+    public static Rule rule(String label, Integer points, Integer indication) {
+        return new Rule(null, null, label, points, null, indication);
+    }
+
+
+
+
+    }

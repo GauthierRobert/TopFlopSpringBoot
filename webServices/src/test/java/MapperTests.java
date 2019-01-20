@@ -1,4 +1,3 @@
-import com.lhc.business.BusinessConfig;
 import com.lhc.datamodel.entities.Competition;
 import com.lhc.datamodel.entities.Vote;
 import com.lhc.dto.CompetitionDto;
@@ -7,10 +6,6 @@ import com.lhc.mapper.competition.CompetitionMapperHandler;
 import com.lhc.mapper.vote.VoteMapperHandler;
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
 import java.util.List;
