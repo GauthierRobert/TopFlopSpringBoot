@@ -85,11 +85,19 @@ public class CompetitionEndPoint {
 
         MatchMapperHandler matchMapperHandler = new MatchMapperHandler();
         Match match = matchMapperHandler.createEntityFromDTO(matchDto);
-
         matchService.saveOrUpdate(match, matchDto.getCompetition_ref());
-
         return matchDto;
+    }
 
+
+    @RequestMapping(
+            value = "/match/close",
+            method = RequestMethod.POST)
+    public MatchDto closeMatch(@RequestParam(value = "match_ref") String match_ref){
+        Match match = matchService.close(match_ref);
+        MatchMapperHandler matchMapperHandler = new MatchMapperHandler();
+        MatchDto matchDto = matchMapperHandler.createDTOFromEntity(match);
+        return matchDto;
     }
 
     @RequestMapping(
