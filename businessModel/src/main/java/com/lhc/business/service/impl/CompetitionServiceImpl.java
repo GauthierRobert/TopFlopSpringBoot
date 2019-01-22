@@ -93,6 +93,11 @@ public class CompetitionServiceImpl implements CompetitionService {
         return competitionRepository.findByReference(ref);
     }
 
+    @Override
+    public List<String> findUsersbyCompetition(String ref) {
+        return  competitionRepository.findUsersbyCompetition(ref);
+    }
+
     private String sha256(String data) throws NoSuchAlgorithmException {
         MessageDigest md = MessageDigest.getInstance("SHA-256");
         md.update(data.getBytes());

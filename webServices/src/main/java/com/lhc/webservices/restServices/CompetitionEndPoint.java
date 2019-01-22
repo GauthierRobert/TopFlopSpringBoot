@@ -166,4 +166,12 @@ public class CompetitionEndPoint {
         return competitionMapperHandler.mapToListDtos(competitions);
 
     }
+
+    @RequestMapping(
+            value = "/user/get",
+            method = RequestMethod.GET)
+    public List<String> getUsersLinkToCompetition(@RequestParam(value = "competition_ref") String competition_ref){
+
+        return competitionService.findUsersbyCompetition(competition_ref);
+    }
 }

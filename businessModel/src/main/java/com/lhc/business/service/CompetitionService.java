@@ -19,5 +19,7 @@ public interface CompetitionService {
 
     Competition findByReference(String ref);
 
+    List<String> findUsersbyCompetition(String ref);
+
 
 }
