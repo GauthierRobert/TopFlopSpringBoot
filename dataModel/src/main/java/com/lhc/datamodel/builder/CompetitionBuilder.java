@@ -20,6 +20,7 @@ public class CompetitionBuilder {
     private String password;
     private String confirmedPassword;
     private String creatorUsername;
+    private boolean withComments;
     private List<Rule> rules = new ArrayList<>();
 
     public static CompetitionBuilder aCompetition(){
@@ -52,6 +53,12 @@ public class CompetitionBuilder {
         this.creatorUsername = creatorUsername;
         return this;
     }
+
+    public CompetitionBuilder withComments(){
+        this.withComments = true;
+        return this;
+    }
+
 
     public RuleBuilder withRules(int numberOfTopVote, int numberOfFlopVote){
 
@@ -102,7 +109,7 @@ public class CompetitionBuilder {
         }
 
         public Competition build(){
-            return competition(id, name, season, division, password, confirmedPassword, creatorUsername, rules);
+            return competition(id, name, season, division, password, confirmedPassword, creatorUsername, withComments,rules);
         }
     }
 

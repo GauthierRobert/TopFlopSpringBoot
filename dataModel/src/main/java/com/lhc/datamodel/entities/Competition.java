@@ -32,7 +32,7 @@ public class Competition implements Serializable {
         return new Competition();
     }
 
-    public static Competition competition(Long id, String name, int season, String division, String password, String confirmedPassword, String creatorUsername, List<Rule> rules) {
+    public static Competition competition(Long id, String name, int season, String division, String password, String confirmedPassword, String creatorUsername, boolean withComments, List<Rule> rules) {
         Competition competition = new Competition(
                 id,
                 name,
@@ -42,6 +42,7 @@ public class Competition implements Serializable {
                 password,
                 confirmedPassword,
                 creatorUsername,
+                withComments,
                 new ArrayList<>(),
                 new ArrayList<>(),
                 new ArrayList<>()
@@ -56,7 +57,7 @@ public class Competition implements Serializable {
 
     }
 
-    private Competition(Long id, String reference, String name, String season, String division, String password, String confirmedPassword, String creatorUsername, List<Match> matches, List<User> allowedUsers, List<Rule> rules) {
+    private Competition(Long id, String reference, String name, String season, String division, String password, String confirmedPassword, String creatorUsername, boolean withComments, List<Match> matches, List<User> allowedUsers, List<Rule> rules) {
         this.id = id;
         this.reference = reference;
         this.name = name;
@@ -65,6 +66,7 @@ public class Competition implements Serializable {
         this.password = password;
         this.confirmedPassword = confirmedPassword;
         this.creatorUsername = creatorUsername;
+        this.withComments = withComments;
         this.matches = matches;
         this.allowedUsers = allowedUsers;
         this.rules = rules;
@@ -81,6 +83,8 @@ public class Competition implements Serializable {
     private String season;
 
     private String division;
+
+    private boolean withComments;
 
     private String password;
     @Transient

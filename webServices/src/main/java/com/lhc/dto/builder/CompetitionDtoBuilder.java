@@ -19,6 +19,7 @@ public class CompetitionDtoBuilder {
     private String password;
     private String confirmedPassword;
     private String creatorUsername;
+    private boolean withComments;
     private List<RuleDto> ruleDtos = new ArrayList<>();
 
     public static CompetitionDtoBuilder aCompetitionDto(){
@@ -49,6 +50,10 @@ public class CompetitionDtoBuilder {
     }
     public CompetitionDtoBuilder withCreatorUsername(String creatorUsername){
         this.creatorUsername = creatorUsername;
+        return this;
+    }
+    public CompetitionDtoBuilder withComments(boolean withComments){
+        this.withComments = withComments;
         return this;
     }
 

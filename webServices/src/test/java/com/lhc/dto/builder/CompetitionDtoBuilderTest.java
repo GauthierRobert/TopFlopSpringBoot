@@ -15,6 +15,7 @@ public class CompetitionDtoBuilderTest {
             .withDivision("D1")
             .withSeason(2018)
             .withCreatorUsername("AAAA")
+            .withComments(true)
             .withPassword("AAAA")
             .withConfirmedPassword("AAAA")
             .withRuleDtos(4,2)
@@ -24,7 +25,6 @@ public class CompetitionDtoBuilderTest {
 
     @Test
     public void BuilderDtoTest() {
-
 
 
         Gson gson = new Gson();

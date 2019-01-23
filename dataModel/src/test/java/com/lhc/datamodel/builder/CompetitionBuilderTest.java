@@ -16,6 +16,7 @@ public class CompetitionBuilderTest {
             .withCreatorUsername("Me")
             .withPassword("AAAA")
             .withConfirmedPassword("AAAA")
+            .withComments()
             .withRules(4,2)
             .withTopRules(4,3,2,1)
             .withFlopRules(4,2)
