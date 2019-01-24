@@ -107,7 +107,7 @@ public class CompetitionDtoBuilder {
         }
 
         public CompetitionDto build(){
-            return competitionDto(name, season, division, password, confirmedPassword, creatorUsername, ruleDtos);
+            return competitionDto(name, season, division, password, confirmedPassword, creatorUsername, withComments, ruleDtos);
         }
     }
 

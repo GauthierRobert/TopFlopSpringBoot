@@ -27,6 +27,8 @@ public class CompetitionDto {
 
     private String season;
 
+    private boolean withComments;
+
     private List<MatchDto> matchDtos;
 
     private List<RuleDto> ruleDtos;
@@ -36,7 +38,7 @@ public class CompetitionDto {
         this.matchDtos = new ArrayList<>();
     }
 
-    public static CompetitionDto competitionDto(String name, int season, String division,  String password, String confirmedPassword, String creatorUsername, List<RuleDto> ruleDtos) {
+    public static CompetitionDto competitionDto(String name, int season, String division,  String password, String confirmedPassword, String creatorUsername, boolean withComments,List<RuleDto> ruleDtos) {
         return new CompetitionDto(
                 name,
                 name,
@@ -45,6 +47,7 @@ public class CompetitionDto {
                 creatorUsername,
                 division,
                 createSeason(season),
+                withComments,
                 new ArrayList<>() ,
                 ruleDtos);
 
@@ -56,7 +59,7 @@ public class CompetitionDto {
 
     }
 
-    private CompetitionDto(String reference, String name, String password, String confirmedPassword, String creatorUsername, String division, String season, List<MatchDto> matchDtos, List<RuleDto> ruleDtos) {
+    private CompetitionDto(String reference, String name, String password, String confirmedPassword, String creatorUsername, String division, String season, boolean withComments,List<MatchDto> matchDtos, List<RuleDto> ruleDtos) {
         this.reference = reference;
         this.name = name;
         this.password = password;
@@ -64,6 +67,7 @@ public class CompetitionDto {
         this.creatorUsername = creatorUsername;
         this.division = division;
         this.season = season;
+        this.withComments = withComments;
         this.matchDtos = matchDtos;
         this.ruleDtos = ruleDtos;
     }
