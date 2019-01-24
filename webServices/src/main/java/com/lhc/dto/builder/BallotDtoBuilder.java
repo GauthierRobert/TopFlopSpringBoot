@@ -1,6 +1,5 @@
 package com.lhc.dto.builder;
 
-import com.lhc.datamodel.enumeration.LabelType;
 import com.lhc.dto.BallotDto;
 import com.lhc.dto.RuleDto;
 import com.lhc.dto.VoteDto;
@@ -9,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 
 import static com.lhc.dto.BallotDto.ballotDto;
 
@@ -19,17 +19,23 @@ public class BallotDtoBuilder {
     private String competition_ref;
     private List<VoteDto> voteDtos = new ArrayList<>();
     private List<RuleDto> ruleDtos = new ArrayList<>();
+    private String username;
 
     public static BallotDtoBuilder aBallotDto(){
         return new BallotDtoBuilder();
     }
 
-    public BallotDtoBuilder aBallotDtoWithRules(List<RuleDto> ruleDtos){
+    public static BallotDtoBuilder aBallotDtoWithRules(List<RuleDto> ruleDtos){
         return aBallotDto().withRuleDtos(ruleDtos);
     }
 
     private BallotDtoBuilder withRuleDtos(List<RuleDto> ruleDtos) {
         this.ruleDtos = ruleDtos;
+        return this;
+    }
+
+    public BallotDtoBuilder createdBy(String username){
+        this.username = username;
         return this;
     }
 
@@ -55,30 +61,30 @@ public class BallotDtoBuilder {
 
     public class VoteDtoBuilder {
 
-        private final BallotDtoBuilder.BallotDtoCompletion ballotCompletion = new BallotDtoBuilder.BallotDtoCompletion();
+        private final BallotDtoCompletion ballotCompletion = new BallotDtoCompletion();
         Map<Integer, Integer> rules = getMapRules(ruleDtos);
         public VoteDtoBuilder() {
 
         }
 
-        public VoteDtoBuilder addTopVote(String ... names){
+        public VoteDtoBuilder addTopVote(String[] names){
             int i = 0;
             for (String name : names) {
                 i++;
                 int point = rules.get(i);
-                VoteDto voteDto  = VoteDto.voteDto(competition_ref,i, name, point);
+                VoteDto voteDto  = VoteDto.voteDto(reference, i, name, point);
                 BallotDtoBuilder.this.voteDtos.add(voteDto);
 
             }
             return this;
         }
 
-        public VoteDtoBuilder withFlopVote(String ... names){
+        public VoteDtoBuilder addFlopVote(String[] names){
             int i = 0;
             for (String name : names) {
                 i++;
                 int point = rules.get(-i);
-                VoteDto voteDto  = VoteDto.voteDto(competition_ref,-i, name, point);
+                VoteDto voteDto  = VoteDto.voteDto(reference,-i, name, point);
                 BallotDtoBuilder.this.voteDtos.add(voteDto);
             }
             return this;
@@ -97,18 +103,22 @@ public class BallotDtoBuilder {
         }
 
         public BallotDto build(){
-            return ballotDto(match_ref, competition_ref, voteDtos, ruleDtos);
+            return ballotDto(match_ref, competition_ref, username, voteDtos);
         }
     }
 
     private Map<Integer, Integer> getMapRules(List<RuleDto> ruleDtos){
 
-        Map<Integer, Integer> rules = new HashMap<>();
-        ruleDtos.forEach(ruleDto -> {
-            if (ruleDto.getIndication() != 0) {
-                rules.put(ruleDto.getIndication(), ruleDto.getPoints());
+        final Map<Integer, Integer> rules = new HashMap<>();
+        ruleDtos.forEach(new Consumer<RuleDto>() {
+            @Override
+            public void accept(RuleDto ruleDto) {
+                if (ruleDto.getIndication() != 0) {
+                    rules.put(ruleDto.getIndication(), ruleDto.getPoints());
+                }
             }
         });
+
         return rules;
     }
 

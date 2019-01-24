@@ -14,32 +14,32 @@ public class BallotDto {
     
     private String competition_ref;
 
-    private List<VoteDto> voteDtos;
+    private String username;
 
-    private List<RuleDto> ruleDtos;
+    private List<VoteDto> voteDtos;
 
     public BallotDto() {
     }
 
 
-    private BallotDto(String reference, String match_ref, String competition_ref, List<VoteDto> voteDtos, List<RuleDto> ruleDtos) {
+    private BallotDto(String reference, String match_ref, String competition_ref, String username, List<VoteDto> voteDtos) {
         this.reference = reference;
         this.match_ref = match_ref;
         this.competition_ref = competition_ref;
+        this.username = username;
         this.voteDtos = voteDtos;
-        this.ruleDtos = ruleDtos;
     }
 
-    public static BallotDto ballotDto(String reference){
-        return new BallotDto(reference, null, null, new ArrayList<>(), new ArrayList<>());
+    public static BallotDto ballotDto(String reference, String username){
+        return new BallotDto(reference, null, null, username,new ArrayList<VoteDto>());
     }
 
-    public static BallotDto ballotDto(String reference, String match_ref, String competition_ref, List<VoteDto> voteDtos, List<RuleDto> ruleDtos){
-        return new BallotDto(reference, match_ref, competition_ref, voteDtos, ruleDtos);
+    public static BallotDto ballotDto(String reference, String match_ref, String competition_ref, String username,List<VoteDto> voteDtos){
+        return new BallotDto(reference, match_ref, competition_ref, username, voteDtos);
     }
 
-    public static BallotDto ballotDto(String match_ref, String competition_ref, List<VoteDto> voteDtos, List<RuleDto> ruleDtos){
-        return new BallotDto(null, match_ref, competition_ref, voteDtos, ruleDtos);
+    public static BallotDto ballotDto(String match_ref, String competition_ref, String username,List<VoteDto> voteDtos){
+        return new BallotDto(null, match_ref, competition_ref, username, voteDtos);
     }
 
 

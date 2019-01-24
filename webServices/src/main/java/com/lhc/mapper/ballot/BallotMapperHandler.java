@@ -3,6 +3,7 @@ package com.lhc.mapper.ballot;
 import com.lhc.datamodel.entities.Ballot;
 import com.lhc.datamodel.entities.Vote;
 import com.lhc.dto.BallotDto;
+import com.lhc.dto.VoteDto;
 import com.lhc.mapper.MapperHandler;
 import com.lhc.mapper.rule.RuleMapperHandler;
 import com.lhc.mapper.vote.VoteMapperHandler;
@@ -71,8 +72,15 @@ public class BallotMapperHandler implements MapperHandler<Ballot, BallotDto> {
                 .register();
 
         MapperFacade mapper = mapperFactory.getMapperFacade();
-
         mapper.map(ballot, ballotDto);
+
+        VoteMapperHandler voteMapperHandler = new VoteMapperHandler();
+        if (ballot.getVotes() !=null) {
+            ballotDto.setVoteDtos(voteMapperHandler.mapToListDtos(ballot.getVotes()));
+        }
+        if (ballot.getUser() !=null) {
+            ballotDto.setUsername(ballot.getUser().getUsername());
+        }
 
         return ballotDto;
     }
