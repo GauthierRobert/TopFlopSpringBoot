@@ -21,7 +21,7 @@ public interface CompetitionRepository extends JpaRepository<Competition, Long> 
     @Query("SELECT c FROM Competitions c JOIN c.allowedUsers u where :username = u.username")
     List<Competition> findAllByUsername(@Param("username") String username);
 
-    @Query("SELECT c.allowedUsers.username FROM Competitions c WHERE c.reference = :ref")
+    @Query("SELECT u.username FROM Competitions c JOIN c.allowedUsers u WHERE c.reference = :ref")
     List<String> findUsersbyCompetition(@Param("ref") String ref);
 
 }
