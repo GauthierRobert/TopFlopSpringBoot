@@ -30,7 +30,6 @@ public class CompetitionDtoBuilder {
         this.name = name;
         return this;
     }
-
     public CompetitionDtoBuilder withSeason(int season){
         this.season = season;
         return this;

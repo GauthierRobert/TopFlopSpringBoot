@@ -1,5 +1,6 @@
 package com.lhc.business.service;
 
+import com.lhc.business.service.impl.RankingCell;
 import com.lhc.datamodel.entities.Match;
 import com.lhc.datamodel.entities.Vote;
 
@@ -10,6 +11,8 @@ public interface RankingService {
 
     Map<String, Integer> createTopFlopByMatch(Match match);
 
-    Map<String, Integer> createTopFlopByListVote(List<Vote> votes);
+    List<RankingCell> createTopByListVote(List<Vote> votes);
+
+    List<RankingCell> createFlopByListVote(List<Vote> votes);
 
 }

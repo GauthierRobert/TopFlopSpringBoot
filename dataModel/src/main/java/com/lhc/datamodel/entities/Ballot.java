@@ -40,6 +40,8 @@ public class Ballot implements Serializable {
     
     private String competition_ref;
 
+    private String comment;
+
     @OneToMany(mappedBy="ballot", fetch= FetchType.EAGER, cascade= CascadeType.ALL )
     private List<Vote> votes;
 

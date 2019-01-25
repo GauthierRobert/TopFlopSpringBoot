@@ -7,7 +7,6 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -77,7 +76,7 @@ public class Match implements Serializable  {
     private String competition_ref;
     
     public void close(){
-        this.status = MatchStatus.CLOSE;
+        this.status = MatchStatus.CLOSED;
     }
 
     public Boolean isExist(){

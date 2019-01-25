@@ -8,10 +8,7 @@ import com.lhc.datamodel.entities.Vote;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -47,12 +44,29 @@ public class RankingServiceImpl implements RankingService {
     }
 
     @Override
-    public Map<String, Integer> createTopFlopByListVote(List<Vote> votes) {
+    public List<RankingCell> createTopByListVote(List<Vote> votes) {
         final Map<String, Integer> ranking = new HashMap<>();
 
-        votes.forEach(vote -> putElement(ranking, vote));
+        votes.forEach(vote -> {
+            if(vote.getIndication() > 0) {
+                putElement(ranking, vote);
+            }
+        });
 
-        return getSortCollect(ranking);
+        return createRankingCellList(getSortCollect(ranking));
+    }
+
+    @Override
+    public List<RankingCell> createFlopByListVote(List<Vote> votes) {
+        final Map<String, Integer> ranking = new HashMap<>();
+
+        votes.forEach(vote -> {
+                if(vote.getIndication() < 0) {
+                    putElement(ranking, vote);
+                }
+        });
+
+        return createRankingCellList(getSortCollect(ranking));
     }
 
     private void putElement(Map<String, Integer> ranking, Vote vote) {
@@ -68,16 +82,33 @@ public class RankingServiceImpl implements RankingService {
         }
     }
 
+
+
     private LinkedHashMap<String, Integer> getSortCollect(Map<String, Integer> ranking) {
         return ranking.entrySet()
                 .stream()
-                .sorted(Map.Entry.comparingByValue())
+                .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
                 .collect(Collectors.toMap(
                         Map.Entry::getKey,
                         Map.Entry::getValue,
                         (e1, e2) -> e1,
                         LinkedHashMap::new
                 ));
+    }
+
+    private List<RankingCell> createRankingCellList(Map<String, Integer> rankingMap) {
+        int position = 1;
+        List<RankingCell> rankingCells = new ArrayList<>();
+        while (rankingMap.entrySet().iterator().hasNext()) {
+            Map.Entry<String, Integer> entry = rankingMap.entrySet().iterator().next();
+            String key = entry.getKey();
+            Integer value = entry.getValue();
+            RankingCell rankingCell = new RankingCell(position + ".", key, value);
+            rankingCells.add(rankingCell);
+            position++;
+        }
+
+        return rankingCells;
     }
 
 }

@@ -3,6 +3,7 @@ package com.lhc.webservices.restServices;
 import com.lhc.business.service.MatchService;
 import com.lhc.business.service.RankingService;
 import com.lhc.business.service.VoteService;
+import com.lhc.business.service.impl.RankingCell;
 import com.lhc.datamodel.entities.Match;
 import com.lhc.datamodel.entities.Vote;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,15 +30,28 @@ public class RankingEndPoint {
 
 
     @RequestMapping(
-            value = "/ranking",
+            value = "/ranking/top",
             method = RequestMethod.GET)
-    public Map<String, Integer> getRanking(@RequestParam(value = "match_ref") String match_ref){
+    public List<RankingCell> getRankingTop(@RequestParam(value = "match_ref") String match_ref){
 
         List<Vote> votes = voteService.findAllByMatchReference(match_ref);
 
-        Map<String, Integer> topFlop =  rankingService.createTopFlopByListVote(votes);
+        List<RankingCell> top =  rankingService.createTopByListVote(votes);
 
-        return topFlop;
+        return top;
+
+    }
+
+    @RequestMapping(
+            value = "/ranking/flop",
+            method = RequestMethod.GET)
+    public List<RankingCell> getRankingFlop(@RequestParam(value = "match_ref") String match_ref){
+
+        List<Vote> votes = voteService.findAllByMatchReference(match_ref);
+
+        List<RankingCell> flop =  rankingService.createFlopByListVote(votes);
+
+        return flop;
 
     }
 

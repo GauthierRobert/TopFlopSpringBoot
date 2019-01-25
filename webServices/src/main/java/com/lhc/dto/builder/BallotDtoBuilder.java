@@ -17,6 +17,7 @@ public class BallotDtoBuilder {
     private String reference;
     private String match_ref;
     private String competition_ref;
+    private String comment;
     private List<VoteDto> voteDtos = new ArrayList<>();
     private List<RuleDto> ruleDtos = new ArrayList<>();
     private String username;
@@ -51,6 +52,11 @@ public class BallotDtoBuilder {
 
     public BallotDtoBuilder withCompetition_ref(String competition_ref){
         this.competition_ref = competition_ref;
+        return this;
+    }
+
+    public BallotDtoBuilder withComment(String comment){
+        this.comment = comment;
         return this;
     }
 
@@ -103,7 +109,7 @@ public class BallotDtoBuilder {
         }
 
         public BallotDto build(){
-            return ballotDto(match_ref, competition_ref, username, voteDtos);
+            return ballotDto(match_ref, competition_ref, username, comment, voteDtos);
         }
     }
 

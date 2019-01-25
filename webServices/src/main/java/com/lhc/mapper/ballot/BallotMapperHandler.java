@@ -30,6 +30,7 @@ public class BallotMapperHandler implements MapperHandler<Ballot, BallotDto> {
                 .field("reference", "reference")
                 .field("match_ref", "match_ref")
                 .field("competition_ref", "competition_ref")
+                .field("comment", "comment")
                 .register();
         MapperFacade mapper = mapperFactory.getMapperFacade();
         mapper.map(ballotDto, ballot);
@@ -69,6 +70,7 @@ public class BallotMapperHandler implements MapperHandler<Ballot, BallotDto> {
                 .field("reference", "reference")
                 .field("match_ref", "match_ref")
                 .field("competition_ref", "competition_ref")
+                .field("comment", "comment")
                 .register();
 
         MapperFacade mapper = mapperFactory.getMapperFacade();
