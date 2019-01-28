@@ -1,6 +1,6 @@
 package com.lhc.business.service;
 
-import com.lhc.business.service.impl.RankingCell;
+import com.lhc.business.dto.RankingCell;
 import com.lhc.datamodel.entities.Match;
 import com.lhc.datamodel.entities.Vote;
 

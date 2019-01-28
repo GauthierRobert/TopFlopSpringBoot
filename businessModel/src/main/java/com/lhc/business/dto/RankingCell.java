@@ -1,4 +1,4 @@
-package com.lhc.business.service.impl;
+package com.lhc.business.dto;
 
 import lombok.Data;
 

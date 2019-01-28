@@ -4,7 +4,8 @@ package com.lhc.datamodel.enumeration;
 public enum MatchStatus {
 
     OPEN(1),
-    CLOSED(2);
+    ON_HOLD(2),
+    CLOSED(3);
 
     private int value;
 
