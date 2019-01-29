@@ -68,4 +68,14 @@ public class MatchServiceImpl implements MatchService {
         return matchRepository.save(match);
         
     }
+
+
+    @Override
+    public Match open(String match_ref){
+
+        Match match = findMatchByReference(match_ref);
+        match.open();
+        return matchRepository.save(match);
+
+    }
 }

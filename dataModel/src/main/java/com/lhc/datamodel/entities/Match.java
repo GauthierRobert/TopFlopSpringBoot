@@ -79,6 +79,10 @@ public class Match implements Serializable  {
         this.status = MatchStatus.CLOSED;
     }
 
+    public void open() {this.status = MatchStatus.OPEN; }
+
+    public void onHold() {this.status = MatchStatus.ON_HOLD; }
+
     public Boolean isExist(){
         return true;
     }

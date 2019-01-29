@@ -101,6 +101,16 @@ public class CompetitionEndPoint {
     }
 
     @RequestMapping(
+            value = "/match/open",
+            method = RequestMethod.POST)
+    public MatchDto openMatch(@RequestParam(value = "match_ref") String match_ref){
+        Match match = matchService.open(match_ref);
+        MatchMapperHandler matchMapperHandler = new MatchMapperHandler();
+        MatchDto matchDto = matchMapperHandler.createDTOFromEntity(match);
+        return matchDto;
+    }
+
+    @RequestMapping(
             value = "/competition/addUser",
             method = RequestMethod.POST)
     public CompetitionDto addUserToCompetition(@RequestParam(value = "competition_ref") String competition_ref,

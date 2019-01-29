@@ -16,4 +16,5 @@ public interface MatchService {
     
     Match close(String match_ref);
 
+    Match open(String match_ref);
 }
