@@ -61,9 +61,10 @@ public class UserServiceImpl implements UserService {
 
         User user = findByUsername(username);
 
-        if (user == null){
+        if (user == null)
             throw new AuthenticationException("Authentication failed");
-        }
+        //if(username.equals(user.getUsername()))
+        //    throw new AuthenticationException("Authentication failed");
 
         String bCryptUserPassword = user.getPassword();
         boolean matches  = bCryptPasswordEncoder.matches(password, bCryptUserPassword);
