@@ -104,7 +104,7 @@ public class RankingServiceImpl implements RankingService {
             Map.Entry<String, Integer> entry = rankingMap.entrySet().iterator().next();
             String key = entry.getKey();
             Integer value = entry.getValue();
-            RankingCell rankingCell = new RankingCell(position + ".", key, value);
+            RankingCell rankingCell = new RankingCell(position, key, value);
             rankingCells.add(rankingCell);
             position++;
         }
