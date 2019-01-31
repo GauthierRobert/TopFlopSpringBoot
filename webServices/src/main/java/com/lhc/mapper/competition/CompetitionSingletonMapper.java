@@ -42,6 +42,7 @@ public class CompetitionSingletonMapper {
                 .field("password", "password")
                 .field("confirmedPassword", "confirmedPassword")
                 .field("creatorUsername", "creatorUsername")
+                .field("withComments","withComments")
                 .register();
 
         return  mapperFactory.getMapperFacade();
@@ -58,6 +59,7 @@ public class CompetitionSingletonMapper {
                 .field("password", "password")
                 .field("confirmedPassword", "confirmedPassword")
                 .field("creatorUsername", "creatorUsername")
+                .field("withComments","withComments")
                 .register();
 
         return  mapperFactory.getMapperFacade();
