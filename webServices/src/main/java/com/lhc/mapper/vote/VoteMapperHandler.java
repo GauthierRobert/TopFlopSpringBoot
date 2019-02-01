@@ -16,18 +16,7 @@ public class VoteMapperHandler implements MapperHandler<Vote, VoteDto> {
             vote = Vote.vote();
         }
 
-        MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
-
-        mapperFactory.classMap(VoteDto.class, Vote.class)
-                .field("reference", "reference")
-                .field("name", "name")
-                .field("points", "points")
-                .field("indication", "indication")
-                .field("competition_ref", "competition_ref")
-                .register();
-
-        MapperFacade mapper = mapperFactory.getMapperFacade();
-
+        MapperFacade mapper = VoteSingletonMapper.getInstanceEntity();
         mapper.map(voteDto, vote);
 
         return vote;
@@ -51,17 +40,7 @@ public class VoteMapperHandler implements MapperHandler<Vote, VoteDto> {
             voteDto = new VoteDto();
         }
 
-        MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
-
-        mapperFactory.classMap(Vote.class, VoteDto.class)
-                .field("reference", "reference")
-                .field("name", "name")
-                .field("points", "points")
-                .field("indication", "indication")
-                .field("competition_ref", "competition_ref")
-                .register();
-
-        MapperFacade mapper = mapperFactory.getMapperFacade();
+        MapperFacade mapper = VoteSingletonMapper.getInstanceDto();
         mapper.map(vote, voteDto);
 
         return voteDto;
