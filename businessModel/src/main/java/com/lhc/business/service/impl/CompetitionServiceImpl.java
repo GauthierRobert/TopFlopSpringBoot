@@ -20,13 +20,16 @@ import java.util.List;
 @Service
 public class CompetitionServiceImpl implements CompetitionService {
 
-    private static final String SHA_256 = "SHA-256";
     private CompetitionRepository competitionRepository;
+    private RoleRepository roleRepository;
+    private UserRepository userRepository;
 
 
     @Autowired
-    public CompetitionServiceImpl(CompetitionRepository competitionRepository) {
+    public CompetitionServiceImpl(CompetitionRepository competitionRepository, RoleRepository roleRepository, UserRepository userRepository) {
         this.competitionRepository = competitionRepository;
+        this.roleRepository = roleRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -36,7 +39,10 @@ public class CompetitionServiceImpl implements CompetitionService {
         competition.setReference(competition.getName());
 
         competition.setPassword(sha256(competition.getPassword()));
+        user.setRoles(new HashSet<>(Arrays.asList(roleRepository.findByName(RoleType.ROLE_ADMIN.name()))));
         competition.getAllowedUsers().add(user);
+
+        userRepository.save(user);
 
         return competitionRepository.save(competition);
 
@@ -93,7 +99,7 @@ public class CompetitionServiceImpl implements CompetitionService {
     }
 
     private String sha256(String data) throws NoSuchAlgorithmException {
-        MessageDigest md = MessageDigest.getInstance(SHA_256);
+        MessageDigest md = MessageDigest.getInstance("SHA-256");
         md.update(data.getBytes());
         return bytesToHex(md.digest());
     }
