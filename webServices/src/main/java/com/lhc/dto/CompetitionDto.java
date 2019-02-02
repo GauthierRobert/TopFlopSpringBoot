@@ -1,10 +1,6 @@
 package com.lhc.dto;
 
 
-import com.lhc.datamodel.entities.Competition;
-import com.lhc.datamodel.entities.Match;
-import com.lhc.datamodel.entities.rules.Rule;
-import com.lhc.datamodel.entities.security.User;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -27,7 +23,9 @@ public class CompetitionDto {
 
     private String season;
 
-    private boolean withComments;
+    private boolean withCommentTop;
+
+    private boolean withCommentFlop;
 
     private List<MatchDto> matchDtos;
 
@@ -38,7 +36,7 @@ public class CompetitionDto {
         this.matchDtos = new ArrayList<>();
     }
 
-    public static CompetitionDto competitionDto(String name, int season, String division,  String password, String confirmedPassword, String creatorUsername, boolean withComments,List<RuleDto> ruleDtos) {
+    public static CompetitionDto competitionDto(String name, String season, String division,  String password, String confirmedPassword, String creatorUsername, boolean withCommentTop, boolean withCommentFlop,List<RuleDto> ruleDtos) {
         return new CompetitionDto(
                 name,
                 name,
@@ -46,20 +44,15 @@ public class CompetitionDto {
                 confirmedPassword,
                 creatorUsername,
                 division,
-                createSeason(season),
-                withComments,
-                new ArrayList<>() ,
+                season,
+                withCommentTop,
+                withCommentFlop,
+                new ArrayList<MatchDto>() ,
                 ruleDtos);
 
     }
 
-    private static String createSeason(int season) {
-
-        return season + " - " + (season + 1);
-
-    }
-
-    private CompetitionDto(String reference, String name, String password, String confirmedPassword, String creatorUsername, String division, String season, boolean withComments,List<MatchDto> matchDtos, List<RuleDto> ruleDtos) {
+    private CompetitionDto(String reference, String name, String password, String confirmedPassword, String creatorUsername, String division, String season, boolean withCommentTop, boolean withCommentFlop,List<MatchDto> matchDtos, List<RuleDto> ruleDtos) {
         this.reference = reference;
         this.name = name;
         this.password = password;
@@ -67,7 +60,8 @@ public class CompetitionDto {
         this.creatorUsername = creatorUsername;
         this.division = division;
         this.season = season;
-        this.withComments = withComments;
+        this.withCommentTop = withCommentTop;
+        this.withCommentFlop = withCommentFlop;
         this.matchDtos = matchDtos;
         this.ruleDtos = ruleDtos;
     }

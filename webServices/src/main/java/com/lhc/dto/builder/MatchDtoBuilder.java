@@ -2,6 +2,8 @@ package com.lhc.dto.builder;
 
 import com.lhc.dto.MatchDto;
 
+import java.util.List;
+
 public class MatchDtoBuilder {
 
 
@@ -11,6 +13,7 @@ public class MatchDtoBuilder {
     private String awayTeam;
     private Integer scoreHome;
     private Integer scoreAway;
+    private List<String> visitors;
 
     public static MatchDtoBuilder aMatchDto(){
         return new MatchDtoBuilder();
@@ -72,7 +75,7 @@ public class MatchDtoBuilder {
         }
 
         public MatchDto build(){
-            return MatchDto.matchDto(competition_ref, homeTeam,scoreHome, scoreAway, awayTeam, creatorUsername);
+            return MatchDto.matchDto(competition_ref, homeTeam,scoreHome, scoreAway, awayTeam, creatorUsername, visitors);
         }
     }
 

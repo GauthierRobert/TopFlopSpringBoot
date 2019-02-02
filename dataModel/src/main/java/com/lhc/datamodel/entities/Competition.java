@@ -32,17 +32,18 @@ public class Competition implements Serializable {
         return new Competition();
     }
 
-    public static Competition competition(Long id, String name, int season, String division, String password, String confirmedPassword, String creatorUsername, boolean withComments, List<Rule> rules) {
+    public static Competition competition(Long id, String name, String season, String division, String password, String confirmedPassword, String creatorUsername, boolean withCommentTop, boolean withCommentFlop, List<Rule> rules) {
         Competition competition = new Competition(
                 id,
                 name,
                 name,
-                createSeason(season),
+                season,
                 division,
                 password,
                 confirmedPassword,
                 creatorUsername,
-                withComments,
+                withCommentTop,
+                withCommentFlop,
                 new ArrayList<>(),
                 new ArrayList<>(),
                 new ArrayList<>()
@@ -51,13 +52,8 @@ public class Competition implements Serializable {
         return competition;
     }
 
-    private static String createSeason(int season) {
 
-        return season + " - " + (season + 1);
-
-    }
-
-    private Competition(Long id, String reference, String name, String season, String division, String password, String confirmedPassword, String creatorUsername, boolean withComments, List<Match> matches, List<User> allowedUsers, List<Rule> rules) {
+    private Competition(Long id, String reference, String name, String season, String division, String password, String confirmedPassword, String creatorUsername, Boolean withCommentTop, Boolean withCommentFlop, List<Match> matches, List<User> allowedUsers, List<Rule> rules) {
         this.id = id;
         this.reference = reference;
         this.name = name;
@@ -66,7 +62,8 @@ public class Competition implements Serializable {
         this.password = password;
         this.confirmedPassword = confirmedPassword;
         this.creatorUsername = creatorUsername;
-        this.withComments = withComments;
+        this.withCommentTop = withCommentTop;
+        this.withCommentFlop = withCommentFlop;
         this.matches = matches;
         this.allowedUsers = allowedUsers;
         this.rules = rules;
@@ -84,7 +81,9 @@ public class Competition implements Serializable {
 
     private String division;
 
-    private boolean withComments;
+    private Boolean withCommentTop;
+
+    private Boolean withCommentFlop;
 
     private String password;
     @Transient

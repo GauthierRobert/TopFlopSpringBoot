@@ -100,11 +100,12 @@ public class RankingServiceImpl implements RankingService {
     private List<RankingCell> createRankingCellList(Map<String, Integer> rankingMap) {
         int position = 1;
         List<RankingCell> rankingCells = new ArrayList<>();
-        while (rankingMap.entrySet().iterator().hasNext()) {
-            Map.Entry<String, Integer> entry = rankingMap.entrySet().iterator().next();
+        Iterator<Map.Entry<String, Integer>> iterable = rankingMap.entrySet().iterator();
+        while (iterable.hasNext()) {
+            Map.Entry<String, Integer> entry = iterable.next();
             String key = entry.getKey();
             Integer value = entry.getValue();
-            RankingCell rankingCell = new RankingCell(position, key, value);
+            RankingCell rankingCell = new RankingCell(position + ".", key, value);
             rankingCells.add(rankingCell);
             position++;
         }

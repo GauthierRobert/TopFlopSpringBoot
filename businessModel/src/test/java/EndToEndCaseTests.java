@@ -1,4 +1,5 @@
 import com.lhc.business.BusinessConfig;
+import com.lhc.business.dto.RankingCell;
 import com.lhc.datamodel.enumeration.RoleType;
 import com.lhc.business.service.*;
 import com.lhc.business.service.security.UserService;
@@ -80,20 +81,34 @@ public class EndToEndCaseTests {
 
     }
 
+    public void saveUser(String username, String password) {
 
-    public void saveCompetition(String name) throws NoSuchAlgorithmException {
+        User user = new User();
+        user.setUsername(username);
+        user.setPassword(password);
+        user.setPasswordConfirm(password);
+
+        userService.save(user);
+    }
+
+
+
+    public void saveCompetition(String nameCompetition) throws NoSuchAlgorithmException {
+
+        String creatorUsername = "AAAA";
+
         Competition competition = Competition.competition();
-        competition.setName(name);
+        competition.setName(nameCompetition);
         competition.setPassword("AAAA");
         competition.setConfirmedPassword("AAAA");
-        competition.setCreatorUsername("AAAA");
+
+        competition.setCreatorUsername(creatorUsername);
         competition.setDivision("D1");
         competition.setSeason("Z018-2019");
         competition.getMatches().add(Match.match());
-        User user = userService.findByUsername("AAAA");
+        User user = userService.findByUsername(creatorUsername);
 
         competitionService.createCompetition(competition, user );
-
 
     }
 
@@ -188,22 +203,9 @@ public class EndToEndCaseTests {
         List<Vote> votes = voteService.findAllByMatchReference(ref);
 
 
-        Map<String, Integer> ranking = rankingService.createTopFlopByListVote(votes);
+        List<RankingCell> ranking = rankingService.createTopByListVote(votes);
 
-        StringBuilder sb = new StringBuilder();
-        Iterator<Map.Entry<String, Integer>> iter = ranking.entrySet().iterator();
-        while (iter.hasNext()) {
-            Map.Entry<String, Integer> entry = iter.next();
-            sb.append(entry.getKey());
-            sb.append('=').append('"');
-            sb.append(entry.getValue());
-            sb.append('"');
-            if (iter.hasNext()) {
-                sb.append(',').append(' ');
-            }
-        }
 
-        System.out.println(sb.toString());
     }
 
     @Test
