@@ -1,6 +1,7 @@
 package com.lhc.webservices.restServices;
 
 import com.lhc.dto.UserDto;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @Produces(MediaType.APPLICATION_JSON)
