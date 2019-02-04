@@ -43,9 +43,8 @@ public class MatchServiceImpl implements MatchService {
     }
 
     @Override
-    public Match saveOrUpdate(Match match, String competition_ref) {
+    public Match saveOrUpdate(Match match) {
 
-        Competition competition = competitionService.findByReference(competition_ref);
         String ref;
 
         if (match.getReference() !=null) {
@@ -53,9 +52,9 @@ public class MatchServiceImpl implements MatchService {
         } else {
             ref = UUID.randomUUID().toString();
             match.setReference(ref);
+            Competition competition = competitionService.findByReference(match.getCompetition_ref());
+            match.setCompetition(competition);
         }
-
-        match.setCompetition(competition);
 
         return matchRepository.save(match);
     }

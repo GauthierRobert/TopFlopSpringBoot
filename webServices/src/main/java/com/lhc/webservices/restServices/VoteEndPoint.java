@@ -1,6 +1,6 @@
 package com.lhc.webservices.restServices;
 
-import com.lhc.business.dto.RankingCell;
+import com.lhc.dto.VoteDto;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -10,15 +10,10 @@ import java.util.List;
 
 @Produces(MediaType.APPLICATION_JSON)
 @RestController
-public interface RankingEndPoint {
+public interface VoteEndPoint {
 
     @RequestMapping(
-            value = "/ranking/top",
+            value = "/vote/get",
             method = RequestMethod.GET)
-    List<RankingCell> getRankingTop(@RequestParam(value = "match_ref") String match_ref);
-
-    @RequestMapping(
-            value = "/ranking/flop",
-            method = RequestMethod.GET)
-    List<RankingCell> getRankingFlop(@RequestParam(value = "match_ref") String match_ref);
+    List<VoteDto> getVotesWithBallotRef(@RequestParam(value = "ballot_ref") String ballot_ref);
 }

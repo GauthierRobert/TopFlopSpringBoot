@@ -15,17 +15,7 @@ public class UserMapperHandler implements MapperHandler<User, UserDto> {
         if (user ==null){
             user = new User();
         }
-
-        MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
-
-        mapperFactory.classMap(UserDto.class, User.class)
-                .field("username", "username")
-                .field("password", "password")
-                .field("passwordConfirm", "passwordConfirm")
-                .register();
-
-        MapperFacade mapper = mapperFactory.getMapperFacade();
-
+        MapperFacade mapper = UserSingletonMapper.getInstanceEntity();
         mapper.map(userDto, user);
 
         return user;
@@ -49,15 +39,7 @@ public class UserMapperHandler implements MapperHandler<User, UserDto> {
             userDto = new UserDto();
         }
 
-        MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
-
-        mapperFactory.classMap(User.class, UserDto.class)
-                .field("username", "username")
-                .field("password", "password")
-                .field("passwordConfirm", "passwordConfirm")
-                .register();
-
-        MapperFacade mapper = mapperFactory.getMapperFacade();
+        MapperFacade mapper = UserSingletonMapper.getInstanceDto();
         mapper.map(user, userDto);
 
         return userDto;
