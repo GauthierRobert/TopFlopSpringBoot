@@ -1,12 +1,12 @@
-package com.lhc.mapper.user;
+package com.lhc.mapper.singletonMapper;
 
-import com.lhc.datamodel.entities.security.User;
-import com.lhc.dto.UserDto;
+import com.lhc.datamodel.entities.competition.Match;
+import com.lhc.dto.MatchDto;
 import ma.glasnost.orika.MapperFacade;
 import ma.glasnost.orika.MapperFactory;
 import ma.glasnost.orika.impl.DefaultMapperFactory;
 
-public class UserSingletonMapper {
+public class MatchSingletonMapper {
 
 
     /** Instance unique pré-initialisée */
@@ -30,32 +30,34 @@ public class UserSingletonMapper {
 
 
     private static MapperFacade getMapperFacadeEntity() {
-
         MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
 
-        mapperFactory.classMap(UserDto.class, User.class)
-                .field("username", "username")
-                .field("password", "password")
-                .field("passwordConfirm", "passwordConfirm")
+        mapperFactory.classMap(MatchDto.class, Match.class)
+                .field("homeTeam", "homeTeam")
+                .field("homeScore", "homeScore")
+                .field("awayTeam", "awayTeam")
+                .field("awayScore", "awayScore")
+                .field("competition_ref", "competition_ref")
+                .field("creatorUsername", "creatorUsername")
+                .field("reference", "reference")
                 .register();
-
         return mapperFactory.getMapperFacade();
-
     }
 
     private static MapperFacade getMapperFacadeDto() {
-
         MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
 
-        mapperFactory.classMap(User.class, UserDto.class)
-                .field("username", "username")
-                .field("password", "password")
-                .field("passwordConfirm", "passwordConfirm")
+        mapperFactory.classMap(Match.class, MatchDto.class)
+                .field("homeTeam", "homeTeam")
+                .field("homeScore", "homeScore")
+                .field("awayTeam", "awayTeam")
+                .field("awayScore", "awayScore")
+                .field("competition_ref", "competition_ref")
+                .field("creatorUsername", "creatorUsername")
+                .field("reference", "reference")
                 .register();
-
-        return  mapperFactory.getMapperFacade();
+        return mapperFactory.getMapperFacade();
     }
-
 
 }
 

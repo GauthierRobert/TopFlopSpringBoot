@@ -7,7 +7,7 @@ import java.io.IOException;
 
 public interface ImageUploadService {
 
-    void saveOrUpdate(ImageCompetition imageCompetition);
+    ImageCompetition saveOrUpdate(ImageCompetition imageCompetition);
 
     ImageCompetition findByCompetition_ref(String competition_ref);
 

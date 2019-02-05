@@ -1,12 +1,12 @@
-package com.lhc.mapper.vote;
+package com.lhc.mapper.singletonMapper;
 
-import com.lhc.datamodel.entities.competition.Vote;
-import com.lhc.dto.VoteDto;
+import com.lhc.datamodel.entities.security.User;
+import com.lhc.dto.UserDto;
 import ma.glasnost.orika.MapperFacade;
 import ma.glasnost.orika.MapperFactory;
 import ma.glasnost.orika.impl.DefaultMapperFactory;
 
-public class VoteSingletonMapper {
+public class UserSingletonMapper {
 
 
     /** Instance unique pré-initialisée */
@@ -30,28 +30,27 @@ public class VoteSingletonMapper {
 
 
     private static MapperFacade getMapperFacadeEntity() {
+
         MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
 
-        mapperFactory.classMap(VoteDto.class, Vote.class)
-                .field("reference", "reference")
-                .field("name", "name")
-                .field("points", "points")
-                .field("indication", "indication")
-                .field("competition_ref", "competition_ref")
+        mapperFactory.classMap(UserDto.class, User.class)
+                .field("username", "username")
+                .field("password", "password")
+                .field("passwordConfirm", "passwordConfirm")
                 .register();
 
-        return  mapperFactory.getMapperFacade();
+        return mapperFactory.getMapperFacade();
+
     }
 
     private static MapperFacade getMapperFacadeDto() {
+
         MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
 
-        mapperFactory.classMap(Vote.class, VoteDto.class)
-                .field("reference", "reference")
-                .field("name", "name")
-                .field("points", "points")
-                .field("indication", "indication")
-                .field("competition_ref", "competition_ref")
+        mapperFactory.classMap(User.class, UserDto.class)
+                .field("username", "username")
+                .field("password", "password")
+                .field("passwordConfirm", "passwordConfirm")
                 .register();
 
         return  mapperFactory.getMapperFacade();

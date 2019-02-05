@@ -5,7 +5,7 @@ import com.lhc.business.service.competition.CompetitionService;
 import com.lhc.datamodel.entities.competition.Competition;
 import com.lhc.datamodel.entities.security.User;
 import com.lhc.dto.CompetitionDto;
-import com.lhc.mapper.competition.CompetitionMapperHandler;
+import com.lhc.mapper.mapperHandler.CompetitionMapperHandler;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;

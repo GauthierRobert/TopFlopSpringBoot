@@ -1,11 +1,10 @@
-package com.lhc.mapper.user;
+package com.lhc.mapper.mapperHandler;
 
 import com.lhc.datamodel.entities.security.User;
 import com.lhc.dto.UserDto;
 import com.lhc.mapper.MapperHandler;
+import com.lhc.mapper.singletonMapper.UserSingletonMapper;
 import ma.glasnost.orika.MapperFacade;
-import ma.glasnost.orika.MapperFactory;
-import ma.glasnost.orika.impl.DefaultMapperFactory;
 
 public class UserMapperHandler implements MapperHandler<User, UserDto> {
 

@@ -1,13 +1,12 @@
-package com.lhc.mapper.ballot;
+package com.lhc.mapper.singletonMapper;
 
-import com.lhc.datamodel.entities.competition.Ballot;
-import com.lhc.dto.BallotDto;
+import com.lhc.datamodel.entities.rules.Rule;
+import com.lhc.dto.RuleDto;
 import ma.glasnost.orika.MapperFacade;
 import ma.glasnost.orika.MapperFactory;
 import ma.glasnost.orika.impl.DefaultMapperFactory;
 
-public class BallotSingletonMapper {
-
+public class RuleSingletonMapper {
 
     /** Instance unique pré-initialisée */
     private static MapperFacade INSTANCE_ENTITY = getMapperFacadeEntity();
@@ -30,33 +29,34 @@ public class BallotSingletonMapper {
 
 
     private static MapperFacade getMapperFacadeEntity() {
+
         MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
 
-        mapperFactory.classMap(BallotDto.class, Ballot.class)
-                .field("reference", "reference")
-                .field("match_ref", "match_ref")
-                .field("competition_ref", "competition_ref")
-                .field("comment", "comment")
+        mapperFactory.classMap(RuleDto.class, Rule.class)
+                .field("description", "description")
+                .field("label", "label")
+                .field("points", "points")
+                .field("indication", "indication")
                 .register();
 
-        return  mapperFactory.getMapperFacade();
+        return mapperFactory.getMapperFacade();
+
     }
 
     private static MapperFacade getMapperFacadeDto() {
+
         MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
 
-        mapperFactory.classMap(Ballot.class, BallotDto.class)
-                .field("reference", "reference")
-                .field("match_ref", "match_ref")
-                .field("competition_ref", "competition_ref")
-                .field("comment", "comment")
+        mapperFactory.classMap(Rule.class, RuleDto.class)
+                .field("description", "description")
+                .field("label", "label")
+                .field("points", "points")
+                .field("indication", "indication")
                 .register();
 
-        return  mapperFactory.getMapperFacade();
+        return mapperFactory.getMapperFacade();
+
     }
 
 
 }
-
-
-

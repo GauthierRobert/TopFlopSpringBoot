@@ -1,12 +1,12 @@
-package com.lhc.mapper.competition;
+package com.lhc.mapper.singletonMapper;
 
-import com.lhc.datamodel.entities.competition.Competition;
-import com.lhc.dto.CompetitionDto;
+import com.lhc.datamodel.entities.competition.Vote;
+import com.lhc.dto.VoteDto;
 import ma.glasnost.orika.MapperFacade;
 import ma.glasnost.orika.MapperFactory;
 import ma.glasnost.orika.impl.DefaultMapperFactory;
 
-public class CompetitionSingletonMapper {
+public class VoteSingletonMapper {
 
 
     /** Instance unique pré-initialisée */
@@ -32,16 +32,12 @@ public class CompetitionSingletonMapper {
     private static MapperFacade getMapperFacadeEntity() {
         MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
 
-        mapperFactory.classMap(CompetitionDto.class, Competition.class)
+        mapperFactory.classMap(VoteDto.class, Vote.class)
                 .field("reference", "reference")
                 .field("name", "name")
-                .field("season", "season")
-                .field("division", "division")
-                .field("password", "password")
-                .field("confirmedPassword", "confirmedPassword")
-                .field("creatorUsername", "creatorUsername")
-                .field("withCommentTop","withCommentTop")
-                .field("withCommentFlop","withCommentFlop")
+                .field("points", "points")
+                .field("indication", "indication")
+                .field("competition_ref", "competition_ref")
                 .register();
 
         return  mapperFactory.getMapperFacade();
@@ -50,16 +46,12 @@ public class CompetitionSingletonMapper {
     private static MapperFacade getMapperFacadeDto() {
         MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
 
-        mapperFactory.classMap(Competition.class, CompetitionDto.class)
+        mapperFactory.classMap(Vote.class, VoteDto.class)
                 .field("reference", "reference")
                 .field("name", "name")
-                .field("season", "season")
-                .field("division", "division")
-                .field("password", "password")
-                .field("confirmedPassword", "confirmedPassword")
-                .field("creatorUsername", "creatorUsername")
-                .field("withCommentTop","withCommentTop")
-                .field("withCommentFlop","withCommentFlop")
+                .field("points", "points")
+                .field("indication", "indication")
+                .field("competition_ref", "competition_ref")
                 .register();
 
         return  mapperFactory.getMapperFacade();

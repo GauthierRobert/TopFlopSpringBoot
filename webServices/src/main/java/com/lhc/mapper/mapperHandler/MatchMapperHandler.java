@@ -1,4 +1,4 @@
-package com.lhc.mapper.match;
+package com.lhc.mapper.mapperHandler;
 
 import com.lhc.datamodel.entities.competition.Match;
 import com.lhc.dto.MatchDto;
@@ -6,8 +6,8 @@ import com.lhc.mapper.MapperHandler;
 import ma.glasnost.orika.MapperFacade;
 
 import static com.lhc.dto.MatchDto.matchDto;
-import static com.lhc.mapper.match.MatchSingletonMapper.getInstanceDto;
-import static com.lhc.mapper.match.MatchSingletonMapper.getInstanceEntity;
+import static com.lhc.mapper.singletonMapper.MatchSingletonMapper.getInstanceDto;
+import static com.lhc.mapper.singletonMapper.MatchSingletonMapper.getInstanceEntity;
 
 public class MatchMapperHandler implements MapperHandler<Match, MatchDto> {
 

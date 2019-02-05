@@ -5,13 +5,12 @@ import com.lhc.business.service.security.UserService;
 import com.lhc.business.service.validation.ValidationService;
 import com.lhc.datamodel.entities.security.User;
 import com.lhc.dto.UserDto;
-import com.lhc.mapper.user.UserMapperHandler;
+import com.lhc.mapper.mapperHandler.UserMapperHandler;
 import com.lhc.webservices.restServices.SecurityEndPoint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
 import javax.security.sasl.AuthenticationException;
 

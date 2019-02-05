@@ -3,6 +3,7 @@ package com.lhc.mapper.ballot;
 import com.lhc.datamodel.entities.competition.Ballot;
 import com.lhc.dto.BallotDto;
 import com.lhc.dto.VoteDto;
+import com.lhc.mapper.mapperHandler.BallotMapperHandler;
 import org.junit.Test;
 
 import java.util.ArrayList;

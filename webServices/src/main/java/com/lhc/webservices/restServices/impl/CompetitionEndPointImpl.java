@@ -5,7 +5,7 @@ import com.lhc.business.service.security.UserService;
 import com.lhc.datamodel.entities.competition.Competition;
 import com.lhc.datamodel.entities.security.User;
 import com.lhc.dto.CompetitionDto;
-import com.lhc.mapper.competition.CompetitionMapperHandler;
+import com.lhc.mapper.mapperHandler.CompetitionMapperHandler;
 import com.lhc.webservices.restServices.CompetitionEndPoint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -39,7 +39,6 @@ public class CompetitionEndPointImpl implements CompetitionEndPoint {
             return null;
         }
     }
-
 
 
     @Override

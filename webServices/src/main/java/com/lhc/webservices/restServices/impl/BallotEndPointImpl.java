@@ -5,7 +5,7 @@ import com.lhc.business.service.security.UserService;
 import com.lhc.datamodel.entities.competition.Ballot;
 import com.lhc.datamodel.entities.security.User;
 import com.lhc.dto.BallotDto;
-import com.lhc.mapper.ballot.BallotMapperHandler;
+import com.lhc.mapper.mapperHandler.BallotMapperHandler;
 import com.lhc.webservices.restServices.BallotEndPoint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;

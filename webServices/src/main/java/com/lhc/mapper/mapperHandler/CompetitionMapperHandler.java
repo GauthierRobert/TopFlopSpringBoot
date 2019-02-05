@@ -1,9 +1,9 @@
-package com.lhc.mapper.competition;
+package com.lhc.mapper.mapperHandler;
 
 import com.lhc.datamodel.entities.competition.Competition;
 import com.lhc.dto.CompetitionDto;
 import com.lhc.mapper.MapperHandler;
-import com.lhc.mapper.rule.RuleMapperHandler;
+import com.lhc.mapper.singletonMapper.CompetitionSingletonMapper;
 import ma.glasnost.orika.MapperFacade;
 
 import static com.lhc.datamodel.entities.image.ImageCompetition.imageCompetition;

@@ -1,6 +1,8 @@
 package com.lhc.webservices.restServices;
 
 import com.lhc.dto.CompetitionDto;
+import com.lhc.dto.ImageCompetitionDto;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.NoSuchAlgorithmException;
@@ -14,6 +16,7 @@ public interface CompetitionEndPoint {
             value = "/competition/save",
             method = RequestMethod.POST)
     CompetitionDto postCompetition(@RequestBody CompetitionDto competitionDto) throws NoSuchAlgorithmException;
+
 
     @RequestMapping(
             value = "/competition/addUser",

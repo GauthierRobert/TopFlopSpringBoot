@@ -1,10 +1,10 @@
-package com.lhc.mapper.ballot;
+package com.lhc.mapper.mapperHandler;
 
 import com.lhc.datamodel.entities.competition.Ballot;
 import com.lhc.datamodel.entities.competition.Vote;
 import com.lhc.dto.BallotDto;
 import com.lhc.mapper.MapperHandler;
-import com.lhc.mapper.vote.VoteMapperHandler;
+import com.lhc.mapper.singletonMapper.BallotSingletonMapper;
 import ma.glasnost.orika.MapperFacade;
 import ma.glasnost.orika.MapperFactory;
 import ma.glasnost.orika.impl.DefaultMapperFactory;

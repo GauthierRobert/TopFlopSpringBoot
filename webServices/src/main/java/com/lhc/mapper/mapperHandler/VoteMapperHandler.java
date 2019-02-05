@@ -1,8 +1,9 @@
-package com.lhc.mapper.vote;
+package com.lhc.mapper.mapperHandler;
 
 import com.lhc.datamodel.entities.competition.Vote;
 import com.lhc.dto.VoteDto;
 import com.lhc.mapper.MapperHandler;
+import com.lhc.mapper.singletonMapper.VoteSingletonMapper;
 import ma.glasnost.orika.MapperFacade;
 
 public class VoteMapperHandler implements MapperHandler<Vote, VoteDto> {

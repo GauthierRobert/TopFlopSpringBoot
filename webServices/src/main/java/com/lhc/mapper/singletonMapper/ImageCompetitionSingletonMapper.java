@@ -1,12 +1,12 @@
-package com.lhc.mapper.match;
+package com.lhc.mapper.singletonMapper;
 
-import com.lhc.datamodel.entities.competition.Match;
-import com.lhc.dto.MatchDto;
+import com.lhc.datamodel.entities.image.ImageCompetition;
+import com.lhc.dto.ImageCompetitionDto;
 import ma.glasnost.orika.MapperFacade;
 import ma.glasnost.orika.MapperFactory;
 import ma.glasnost.orika.impl.DefaultMapperFactory;
 
-public class MatchSingletonMapper {
+public class ImageCompetitionSingletonMapper {
 
 
     /** Instance unique pré-initialisée */
@@ -32,32 +32,25 @@ public class MatchSingletonMapper {
     private static MapperFacade getMapperFacadeEntity() {
         MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
 
-        mapperFactory.classMap(MatchDto.class, Match.class)
-                .field("homeTeam", "homeTeam")
-                .field("homeScore", "homeScore")
-                .field("awayTeam", "awayTeam")
-                .field("awayScore", "awayScore")
+        mapperFactory.classMap(ImageCompetitionDto.class, ImageCompetition.class)
                 .field("competition_ref", "competition_ref")
-                .field("creatorUsername", "creatorUsername")
-                .field("reference", "reference")
+                .field("asBase64", "asBase64")
                 .register();
-        return mapperFactory.getMapperFacade();
+
+        return  mapperFactory.getMapperFacade();
     }
 
     private static MapperFacade getMapperFacadeDto() {
         MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
 
-        mapperFactory.classMap(Match.class, MatchDto.class)
-                .field("homeTeam", "homeTeam")
-                .field("homeScore", "homeScore")
-                .field("awayTeam", "awayTeam")
-                .field("awayScore", "awayScore")
+        mapperFactory.classMap(ImageCompetition.class, ImageCompetitionDto.class)
                 .field("competition_ref", "competition_ref")
-                .field("creatorUsername", "creatorUsername")
-                .field("reference", "reference")
+                .field("asBase64", "asBase64")
                 .register();
-        return mapperFactory.getMapperFacade();
+
+        return  mapperFactory.getMapperFacade();
     }
+
 
 }
 

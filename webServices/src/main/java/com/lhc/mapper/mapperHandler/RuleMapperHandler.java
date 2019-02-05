@@ -1,11 +1,10 @@
-package com.lhc.mapper.rule;
+package com.lhc.mapper.mapperHandler;
 
 import com.lhc.datamodel.entities.rules.Rule;
 import com.lhc.dto.RuleDto;
 import com.lhc.mapper.MapperHandler;
+import com.lhc.mapper.singletonMapper.RuleSingletonMapper;
 import ma.glasnost.orika.MapperFacade;
-import ma.glasnost.orika.MapperFactory;
-import ma.glasnost.orika.impl.DefaultMapperFactory;
 
 import static com.lhc.datamodel.entities.rules.Rule.rule;
 import static com.lhc.dto.RuleDto.ruleDto;

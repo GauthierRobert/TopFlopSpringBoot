@@ -25,6 +25,9 @@ public class ImageCompetition {
     @OneToOne(fetch = FetchType.LAZY)
     private Competition competition;
 
+    private ImageCompetition() {
+    }
+
     private ImageCompetition(Long id, String asBase64, String competition_ref, Competition competition) {
         this.id = id;
         this.asBase64 = asBase64;
@@ -36,5 +39,8 @@ public class ImageCompetition {
         return new ImageCompetition(null, asBase64, competition_ref, competition);
     }
 
+    public static ImageCompetition imageCompetition(){
+        return new ImageCompetition();
+    }
 
 }

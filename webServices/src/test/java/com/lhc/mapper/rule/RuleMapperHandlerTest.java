@@ -3,6 +3,7 @@ package com.lhc.mapper.rule;
 import com.lhc.datamodel.entities.rules.Rule;
 import com.lhc.datamodel.enumeration.LabelType;
 import com.lhc.dto.RuleDto;
+import com.lhc.mapper.mapperHandler.RuleMapperHandler;
 import org.junit.Test;
 
 import static com.lhc.datamodel.entities.rules.Rule.rule;

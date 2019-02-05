@@ -3,7 +3,7 @@ package com.lhc.webservices.restServices.impl;
 import com.lhc.business.service.competition.MatchService;
 import com.lhc.datamodel.entities.competition.Match;
 import com.lhc.dto.MatchDto;
-import com.lhc.mapper.match.MatchMapperHandler;
+import com.lhc.mapper.mapperHandler.MatchMapperHandler;
 import com.lhc.webservices.restServices.MatchEndPoint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
