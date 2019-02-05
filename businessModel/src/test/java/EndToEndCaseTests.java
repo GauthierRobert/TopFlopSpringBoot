@@ -133,8 +133,9 @@ public class EndToEndCaseTests {
         match.setAwayTeam("WaterDucks");
         match.setHomeScore(3);
         match.setAwayScore(3);
+        match.setCompetition(competition);
 
-        Match matchRecord = matchService.saveOrUpdate(match, comp);
+        Match matchRecord = matchService.saveOrUpdate(match);
 
         return matchRecord.getReference();
 
@@ -165,7 +166,10 @@ public class EndToEndCaseTests {
         votes.add(vote_4);
         ballot.setVotes(votes);
 
-        ballotService.saveOrUpdate(ballot, user, match_ref);
+        ballot.setUser(user);
+        ballot.setMatch_ref(match_ref);
+
+        ballotService.saveOrUpdate(ballot);
 
 
     }
