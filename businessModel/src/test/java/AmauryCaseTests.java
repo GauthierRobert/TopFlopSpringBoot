@@ -20,7 +20,6 @@ import java.text.ParseException;
 
 import static com.lhc.datamodel.builder.CompetitionBuilder.aCompetition;
 
-@Ignore
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @ContextConfiguration(classes =  BusinessConfig.class)

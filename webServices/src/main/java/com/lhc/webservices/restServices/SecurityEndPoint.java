@@ -4,6 +4,9 @@ import com.lhc.dto.UserDto;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
 @Produces(MediaType.APPLICATION_JSON)
 @RestController
 public interface SecurityEndPoint {

@@ -32,10 +32,8 @@ public class Competition implements Serializable {
 
     private String division;
 
-    @Column(columnDefinition = "LONGVARCHAR")
     private Boolean withCommentTop;
 
-    @Column(columnDefinition = "LONGVARCHAR")
     private Boolean withCommentFlop;
 
     @OneToOne(mappedBy = "competition", fetch = FetchType.EAGER, cascade = CascadeType.ALL)

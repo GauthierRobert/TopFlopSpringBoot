@@ -16,7 +16,7 @@ public class ImageCompetition {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(columnDefinition = "LONGVARCHAR")
+    @Column(columnDefinition = "TEXT")
     private String asBase64;
 
     @Column(unique=true)

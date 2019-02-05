@@ -4,6 +4,8 @@ import com.lhc.dto.BallotDto;
 import org.springframework.web.bind.annotation.*;
 
 
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 import java.util.List;
 
 @Produces(MediaType.APPLICATION_JSON)

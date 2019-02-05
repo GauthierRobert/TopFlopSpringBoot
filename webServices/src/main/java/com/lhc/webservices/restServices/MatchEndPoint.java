@@ -3,6 +3,9 @@ package com.lhc.webservices.restServices;
 import com.lhc.dto.MatchDto;
 import org.springframework.web.bind.annotation.*;
 
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
 @Produces(MediaType.APPLICATION_JSON)
 @RestController
 public interface MatchEndPoint {

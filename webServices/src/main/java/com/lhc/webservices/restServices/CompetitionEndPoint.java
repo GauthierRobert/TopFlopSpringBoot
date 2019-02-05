@@ -1,10 +1,10 @@
 package com.lhc.webservices.restServices;
 
 import com.lhc.dto.CompetitionDto;
-import com.lhc.dto.ImageCompetitionDto;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 

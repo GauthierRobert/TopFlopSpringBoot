@@ -13,7 +13,7 @@ public class CompetitionMapperHandlerTest {
     private static Competition competitionTest = aCompetition()
             .withName("Linkebeek")
             .withDivision("D1")
-            .withSeason(2018)
+            .withSeason("2018-2019")
             .withCreatorUsername("Me")
             .withPassword("AAAA")
             .withConfirmedPassword("AAAA")
