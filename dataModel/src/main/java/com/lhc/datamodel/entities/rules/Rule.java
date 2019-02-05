@@ -1,6 +1,6 @@
 package com.lhc.datamodel.entities.rules;
 
-import com.lhc.datamodel.entities.Competition;
+import com.lhc.datamodel.entities.competition.Competition;
 import lombok.Getter;
 import lombok.Setter;
 

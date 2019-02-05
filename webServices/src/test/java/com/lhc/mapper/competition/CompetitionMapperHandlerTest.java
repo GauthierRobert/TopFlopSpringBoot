@@ -1,6 +1,6 @@
 package com.lhc.mapper.competition;
 
-import com.lhc.datamodel.entities.Competition;
+import com.lhc.datamodel.entities.competition.Competition;
 import com.lhc.dto.CompetitionDto;
 import org.junit.Test;
 

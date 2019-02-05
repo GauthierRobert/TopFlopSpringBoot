@@ -1,5 +1,5 @@
-import com.lhc.datamodel.entities.Competition;
-import com.lhc.datamodel.entities.Vote;
+import com.lhc.datamodel.entities.competition.Competition;
+import com.lhc.datamodel.entities.competition.Vote;
 import com.lhc.dto.CompetitionDto;
 import com.lhc.dto.VoteDto;
 import com.lhc.mapper.competition.CompetitionMapperHandler;

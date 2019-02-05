@@ -1,6 +1,6 @@
 package com.lhc.mapper.vote;
 
-import com.lhc.datamodel.entities.Vote;
+import com.lhc.datamodel.entities.competition.Vote;
 import com.lhc.dto.VoteDto;
 import ma.glasnost.orika.MapperFacade;
 import ma.glasnost.orika.MapperFactory;

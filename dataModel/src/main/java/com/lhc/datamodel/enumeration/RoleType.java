@@ -9,7 +9,6 @@ public enum RoleType {
 
     RoleType(Long value) {
         this.value = value;
-
     }
 
     public Long getValue() {

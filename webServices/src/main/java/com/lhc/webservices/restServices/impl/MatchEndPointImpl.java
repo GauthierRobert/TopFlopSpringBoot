@@ -1,7 +1,7 @@
 package com.lhc.webservices.restServices.impl;
 
-import com.lhc.business.service.MatchService;
-import com.lhc.datamodel.entities.Match;
+import com.lhc.business.service.competition.MatchService;
+import com.lhc.datamodel.entities.competition.Match;
 import com.lhc.dto.MatchDto;
 import com.lhc.mapper.match.MatchMapperHandler;
 import com.lhc.webservices.restServices.MatchEndPoint;

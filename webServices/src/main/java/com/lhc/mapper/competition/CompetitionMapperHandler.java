@@ -1,12 +1,12 @@
 package com.lhc.mapper.competition;
 
-import com.lhc.datamodel.entities.Competition;
+import com.lhc.datamodel.entities.competition.Competition;
 import com.lhc.dto.CompetitionDto;
 import com.lhc.mapper.MapperHandler;
 import com.lhc.mapper.rule.RuleMapperHandler;
 import ma.glasnost.orika.MapperFacade;
-import ma.glasnost.orika.MapperFactory;
-import ma.glasnost.orika.impl.DefaultMapperFactory;
+
+import static com.lhc.datamodel.entities.image.ImageCompetition.imageCompetition;
 
 public class CompetitionMapperHandler implements MapperHandler<Competition, CompetitionDto> {
 
@@ -23,6 +23,11 @@ public class CompetitionMapperHandler implements MapperHandler<Competition, Comp
         if (competitionDto.getRuleDtos() !=null) {
             competition.setRules(ruleMapperHandler.mapToListEntities(competitionDto.getRuleDtos()));
         }
+
+        if(competitionDto.getImageAsBase64() !=null){
+            competition.setImageCompetition(imageCompetition(competitionDto.getImageAsBase64(), competitionDto.getReference(), competition));
+        }
+
         return competition;
 
     }
@@ -50,6 +55,10 @@ public class CompetitionMapperHandler implements MapperHandler<Competition, Comp
         RuleMapperHandler ruleMapperHandler = new RuleMapperHandler();
         if (competition.getRules() !=null) {
             competitionDto.setRuleDtos(ruleMapperHandler.mapToListDtos(competition.getRules()));
+        }
+
+        if(competition.getImageCompetition() !=null){
+            competitionDto.setImageAsBase64(competition.getImageCompetition().getAsBase64());
         }
         return competitionDto;
 

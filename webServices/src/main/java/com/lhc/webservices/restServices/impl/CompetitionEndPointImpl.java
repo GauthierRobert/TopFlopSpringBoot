@@ -1,8 +1,8 @@
 package com.lhc.webservices.restServices.impl;
 
-import com.lhc.business.service.CompetitionService;
+import com.lhc.business.service.competition.CompetitionService;
 import com.lhc.business.service.security.UserService;
-import com.lhc.datamodel.entities.Competition;
+import com.lhc.datamodel.entities.competition.Competition;
 import com.lhc.datamodel.entities.security.User;
 import com.lhc.dto.CompetitionDto;
 import com.lhc.mapper.competition.CompetitionMapperHandler;
@@ -33,7 +33,7 @@ public class CompetitionEndPointImpl implements CompetitionEndPoint {
 
         if (competitionDto.getConfirmedPassword().equals(competitionDto.getPassword())) {
             Competition competition = competitionMapperHandler.createEntityFromDTO(competitionDto);
-            competitionService.createCompetition(competition, currentUser);
+            competitionService.saveOrUpdate(competition, currentUser);
             return competitionDto;
         } else {
             return null;
@@ -48,7 +48,7 @@ public class CompetitionEndPointImpl implements CompetitionEndPoint {
                                                @RequestParam(value = "password") String password) throws NoSuchAlgorithmException {
 
         User currentUser = userService.findByUsername(username);
-        Competition competition = competitionService.addUserToCompetition(currentUser, competition_ref, password);
+        Competition competition = competitionService.addUser(currentUser, competition_ref, password);
 
         CompetitionMapperHandler competitionMapperHandler = new CompetitionMapperHandler();
         CompetitionDto competitionDto = competitionMapperHandler.createDTOFromEntity(competition);
@@ -70,6 +70,6 @@ public class CompetitionEndPointImpl implements CompetitionEndPoint {
     @Override
     public List<String> getUsersLinkToCompetition(@RequestParam(value = "competition_ref") String competition_ref){
 
-        return competitionService.findUsersbyCompetition(competition_ref);
+        return competitionService.findUsersByCompetition(competition_ref);
     }
 }

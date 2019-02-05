@@ -1,15 +1,15 @@
 import com.lhc.business.BusinessConfig;
 import com.lhc.business.dto.RankingCell;
+import com.lhc.business.service.competition.*;
 import com.lhc.datamodel.enumeration.RoleType;
-import com.lhc.business.service.*;
 import com.lhc.business.service.security.UserService;
-import com.lhc.datamodel.entities.Ballot;
-import com.lhc.datamodel.entities.Competition;
-import com.lhc.datamodel.entities.Match;
-import com.lhc.datamodel.entities.Vote;
+import com.lhc.datamodel.entities.competition.Ballot;
+import com.lhc.datamodel.entities.competition.Competition;
+import com.lhc.datamodel.entities.competition.Match;
+import com.lhc.datamodel.entities.competition.Vote;
 import com.lhc.datamodel.entities.security.Role;
 import com.lhc.datamodel.entities.security.User;
-import com.lhc.datamodel.repository.Security.RoleRepository;
+import com.lhc.datamodel.repository.security.RoleRepository;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -23,9 +23,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -108,7 +106,7 @@ public class EndToEndCaseTests {
         competition.getMatches().add(Match.match());
         User user = userService.findByUsername(creatorUsername);
 
-        competitionService.createCompetition(competition, user );
+        competitionService.saveOrUpdate(competition, user );
 
     }
 
@@ -118,7 +116,7 @@ public class EndToEndCaseTests {
 
         User user = userService.findByUsername(username);
 
-        Competition competition = competitionService.addUserToCompetition(
+        Competition competition = competitionService.addUser(
                 user,
                 "Linkebeek","AAAA");
 

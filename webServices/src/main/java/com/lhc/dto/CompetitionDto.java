@@ -23,6 +23,8 @@ public class CompetitionDto {
 
     private String season;
 
+    private String imageAsBase64;
+
     private boolean withCommentTop;
 
     private boolean withCommentFlop;

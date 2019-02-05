@@ -1,8 +1,6 @@
 package com.lhc.mapper.match;
 
-import com.lhc.datamodel.entities.Competition;
-import com.lhc.datamodel.entities.Match;
-import com.lhc.dto.CompetitionDto;
+import com.lhc.datamodel.entities.competition.Match;
 import com.lhc.dto.MatchDto;
 import ma.glasnost.orika.MapperFacade;
 import ma.glasnost.orika.MapperFactory;

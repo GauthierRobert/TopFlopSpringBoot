@@ -1,8 +1,6 @@
 package com.lhc.mapper.user;
 
-import com.lhc.datamodel.entities.Competition;
 import com.lhc.datamodel.entities.security.User;
-import com.lhc.dto.CompetitionDto;
 import com.lhc.dto.UserDto;
 import ma.glasnost.orika.MapperFacade;
 import ma.glasnost.orika.MapperFactory;

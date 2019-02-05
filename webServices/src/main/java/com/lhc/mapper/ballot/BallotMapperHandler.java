@@ -1,19 +1,13 @@
 package com.lhc.mapper.ballot;
 
-import com.lhc.datamodel.entities.Ballot;
-import com.lhc.datamodel.entities.Vote;
+import com.lhc.datamodel.entities.competition.Ballot;
+import com.lhc.datamodel.entities.competition.Vote;
 import com.lhc.dto.BallotDto;
-import com.lhc.dto.VoteDto;
 import com.lhc.mapper.MapperHandler;
-import com.lhc.mapper.rule.RuleMapperHandler;
 import com.lhc.mapper.vote.VoteMapperHandler;
 import ma.glasnost.orika.MapperFacade;
 import ma.glasnost.orika.MapperFactory;
 import ma.glasnost.orika.impl.DefaultMapperFactory;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class BallotMapperHandler implements MapperHandler<Ballot, BallotDto> {
 

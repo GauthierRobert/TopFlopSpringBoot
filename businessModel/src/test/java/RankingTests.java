@@ -1,8 +1,8 @@
 import com.lhc.business.BusinessConfig;
-import com.lhc.business.service.RankingService;
-import com.lhc.datamodel.entities.Ballot;
-import com.lhc.datamodel.entities.Match;
-import com.lhc.datamodel.entities.Vote;
+import com.lhc.business.service.competition.RankingService;
+import com.lhc.datamodel.entities.competition.Ballot;
+import com.lhc.datamodel.entities.competition.Match;
+import com.lhc.datamodel.entities.competition.Vote;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

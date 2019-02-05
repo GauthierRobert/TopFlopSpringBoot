@@ -1,8 +1,8 @@
 package com.lhc.webservices.restServices.impl;
 
-import com.lhc.business.service.BallotService;
+import com.lhc.business.service.competition.BallotService;
 import com.lhc.business.service.security.UserService;
-import com.lhc.datamodel.entities.Ballot;
+import com.lhc.datamodel.entities.competition.Ballot;
 import com.lhc.datamodel.entities.security.User;
 import com.lhc.dto.BallotDto;
 import com.lhc.mapper.ballot.BallotMapperHandler;
@@ -27,8 +27,9 @@ public class BallotEndPointImpl implements BallotEndPoint {
 
         BallotMapperHandler ballotMapperHandler = new BallotMapperHandler();
         Ballot ballot = ballotMapperHandler.createEntityFromDTO(ballotDto);
+        ballot.setUser(currentUser);
 
-        ballotService.saveOrUpdate(ballot, currentUser, ballot.getMatch_ref());
+        ballotService.saveOrUpdate(ballot);
 
         return ballotDto;
     }

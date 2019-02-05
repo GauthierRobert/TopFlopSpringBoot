@@ -1,8 +1,8 @@
 package com.lhc.datamodel.entities.security;
 
 
-import com.lhc.datamodel.entities.Ballot;
-import com.lhc.datamodel.entities.Competition;
+import com.lhc.datamodel.entities.competition.Ballot;
+import com.lhc.datamodel.entities.competition.Competition;
 
 import javax.persistence.*;
 import java.util.List;
@@ -15,7 +15,10 @@ public class User {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @Column(unique=true)
     private String username;
+
     private String password;
     
     @Transient

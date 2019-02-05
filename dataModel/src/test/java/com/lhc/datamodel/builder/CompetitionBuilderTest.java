@@ -1,10 +1,9 @@
 package com.lhc.datamodel.builder;
 
-import com.lhc.datamodel.entities.Competition;
+import com.lhc.datamodel.entities.competition.Competition;
 import org.junit.Test;
 
 import static com.lhc.datamodel.builder.CompetitionBuilder.aCompetition;
-import static org.junit.Assert.*;
 
 public class CompetitionBuilderTest {
 

@@ -1,13 +1,13 @@
 package com.lhc.datamodel.builder;
 
-import com.lhc.datamodel.entities.Competition;
+import com.lhc.datamodel.entities.competition.Competition;
 import com.lhc.datamodel.entities.rules.Rule;
 import com.lhc.datamodel.enumeration.LabelType;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.lhc.datamodel.entities.Competition.competition;
+import static com.lhc.datamodel.entities.competition.Competition.competition;
 import static com.lhc.datamodel.entities.rules.Rule.rule;
 
 public class CompetitionBuilder {

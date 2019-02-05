@@ -1,8 +1,8 @@
 package com.lhc.webservices.restServices;
 
 import com.lhc.business.BusinessConfig;
-import com.lhc.business.service.CompetitionService;
-import com.lhc.datamodel.entities.Competition;
+import com.lhc.business.service.competition.CompetitionService;
+import com.lhc.datamodel.entities.competition.Competition;
 import com.lhc.datamodel.entities.security.User;
 import com.lhc.dto.CompetitionDto;
 import com.lhc.mapper.competition.CompetitionMapperHandler;
@@ -41,7 +41,7 @@ public class CompetitionEndPointTest {
         if (competitionDto.getConfirmedPassword().equals(competitionDto.getPassword())) {
             competition = competitionMapperHandler.createEntityFromDTO(competitionDto);
             try {
-                competition = competitionService.createCompetition(competition, currentUser);
+                competition = competitionService.saveOrUpdate(competition, currentUser);
             } catch (NoSuchAlgorithmException e) {
                 e.printStackTrace();
             }

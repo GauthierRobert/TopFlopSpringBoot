@@ -1,7 +1,7 @@
 package com.lhc.webservices.restServices.impl;
 
-import com.lhc.business.service.VoteService;
-import com.lhc.datamodel.entities.Vote;
+import com.lhc.business.service.competition.VoteService;
+import com.lhc.datamodel.entities.competition.Vote;
 import com.lhc.dto.VoteDto;
 import com.lhc.mapper.vote.VoteMapperHandler;
 import com.lhc.webservices.restServices.VoteEndPoint;

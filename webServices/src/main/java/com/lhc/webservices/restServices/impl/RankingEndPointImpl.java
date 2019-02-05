@@ -1,10 +1,10 @@
 package com.lhc.webservices.restServices.impl;
 
 import com.lhc.business.dto.RankingCell;
-import com.lhc.business.service.MatchService;
-import com.lhc.business.service.RankingService;
-import com.lhc.business.service.VoteService;
-import com.lhc.datamodel.entities.Vote;
+import com.lhc.business.service.competition.MatchService;
+import com.lhc.business.service.competition.RankingService;
+import com.lhc.business.service.competition.VoteService;
+import com.lhc.datamodel.entities.competition.Vote;
 import com.lhc.webservices.restServices.RankingEndPoint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestParam;
