@@ -11,7 +11,6 @@ import javax.ws.rs.core.MediaType;
 import java.util.List;
 
 @Produces(MediaType.APPLICATION_JSON)
-@RestController
 public interface RankingEndPoint {
 
     @RequestMapping(

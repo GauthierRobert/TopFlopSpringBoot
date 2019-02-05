@@ -11,7 +11,6 @@ import javax.ws.rs.core.MediaType;
 import java.security.NoSuchAlgorithmException;
 
 @Produces(MediaType.APPLICATION_JSON)
-@RestController
 public interface ImageUploadEndPoint {
 
     @RequestMapping(

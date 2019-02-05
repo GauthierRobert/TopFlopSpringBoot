@@ -18,16 +18,8 @@ public class BallotMapperHandler implements MapperHandler<Ballot, BallotDto> {
             ballot = Ballot.ballot();
         }
 
-        MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
-
-        mapperFactory.classMap(BallotDto.class, Ballot.class)
-                .field("reference", "reference")
-                .field("match_ref", "match_ref")
-                .field("competition_ref", "competition_ref")
-                .field("comment", "comment")
-                .register();
-        MapperFacade mapper = mapperFactory.getMapperFacade();
-        mapper.map(ballotDto, ballot);
+        MapperFacade mapper = BallotSingletonMapper.getInstanceEntity();
+        mapper.map(ballot, ballotDto);
 
         VoteMapperHandler voteMapperHandler = new VoteMapperHandler();
         if (ballotDto.getVoteDtos() !=null) {

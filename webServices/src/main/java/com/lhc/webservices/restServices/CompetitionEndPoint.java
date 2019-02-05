@@ -9,7 +9,6 @@ import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 @Produces(MediaType.APPLICATION_JSON)
-@RestController
 public interface CompetitionEndPoint {
 
     @RequestMapping(

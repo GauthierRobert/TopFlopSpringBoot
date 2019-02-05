@@ -7,9 +7,10 @@ import com.lhc.dto.ImageCompetitionDto;
 import com.lhc.mapper.mapperHandler.ImageCompetitionMapperHandler;
 import com.lhc.webservices.restServices.ImageUploadEndPoint;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.security.NoSuchAlgorithmException;
-
+@RestController
 public class ImageUploadEndPointImpl implements ImageUploadEndPoint {
 
 
