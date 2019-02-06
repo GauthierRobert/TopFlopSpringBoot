@@ -6,9 +6,9 @@ import com.lhc.dto.MatchDto;
 import com.lhc.mapper.mapperHandler.MatchMapperHandler;
 import com.lhc.webservices.restServices.MatchEndPoint;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class MatchEndPointImpl implements MatchEndPoint {
@@ -41,6 +41,16 @@ public class MatchEndPointImpl implements MatchEndPoint {
         MatchMapperHandler matchMapperHandler = new MatchMapperHandler();
         MatchDto matchDto = matchMapperHandler.createDTOFromEntity(match);
         return matchDto;
+    }
+
+    @Override
+    public List<MatchDto> getMatchesWithCompetitionRef(@RequestParam(value = "competition_ref") String competition_ref){
+
+        List<Match> matches = matchService.findAllMatchesByCompetitionReference(competition_ref);
+
+        MatchMapperHandler matchMapperHandler = new MatchMapperHandler();
+        return matchMapperHandler.mapToListDtos(matches);
+
     }
 
 }

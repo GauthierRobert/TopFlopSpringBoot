@@ -6,6 +6,8 @@ import java.util.List;
 
 public interface MatchService {
 
+    List<Match> findAllMatchesByCompetitionReference(String competition_ref);
+
     Match findMatchByReference(String ref);
 
     Match saveOrUpdate(Match match);

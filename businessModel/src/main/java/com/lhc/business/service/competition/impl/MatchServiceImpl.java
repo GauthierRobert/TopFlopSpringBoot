@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -29,6 +30,13 @@ public class MatchServiceImpl implements MatchService {
         return matchRepository.findByReference(ref);
 
     }
+
+    @Override
+    public List<Match> findAllMatchesByCompetitionReference(String competition_ref) {
+
+        return matchRepository.findAllByCompetitionReference(competition_ref);
+    }
+
 
     @Override
     @Transactional

@@ -16,6 +16,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class CompetitionServiceImpl implements CompetitionService {
@@ -51,7 +52,7 @@ public class CompetitionServiceImpl implements CompetitionService {
             competitionInDB = findByReference(competition.getReference());
             alreadyExist = isAlreadyExist(competitionInDB);
         } else {
-            competition.setReference(competition.getName());
+            competition.setReference(UUID.randomUUID().toString());
         }
 
         if (!alreadyExist) {
