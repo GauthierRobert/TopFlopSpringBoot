@@ -19,7 +19,7 @@ public class BallotMapperHandler implements MapperHandler<Ballot, BallotDto> {
         }
 
         MapperFacade mapper = BallotSingletonMapper.getInstanceEntity();
-        mapper.map(ballot, ballotDto);
+        mapper.map(ballotDto, ballot);
 
         VoteMapperHandler voteMapperHandler = new VoteMapperHandler();
         if (ballotDto.getVoteDtos() !=null) {

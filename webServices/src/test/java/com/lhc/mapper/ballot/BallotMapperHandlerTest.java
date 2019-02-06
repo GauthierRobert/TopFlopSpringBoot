@@ -17,7 +17,11 @@ public class BallotMapperHandlerTest {
     @Test
     public void createEntityFromDTO() {
 
-        BallotDto ballotDto = aBallotDto().withCompetition_ref("Linkebeek").withVotesDtos().build();
+        BallotDto ballotDto = aBallotDto()
+                .withCompetition_ref("Linkebeek")
+                .withMatch_ref("rergrgert")
+                .withComment("AAA","BBB")
+                .withVotesDtos().build();
 
         List<VoteDto> voteDtoList = new ArrayList<>();
         VoteDto voteDto_1 = VoteDto.voteDto(1, "A", 1);
@@ -33,6 +37,7 @@ public class BallotMapperHandlerTest {
 
         Ballot actual = ballotMapperHandler.createEntityFromDTO(ballotDto);
 
+        assertThat(actual.getCompetition_ref()).isNotNull();
         assertThat(actual.getCompetition_ref()).isEqualTo(ballotDto.getCompetition_ref());
 
     }
