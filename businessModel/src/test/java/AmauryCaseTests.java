@@ -77,7 +77,7 @@ public class AmauryCaseTests {
 
         User user = userService.findByUsername(CREATOR);
 
-        competitionService.saveOrUpdate(competition_linkebeek, user );
+        competitionService.saveOrUpdate(competitionLinkebeek, user );
 
     }
 
@@ -163,16 +163,19 @@ public class AmauryCaseTests {
     private static String PASSWORD_COMPETITION = "lhc";
     private static String DIVISION = "2";
     private static String SEASON = "2018-2019";
+    private static String TOP_NAME = "Carré d'AS";
+    private static String FLOP_NAME = "Floge";
     private static boolean COMMENTAIRE_TOP = false;
     private static boolean COMMENTAIRE_FLOP = true;
 
-    private static Competition competition_linkebeek = aCompetition()
+    private static Competition competitionLinkebeek = aCompetition()
             .withName(NAME_COMPETITION)
             .withDivision(DIVISION)
             .withSeason(SEASON)
             .withCreatorUsername(CREATOR)
             .withPassword(PASSWORD_COMPETITION)
             .withConfirmedPassword(PASSWORD_COMPETITION)
+            .withTopFlopName(TOP_NAME, FLOP_NAME)
             .withComments(COMMENTAIRE_TOP, COMMENTAIRE_FLOP)
             .withRules(4,0)
             .withTopRules(4,3,2,1)

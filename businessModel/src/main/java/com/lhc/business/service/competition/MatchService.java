@@ -10,6 +10,8 @@ public interface MatchService {
 
     Match findMatchByReference(String ref);
 
+    Match addVisitors(String match_ref, String visitors);
+
     Match saveOrUpdate(Match match);
     
     Match close(String match_ref);

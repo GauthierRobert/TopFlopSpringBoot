@@ -22,6 +22,8 @@ public class CompetitionBuilder {
     private String creatorUsername;
     private boolean withCommentTop;
     private boolean withCommentFlop;
+    private String topName;
+    private String flopName;
     private List<Rule> rules = new ArrayList<>();
 
     public static CompetitionBuilder aCompetition(){
@@ -58,6 +60,12 @@ public class CompetitionBuilder {
     public CompetitionBuilder withComments(boolean top, boolean flop){
         this.withCommentTop = top;
         this.withCommentFlop = flop;
+        return this;
+    }
+
+    public CompetitionBuilder withTopFlopName(String topName, String flopName){
+        this.topName = topName;
+        this.flopName = flopName;
         return this;
     }
 
@@ -111,7 +119,7 @@ public class CompetitionBuilder {
         }
 
         public Competition build(){
-            return competition(id, name, season, division, password, confirmedPassword, creatorUsername, withCommentTop, withCommentFlop,rules);
+            return competition(name, season, division, password, confirmedPassword, creatorUsername, topName, flopName, withCommentTop, withCommentFlop,rules);
         }
     }
 

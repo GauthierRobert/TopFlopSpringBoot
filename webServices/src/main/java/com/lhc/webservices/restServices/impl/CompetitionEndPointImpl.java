@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
+
 @RestController
 public class CompetitionEndPointImpl implements CompetitionEndPoint {
 
@@ -45,11 +46,12 @@ public class CompetitionEndPointImpl implements CompetitionEndPoint {
     @Override
     public CompetitionDto addUserToCompetition(@RequestParam(value = "competition_ref") String competition_ref,
                                                @RequestParam(value = "username") String username,
-                                               @RequestParam(value = "password") String password) throws NoSuchAlgorithmException {
+                                               @RequestParam(value = "password") String password,
+                                               @RequestParam(value = "isPlayer") boolean isPlayer) throws NoSuchAlgorithmException {
 
         User currentUser = userService.findByUsername(username);
-        Competition competition = competitionService.addUser(currentUser, competition_ref, password);
-
+        Competition competition;
+        competition = competitionService.addUser(currentUser, competition_ref, password, isPlayer);
         CompetitionMapperHandler competitionMapperHandler = new CompetitionMapperHandler();
         CompetitionDto competitionDto = competitionMapperHandler.createDTOFromEntity(competition);
         return competitionDto;
@@ -58,17 +60,17 @@ public class CompetitionEndPointImpl implements CompetitionEndPoint {
 
 
     @Override
-    public List<CompetitionDto> getCompetitionLinkToUser(@RequestParam(value = "username") String username){
+    public List<CompetitionDto> getCompetitionLinkToUser(@RequestParam(value = "username") String username) {
 
         List<Competition> competitions = competitionService.findAllByUsername(username);
         CompetitionMapperHandler competitionMapperHandler = new CompetitionMapperHandler();
-        
+
         return competitionMapperHandler.mapToListDtos(competitions);
 
     }
 
     @Override
-    public List<String> getUsersLinkToCompetition(@RequestParam(value = "competition_ref") String competition_ref){
+    public List<String> getUsersLinkToCompetition(@RequestParam(value = "competition_ref") String competition_ref) {
 
         return competitionService.findUsersByCompetition(competition_ref);
     }

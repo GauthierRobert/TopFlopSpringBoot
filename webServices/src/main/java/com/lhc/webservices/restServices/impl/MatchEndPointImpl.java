@@ -26,6 +26,16 @@ public class MatchEndPointImpl implements MatchEndPoint {
         return matchDto;
     }
 
+    @Override
+    public MatchDto addVisitors(MatchDto matchDto) {
+
+        MatchMapperHandler matchMapperHandler = new MatchMapperHandler();
+        Match match = matchMapperHandler.createEntityFromDTO(matchDto);
+        match = matchService.addVisitors(match.getReference(), match.getVisitors());
+        MatchDto matchDtoUpdate = matchMapperHandler.createDTOFromEntity(match);
+        return matchDtoUpdate;
+    }
+
 
     @Override
     public MatchDto closeMatch(@RequestParam(value = "match_ref") String match_ref){

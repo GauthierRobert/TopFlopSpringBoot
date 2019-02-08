@@ -1,7 +1,10 @@
 package com.lhc.webservices.restServices;
 
 import com.lhc.dto.MatchDto;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
@@ -16,6 +19,11 @@ public interface MatchEndPoint {
     MatchDto postMatch(@RequestBody MatchDto matchDto);
 
     @RequestMapping(
+            value = "/match/addSpectator",
+            method = RequestMethod.POST)
+    MatchDto addVisitors(@RequestBody MatchDto matchDto);
+
+    @RequestMapping(
             value = "/match/close",
             method = RequestMethod.POST)
     MatchDto closeMatch(@RequestParam(value = "match_ref") String match_ref);
@@ -24,6 +32,7 @@ public interface MatchEndPoint {
             value = "/match/open",
             method = RequestMethod.POST)
     MatchDto openMatch(@RequestParam(value = "match_ref") String match_ref);
+
 
 
     @RequestMapping(

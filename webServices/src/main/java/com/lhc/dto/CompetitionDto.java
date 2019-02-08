@@ -25,6 +25,10 @@ public class CompetitionDto {
 
     private String imageAsBase64;
 
+    private String topName;
+
+    private String flopName;
+
     private boolean withCommentTop;
 
     private boolean withCommentFlop;
@@ -38,7 +42,7 @@ public class CompetitionDto {
         this.matchDtos = new ArrayList<>();
     }
 
-    public static CompetitionDto competitionDto(String name, String season, String division,  String password, String confirmedPassword, String creatorUsername, boolean withCommentTop, boolean withCommentFlop,List<RuleDto> ruleDtos) {
+    public static CompetitionDto competitionDto(String name, String season, String division,  String password, String confirmedPassword, String creatorUsername, String imageAsBase64, String topName, String flopName, boolean withCommentTop, boolean withCommentFlop,List<RuleDto> ruleDtos) {
         return new CompetitionDto(
                 name,
                 name,
@@ -47,14 +51,17 @@ public class CompetitionDto {
                 creatorUsername,
                 division,
                 season,
+                imageAsBase64,
+                topName,
+                flopName,
                 withCommentTop,
                 withCommentFlop,
-                new ArrayList<MatchDto>() ,
+                new ArrayList<>() ,
                 ruleDtos);
 
     }
 
-    private CompetitionDto(String reference, String name, String password, String confirmedPassword, String creatorUsername, String division, String season, boolean withCommentTop, boolean withCommentFlop,List<MatchDto> matchDtos, List<RuleDto> ruleDtos) {
+    public CompetitionDto(String reference, String name, String password, String confirmedPassword, String creatorUsername, String division, String season, String imageAsBase64, String topName, String flopName, boolean withCommentTop, boolean withCommentFlop, List<MatchDto> matchDtos, List<RuleDto> ruleDtos) {
         this.reference = reference;
         this.name = name;
         this.password = password;
@@ -62,10 +69,12 @@ public class CompetitionDto {
         this.creatorUsername = creatorUsername;
         this.division = division;
         this.season = season;
+        this.imageAsBase64 = imageAsBase64;
+        this.topName = topName;
+        this.flopName = flopName;
         this.withCommentTop = withCommentTop;
         this.withCommentFlop = withCommentFlop;
         this.matchDtos = matchDtos;
         this.ruleDtos = ruleDtos;
     }
-
 }

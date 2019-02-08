@@ -18,6 +18,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.UUID;
 
+import static com.lhc.datamodel.entities.competition.manyToMany.UserCompetition.player;
+import static com.lhc.datamodel.entities.competition.manyToMany.UserCompetition.spectator;
+
 @Service
 public class CompetitionServiceImpl implements CompetitionService {
 
@@ -58,7 +61,7 @@ public class CompetitionServiceImpl implements CompetitionService {
         if (!alreadyExist) {
             competition.setPassword(sha256(competition.getPassword()));
             user.setRoles(new HashSet<>(Arrays.asList(roleRepository.findByName(RoleType.ROLE_ADMIN.name()))));
-            competition.getAllowedUsers().add(user);
+            competition.getUserCompetitions().add(player(user));
             userRepository.save(user);
 
             return competitionRepository.save(competition);
@@ -82,7 +85,7 @@ public class CompetitionServiceImpl implements CompetitionService {
 
     @Override
     @Transactional
-    public Competition addUser(User user, String postedName, String postedPassword) throws NoSuchAlgorithmException {
+    public Competition addUser(User user, String postedName, String postedPassword, boolean isPlayer) throws NoSuchAlgorithmException {
 
         Competition competition = competitionRepository.findByReference(postedName);
 
@@ -90,21 +93,28 @@ public class CompetitionServiceImpl implements CompetitionService {
             return null;
         }
 
-        String sha256Password = competition.getPassword();
-        String postedSha256Password = sha256(postedPassword);
+        if (isPlayer) {
+            String sha256Password = competition.getPassword();
+            String postedSha256Password = sha256(postedPassword);
 
-        if (sha256Password.equals(postedSha256Password)) {
-            competition.getAllowedUsers().add(user);
-            return competitionRepository.save(competition);
+            if (sha256Password.equals(postedSha256Password)) {
+                competition.getUserCompetitions().add(player(user));
+                return competitionRepository.save(competition);
+            } else {
+                return null;
+            }
         } else {
-            return null;
+            competition.getUserCompetitions().add(spectator(user));
+            return competitionRepository.save(competition);
         }
     }
 
 
     @Override
     @Transactional
-    public List<Competition> findAllByUsername(String username) { return competitionRepository.findAllByUsername(username); }
+    public List<Competition> findAllByUsername(String username) {
+        return competitionRepository.findAllByUsername(username);
+    }
 
     @Override
     public Competition findByReference(String ref) {
@@ -113,7 +123,7 @@ public class CompetitionServiceImpl implements CompetitionService {
 
     @Override
     public List<String> findUsersByCompetition(String ref) {
-        return competitionRepository.findUsersbyCompetition(ref);
+        return competitionRepository.findPlayerByCompetition(ref);
     }
 
     private String sha256(String data) throws NoSuchAlgorithmException {

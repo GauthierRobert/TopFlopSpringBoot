@@ -3,13 +3,14 @@ package com.lhc.datamodel.entities.security;
 
 import com.lhc.datamodel.entities.competition.Ballot;
 import com.lhc.datamodel.entities.competition.Competition;
+import com.lhc.datamodel.entities.competition.manyToMany.UserCompetition;
 
 import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
 
 @Entity
-@Table(name = "user")
+@Table(name = "Users")
 public class User {
 	
 	@Id
@@ -24,8 +25,8 @@ public class User {
     @Transient
     private String passwordConfirm;
 
-    @ManyToMany(mappedBy = "allowedUsers")
-    private List<Competition> competitions;
+    @OneToMany(mappedBy = "user")
+    private List<UserCompetition> userCompetitions;
 
     @ManyToMany
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -72,22 +73,6 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public List<Ballot> getBallots() {
-        return ballots;
-    }
-    
-    public void setBallots(List<Ballot> ballots) {
-        this.ballots = ballots;
-    }
-
-    public List<Competition> getCompetitions() {
-        return competitions;
-    }
-
-    public void setCompetitions(List<Competition> competitions) {
-        this.competitions = competitions;
     }
 
     public User(String username, String password) {

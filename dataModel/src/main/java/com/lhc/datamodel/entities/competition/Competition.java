@@ -1,8 +1,8 @@
 package com.lhc.datamodel.entities.competition;
 
+import com.lhc.datamodel.entities.competition.manyToMany.UserCompetition;
 import com.lhc.datamodel.entities.image.ImageCompetition;
 import com.lhc.datamodel.entities.rules.Rule;
-import com.lhc.datamodel.entities.security.User;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -36,9 +36,12 @@ public class Competition implements Serializable {
 
     private Boolean withCommentFlop;
 
+    private String topName;
+
+    private String flopName;
+
     @OneToOne(mappedBy = "competition", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private ImageCompetition imageCompetition;
-
 
     private String password;
     @Transient
@@ -53,22 +56,15 @@ public class Competition implements Serializable {
     @OneToMany(mappedBy="competition", fetch= FetchType.LAZY, cascade= CascadeType.ALL )
     private List<Training> trainings;
 
-    @ManyToMany
-    @JoinTable(name = "users_competitions",
-            joinColumns = @JoinColumn(
-                    name = "competition_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(
-                    name = "user_id", referencedColumnName = "id"))
-    private List<User> allowedUsers;
+    @OneToMany(mappedBy = "competition")
+    private List<UserCompetition> userCompetitions;
 
     @OneToMany(mappedBy="competition", fetch= FetchType.EAGER, cascade= CascadeType.ALL )
     private List<Rule> rules;
 
-
-
     private Competition() {
         this.matches = new ArrayList<>();
-        this.allowedUsers = new ArrayList<>();
+        this.userCompetitions = new ArrayList<>();
         this.rules = new ArrayList<>();
         this.trainings = new ArrayList<>();
     }
@@ -77,18 +73,21 @@ public class Competition implements Serializable {
         return new Competition();
     }
 
-    public static Competition competition(Long id, String name, String season, String division, String password, String confirmedPassword, String creatorUsername, boolean withCommentTop, boolean withCommentFlop, List<Rule> rules) {
+    public static Competition competition(String name, String season, String division, String password, String confirmedPassword, String creatorUsername, String topName, String flopName, boolean withCommentTop, boolean withCommentFlop, List<Rule> rules) {
         Competition competition = new Competition(
-                id,
-                name,
+                null,
+                null,
                 name,
                 season,
                 division,
+                withCommentTop,
+                withCommentFlop,
+                topName,
+                flopName,
+                null,
                 password,
                 confirmedPassword,
                 creatorUsername,
-                withCommentTop,
-                withCommentFlop,
                 new ArrayList<>(),
                 new ArrayList<>(),
                 new ArrayList<>(),
@@ -99,20 +98,23 @@ public class Competition implements Serializable {
     }
 
 
-    private Competition(Long id, String reference, String name, String season, String division, String password, String confirmedPassword, String creatorUsername, Boolean withCommentTop, Boolean withCommentFlop, List<Match> matches, List<User> allowedUsers, List<Rule> rules, List<Training> trainings) {
+    public Competition(Long id, String reference, String name, String season, String division, Boolean withCommentTop, Boolean withCommentFlop, String topName, String flopName, ImageCompetition imageCompetition, String password, String confirmedPassword, String creatorUsername, List<Match> matches, List<Training> trainings, List<UserCompetition> userCompetitions, List<Rule> rules) {
         this.id = id;
         this.reference = reference;
         this.name = name;
         this.season = season;
         this.division = division;
+        this.withCommentTop = withCommentTop;
+        this.withCommentFlop = withCommentFlop;
+        this.topName = topName;
+        this.flopName = flopName;
+        this.imageCompetition = imageCompetition;
         this.password = password;
         this.confirmedPassword = confirmedPassword;
         this.creatorUsername = creatorUsername;
-        this.withCommentTop = withCommentTop;
-        this.withCommentFlop = withCommentFlop;
         this.matches = matches;
         this.trainings = trainings;
-        this.allowedUsers = allowedUsers;
+        this.userCompetitions = userCompetitions;
         this.rules = rules;
     }
 

@@ -22,7 +22,8 @@ public interface CompetitionEndPoint {
             method = RequestMethod.POST)
     CompetitionDto addUserToCompetition(@RequestParam(value = "competition_ref") String competition_ref,
                                         @RequestParam(value = "username") String username,
-                                        @RequestParam(value = "password") String password) throws NoSuchAlgorithmException;
+                                        @RequestParam(value = "password") String password,
+                                        @RequestParam(value = "isPlayer") boolean isPlayer) throws NoSuchAlgorithmException;
 
     @RequestMapping(
             value = "/competition/get",

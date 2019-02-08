@@ -13,7 +13,7 @@ public interface CompetitionService {
 
     Competition saveOrUpdate(Competition competition, User user) throws NoSuchAlgorithmException;
 
-    Competition addUser(User user, String postedName, String postedPassword) throws NoSuchAlgorithmException;
+    Competition addUser(User user, String postedName, String postedPassword, boolean isPlayer) throws NoSuchAlgorithmException;
 
     Competition findByReference(String ref);
 

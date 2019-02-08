@@ -5,6 +5,8 @@ import com.lhc.dto.MatchDto;
 import com.lhc.mapper.MapperHandler;
 import ma.glasnost.orika.MapperFacade;
 
+import java.util.List;
+
 import static com.lhc.dto.MatchDto.matchDto;
 import static com.lhc.mapper.singletonMapper.MatchSingletonMapper.getInstanceDto;
 import static com.lhc.mapper.singletonMapper.MatchSingletonMapper.getInstanceEntity;
@@ -12,17 +14,19 @@ import static com.lhc.mapper.singletonMapper.MatchSingletonMapper.getInstanceEnt
 public class MatchMapperHandler implements MapperHandler<Match, MatchDto> {
 
 
-
-
     @Override
     public Match mapToEntity(MatchDto matchDto, Match match) {
 
-        if (match ==null){
+        if (match == null) {
             match = Match.match();
         }
 
         MapperFacade mapper = getInstanceEntity();
         mapper.map(matchDto, match);
+
+        VisitorsMapper visitorsMapper = new VisitorsMapper();
+        String visitors = visitorsMapper.mapListVisitorIntoString(matchDto.getVisitors());
+        match.setVisitors(visitors);
 
         return match;
 
@@ -42,7 +46,7 @@ public class MatchMapperHandler implements MapperHandler<Match, MatchDto> {
     @Override
     public MatchDto mapToDto(Match match, MatchDto matchDto) {
 
-        if (matchDto ==null){
+        if (matchDto == null) {
             matchDto = matchDto();
         }
 
@@ -51,6 +55,11 @@ public class MatchMapperHandler implements MapperHandler<Match, MatchDto> {
         mapper.map(match, matchDto);
         matchDto.setDate(match.getDate().toString());
         matchDto.setStatus(match.getStatus().name());
+
+        VisitorsMapper visitorsMapper = new VisitorsMapper();
+        List<String> visitors = visitorsMapper.mapStringVisitorIntoList(match.getVisitors());
+        matchDto.setVisitors(visitors);
+
         return matchDto;
 
     }

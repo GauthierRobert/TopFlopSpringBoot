@@ -42,6 +42,8 @@ public class CompetitionSingletonMapper {
                 .field("creatorUsername", "creatorUsername")
                 .field("withCommentTop","withCommentTop")
                 .field("withCommentFlop","withCommentFlop")
+                .field("topName","topName")
+                .field("flopName","flopName")
                 .register();
 
         return  mapperFactory.getMapperFacade();
@@ -60,6 +62,8 @@ public class CompetitionSingletonMapper {
                 .field("creatorUsername", "creatorUsername")
                 .field("withCommentTop","withCommentTop")
                 .field("withCommentFlop","withCommentFlop")
+                .field("topName","topName")
+                .field("flopName","flopName")
                 .register();
 
         return  mapperFactory.getMapperFacade();

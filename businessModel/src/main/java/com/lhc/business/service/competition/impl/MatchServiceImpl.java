@@ -32,6 +32,13 @@ public class MatchServiceImpl implements MatchService {
     }
 
     @Override
+    public Match addVisitors(String match_ref, String visitors) {
+        Match match = findMatchByReference(match_ref);
+        match.setVisitors(visitors);
+        return match;
+    }
+
+    @Override
     public List<Match> findAllMatchesByCompetitionReference(String competition_ref) {
 
         return matchRepository.findAllByCompetitionReference(competition_ref);

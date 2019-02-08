@@ -1,5 +1,6 @@
 package com.lhc.dto.builder;
 
+import com.lhc.datamodel.builder.CompetitionBuilder;
 import com.lhc.datamodel.enumeration.LabelType;
 import com.lhc.dto.CompetitionDto;
 import com.lhc.dto.RuleDto;
@@ -19,9 +20,14 @@ public class CompetitionDtoBuilder {
     private String password;
     private String confirmedPassword;
     private String creatorUsername;
+    private String imageAsBase64;
+    private String topName;
+    private String flopName;
     private boolean withCommentTop;
     private boolean withCommentFlop;
     private List<RuleDto> ruleDtos = new ArrayList<>();
+
+
 
     public static CompetitionDtoBuilder aCompetitionDto(){
         return new CompetitionDtoBuilder();
@@ -52,9 +58,18 @@ public class CompetitionDtoBuilder {
         this.creatorUsername = creatorUsername;
         return this;
     }
+    public CompetitionDtoBuilder withImage(String imageAsBase64){
+        this.imageAsBase64 = imageAsBase64;
+        return this;
+    }
     public CompetitionDtoBuilder withComments(boolean withCommentTop, boolean withCommentFlop){
         this.withCommentTop = withCommentTop;
         this.withCommentFlop = withCommentFlop;
+        return this;
+    }
+    public CompetitionDtoBuilder withTopFlopName(String topName, String flopName){
+        this.topName = topName;
+        this.flopName = flopName;
         return this;
     }
 
@@ -108,7 +123,7 @@ public class CompetitionDtoBuilder {
         }
 
         public CompetitionDto build(){
-            return competitionDto(name, season, division, password, confirmedPassword, creatorUsername, withCommentTop, withCommentFlop, ruleDtos);
+            return competitionDto(name, season, division, password, confirmedPassword, creatorUsername, imageAsBase64, topName, flopName, withCommentTop, withCommentFlop, ruleDtos);
         }
     }
 

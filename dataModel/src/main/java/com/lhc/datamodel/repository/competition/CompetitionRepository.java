@@ -12,16 +12,24 @@ import java.util.List;
 @Repository
 public interface CompetitionRepository extends JpaRepository<Competition, Long> {
 
-    @Query("SELECT c FROM Competitions c WHERE c.reference = :ref")
+    @Query("SELECT c FROM Competitions c " +
+            "WHERE c.reference = :ref")
     Competition findByReference(@Param("ref") String ref);
 
-    @Query("SELECT c FROM Competitions c WHERE :user = c.allowedUsers")
+    @Query("SELECT c FROM Competitions c " +
+            "WHERE :user = c.userCompetitions")
     List<Competition> findAllByUser(@Param("user") User user);
 
-    @Query("SELECT c FROM Competitions c JOIN c.allowedUsers u where :username = u.username")
+    @Query("SELECT c FROM Competitions c " +
+            "JOIN c.userCompetitions uc " +
+            "JOIN uc.user u " +
+            "WHERE :username = u.username")
     List<Competition> findAllByUsername(@Param("username") String username);
 
-    @Query("SELECT u.username FROM Competitions c JOIN c.allowedUsers u WHERE c.reference = :ref")
-    List<String> findUsersbyCompetition(@Param("ref") String ref);
+    @Query("SELECT u.username FROM Competitions c " +
+            "JOIN c.userCompetitions uc " +
+            "JOIN uc.user u " +
+            "WHERE c.reference = :ref AND uc.isPlayer = TRUE")
+    List<String> findPlayerByCompetition(@Param("ref") String ref);
 
 }
