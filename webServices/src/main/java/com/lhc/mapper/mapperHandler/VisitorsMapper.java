@@ -2,6 +2,7 @@ package com.lhc.mapper.mapperHandler;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class VisitorsMapper {
@@ -14,20 +15,22 @@ public class VisitorsMapper {
 
     public String mapListVisitorIntoString(List<String> visitorsList) {
 
-        String visitors = "";
-        for (String visitor : visitorsList) {
-            visitors += visitor + SEPARATOR;
+        StringBuilder visitors = new StringBuilder();
+        if(visitorsList!=null) {
+            for (String visitor : visitorsList) {
+                visitors.append(visitor).append(SEPARATOR);
+            }
         }
-
-        return visitors;
+        return visitors.toString();
 
     }
 
 
     public List<String> mapStringVisitorIntoList(String visitors) {
-
-        String[] visitorsArray = visitors.split(SEPARATOR);
-
-        return new ArrayList<>(Arrays.asList(visitorsArray));
+        if(visitors !=null) {
+            String[] visitorsArray = visitors.split(SEPARATOR);
+            return new ArrayList<>(Arrays.asList(visitorsArray));
+        }
+        return Collections.emptyList();
     }
 }

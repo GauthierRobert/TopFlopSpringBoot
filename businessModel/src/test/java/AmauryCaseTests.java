@@ -1,13 +1,14 @@
 import com.lhc.business.BusinessConfig;
 import com.lhc.business.service.competition.*;
+import com.lhc.business.service.image.ImageUploadService;
 import com.lhc.business.service.security.UserService;
 import com.lhc.datamodel.entities.competition.Competition;
+import com.lhc.datamodel.entities.image.ImageCompetition;
 import com.lhc.datamodel.entities.security.Role;
 import com.lhc.datamodel.entities.security.User;
 import com.lhc.datamodel.enumeration.RoleType;
 import com.lhc.datamodel.repository.security.RoleRepository;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,14 +16,17 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.io.File;
+import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 
 import static com.lhc.datamodel.builder.CompetitionBuilder.aCompetition;
+import static com.lhc.datamodel.entities.image.ImageCompetition.imageCompetition;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@ContextConfiguration(classes =  BusinessConfig.class)
+@ContextConfiguration(classes = BusinessConfig.class)
 public class AmauryCaseTests {
 
     @Autowired
@@ -39,10 +43,12 @@ public class AmauryCaseTests {
     private RankingService rankingService;
     @Autowired
     private RoleRepository roleRepository;
+    @Autowired
+    private ImageUploadService imageUploadService;
 
 
     @Before
-    public void config(){
+    public void config() {
 
 
     }
@@ -77,20 +83,19 @@ public class AmauryCaseTests {
 
         User user = userService.findByUsername(CREATOR);
 
-        competitionService.saveOrUpdate(competitionLinkebeek, user );
+        competitionService.saveOrUpdate(competitionLinkebeek, user);
 
     }
 
 
-
-    public void addUserToCompetition(String username, String competitionName, String competitionPassword) throws NoSuchAlgorithmException, ParseException {
+    public void addPlayerToCompetition(String username, String competitionName, String competitionPassword) throws NoSuchAlgorithmException, ParseException {
 
         User user = userService.findByUsername(username);
 
-       competitionService.addUser(
+        competitionService.addUser(
                 user,
                 competitionName,
-                competitionPassword);
+                competitionPassword, true);
 
     }
 
@@ -177,13 +182,12 @@ public class AmauryCaseTests {
             .withConfirmedPassword(PASSWORD_COMPETITION)
             .withTopFlopName(TOP_NAME, FLOP_NAME)
             .withComments(COMMENTAIRE_TOP, COMMENTAIRE_FLOP)
-            .withRules(4,0)
-            .withTopRules(4,3,2,1)
+            .withRules(4, 0)
+            .withTopRules(4, 3, 2, 1)
             .build();
 
     @Test
-    @Ignore
-    public void globalTest() throws NoSuchAlgorithmException, ParseException{
+    public void globalTest() throws NoSuchAlgorithmException, ParseException {
 
         createRole();
 
@@ -211,28 +215,44 @@ public class AmauryCaseTests {
 
 
         saveCompetition();
+        saveImage();
 
-        addUserToCompetition(USERNAME_1, NAME_COMPETITION, PASSWORD_COMPETITION);
-        addUserToCompetition(USERNAME_2, NAME_COMPETITION, PASSWORD_COMPETITION);
-        addUserToCompetition(USERNAME_3, NAME_COMPETITION, PASSWORD_COMPETITION);
-        addUserToCompetition(USERNAME_4, NAME_COMPETITION, PASSWORD_COMPETITION);
-        addUserToCompetition(USERNAME_5, NAME_COMPETITION, PASSWORD_COMPETITION);
-        addUserToCompetition(USERNAME_6, NAME_COMPETITION, PASSWORD_COMPETITION);
-        addUserToCompetition(USERNAME_7, NAME_COMPETITION, PASSWORD_COMPETITION);
-        addUserToCompetition(USERNAME_8, NAME_COMPETITION, PASSWORD_COMPETITION);
-        addUserToCompetition(USERNAME_9, NAME_COMPETITION, PASSWORD_COMPETITION);
-        addUserToCompetition(USERNAME_10, NAME_COMPETITION, PASSWORD_COMPETITION);
-        addUserToCompetition(USERNAME_11, NAME_COMPETITION, PASSWORD_COMPETITION);
-        addUserToCompetition(USERNAME_12, NAME_COMPETITION, PASSWORD_COMPETITION);
-        addUserToCompetition(USERNAME_13, NAME_COMPETITION, PASSWORD_COMPETITION);
-        addUserToCompetition(USERNAME_14, NAME_COMPETITION, PASSWORD_COMPETITION);
-        addUserToCompetition(USERNAME_15, NAME_COMPETITION, PASSWORD_COMPETITION);
-        addUserToCompetition(USERNAME_16, NAME_COMPETITION, PASSWORD_COMPETITION);
-        addUserToCompetition(USERNAME_17, NAME_COMPETITION, PASSWORD_COMPETITION);
-        addUserToCompetition(USERNAME_18, NAME_COMPETITION, PASSWORD_COMPETITION);
-        addUserToCompetition(USERNAME_19, NAME_COMPETITION, PASSWORD_COMPETITION);
-        addUserToCompetition(USERNAME_20, NAME_COMPETITION, PASSWORD_COMPETITION);
+        addPlayerToCompetition(USERNAME_1, NAME_COMPETITION, PASSWORD_COMPETITION);
+        addPlayerToCompetition(USERNAME_2, NAME_COMPETITION, PASSWORD_COMPETITION);
+        addPlayerToCompetition(USERNAME_3, NAME_COMPETITION, PASSWORD_COMPETITION);
+        addPlayerToCompetition(USERNAME_4, NAME_COMPETITION, PASSWORD_COMPETITION);
+        addPlayerToCompetition(USERNAME_5, NAME_COMPETITION, PASSWORD_COMPETITION);
+        addPlayerToCompetition(USERNAME_6, NAME_COMPETITION, PASSWORD_COMPETITION);
+        addPlayerToCompetition(USERNAME_7, NAME_COMPETITION, PASSWORD_COMPETITION);
+        addPlayerToCompetition(USERNAME_8, NAME_COMPETITION, PASSWORD_COMPETITION);
+        addPlayerToCompetition(USERNAME_9, NAME_COMPETITION, PASSWORD_COMPETITION);
+        addPlayerToCompetition(USERNAME_10, NAME_COMPETITION, PASSWORD_COMPETITION);
+        addPlayerToCompetition(USERNAME_11, NAME_COMPETITION, PASSWORD_COMPETITION);
+        addPlayerToCompetition(USERNAME_12, NAME_COMPETITION, PASSWORD_COMPETITION);
+        addPlayerToCompetition(USERNAME_13, NAME_COMPETITION, PASSWORD_COMPETITION);
+        addPlayerToCompetition(USERNAME_14, NAME_COMPETITION, PASSWORD_COMPETITION);
+        addPlayerToCompetition(USERNAME_15, NAME_COMPETITION, PASSWORD_COMPETITION);
+        addPlayerToCompetition(USERNAME_16, NAME_COMPETITION, PASSWORD_COMPETITION);
+        addPlayerToCompetition(USERNAME_17, NAME_COMPETITION, PASSWORD_COMPETITION);
+        addPlayerToCompetition(USERNAME_18, NAME_COMPETITION, PASSWORD_COMPETITION);
+        addPlayerToCompetition(USERNAME_19, NAME_COMPETITION, PASSWORD_COMPETITION);
+        addPlayerToCompetition(USERNAME_20, NAME_COMPETITION, PASSWORD_COMPETITION);
 
+
+    }
+
+    private void saveImage() {
+        ClassLoader classLoader = getClass().getClassLoader();
+        File file = new File(classLoader.getResource("linkebeek_image.jpg").getFile());
+        ImageCompetition imageCompetition = null;
+        try {
+            Competition competition = competitionService.findByName(NAME_COMPETITION);
+            imageCompetition = imageCompetition(imageUploadService.convertToBase64(file), competition.getReference(), competition);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        imageUploadService.saveOrUpdate(imageCompetition);
 
     }
 }

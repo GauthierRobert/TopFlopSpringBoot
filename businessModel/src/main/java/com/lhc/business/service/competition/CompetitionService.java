@@ -17,6 +17,8 @@ public interface CompetitionService {
 
     Competition findByReference(String ref);
 
+    Competition findByName(String name);
+
     List<String> findUsersByCompetition(String ref);
 
     List<Competition> findAllByUsername(String username);

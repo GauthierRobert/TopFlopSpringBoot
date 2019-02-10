@@ -26,6 +26,7 @@ public class CompetitionMapperHandlerTest {
     public void createDTOFromEntity() {
 
         Competition entity = competitionTest;
+        entity.setReference("Reference");
         CompetitionMapperHandler competitionMapperHandler = new CompetitionMapperHandler();
         CompetitionDto actual = competitionMapperHandler.createDTOFromEntity(entity);
 

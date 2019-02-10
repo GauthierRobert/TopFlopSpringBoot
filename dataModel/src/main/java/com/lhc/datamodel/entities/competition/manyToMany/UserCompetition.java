@@ -11,11 +11,10 @@ import java.io.Serializable;
 
 @Getter
 @Setter
-@Entity(name = "user_competitions")
-@Table(name = "user_competitions")
+@Entity(name = "users_competitions")
+@Table(name = "users_competitions")
 @IdClass(UserCompetitionId.class)
 public class UserCompetition implements Serializable {
-
 
 
     @Id
@@ -31,16 +30,24 @@ public class UserCompetition implements Serializable {
     @Column(name = "is_player")
     private boolean isPlayer;
 
-    private UserCompetition(User user, boolean isPlayer) {
+    private UserCompetition() {
+    }
+
+    private UserCompetition(User user, Competition competition, boolean isPlayer) {
         this.user = user;
+        this.competition = competition;
         this.isPlayer = isPlayer;
     }
 
-    public static UserCompetition player(User user){
-        return new UserCompetition(user, true);
+    public static UserCompetition userCompetition(){
+        return new UserCompetition();
     }
 
-    public static UserCompetition spectator(User user){
-        return new UserCompetition(user, false);
+    public static UserCompetition player(User user, Competition competition) {
+        return new UserCompetition(user, competition, true);
+    }
+
+    public static UserCompetition spectator(User user, Competition competition) {
+        return new UserCompetition(user, competition, false);
     }
 }

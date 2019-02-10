@@ -118,7 +118,7 @@ public class EndToEndCaseTests {
 
         Competition competition = competitionService.addUser(
                 user,
-                "Linkebeek","AAAA");
+                "Linkebeek","AAAA", true);
 
     }
 

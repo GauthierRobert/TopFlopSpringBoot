@@ -44,7 +44,7 @@ public class CompetitionDto {
 
     public static CompetitionDto competitionDto(String name, String season, String division,  String password, String confirmedPassword, String creatorUsername, String imageAsBase64, String topName, String flopName, boolean withCommentTop, boolean withCommentFlop,List<RuleDto> ruleDtos) {
         return new CompetitionDto(
-                name,
+                null,
                 name,
                 password,
                 confirmedPassword,

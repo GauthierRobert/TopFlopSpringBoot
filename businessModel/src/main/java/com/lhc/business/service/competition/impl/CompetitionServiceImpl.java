@@ -2,9 +2,12 @@ package com.lhc.business.service.competition.impl;
 
 import com.lhc.business.service.competition.CompetitionService;
 import com.lhc.datamodel.entities.competition.Competition;
+import com.lhc.datamodel.entities.image.ImageCompetition;
 import com.lhc.datamodel.entities.security.User;
 import com.lhc.datamodel.enumeration.RoleType;
 import com.lhc.datamodel.repository.competition.CompetitionRepository;
+import com.lhc.datamodel.repository.competition.UserCompetitionRepository;
+import com.lhc.datamodel.repository.image.ImageCompetitionRepository;
 import com.lhc.datamodel.repository.security.RoleRepository;
 import com.lhc.datamodel.repository.security.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +20,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import static com.lhc.datamodel.entities.competition.manyToMany.UserCompetition.player;
 import static com.lhc.datamodel.entities.competition.manyToMany.UserCompetition.spectator;
@@ -25,15 +29,18 @@ import static com.lhc.datamodel.entities.competition.manyToMany.UserCompetition.
 public class CompetitionServiceImpl implements CompetitionService {
 
     private CompetitionRepository competitionRepository;
+    private UserCompetitionRepository userCompetitionRepository;
     private RoleRepository roleRepository;
     private UserRepository userRepository;
-
+    private ImageCompetitionRepository imageCompetitionRepository;
 
     @Autowired
-    public CompetitionServiceImpl(CompetitionRepository competitionRepository, RoleRepository roleRepository, UserRepository userRepository) {
+    public CompetitionServiceImpl(CompetitionRepository competitionRepository, UserCompetitionRepository userCompetitionRepository, RoleRepository roleRepository, UserRepository userRepository, ImageCompetitionRepository imageCompetitionRepository) {
         this.competitionRepository = competitionRepository;
+        this.userCompetitionRepository = userCompetitionRepository;
         this.roleRepository = roleRepository;
         this.userRepository = userRepository;
+        this.imageCompetitionRepository = imageCompetitionRepository;
     }
 
     @Override
@@ -61,10 +68,9 @@ public class CompetitionServiceImpl implements CompetitionService {
         if (!alreadyExist) {
             competition.setPassword(sha256(competition.getPassword()));
             user.setRoles(new HashSet<>(Arrays.asList(roleRepository.findByName(RoleType.ROLE_ADMIN.name()))));
-            competition.getUserCompetitions().add(player(user));
             userRepository.save(user);
-
-            return competitionRepository.save(competition);
+            competition = competitionRepository.save(competition);
+            userCompetitionRepository.save(player(user, competition));
         } else {
             competitionInDB.setName(competition.getName());
             competitionInDB.setDivision(competition.getDivision());
@@ -74,8 +80,16 @@ public class CompetitionServiceImpl implements CompetitionService {
             competitionInDB.setWithCommentTop(competition.getWithCommentTop());
             competitionInDB.setRules(competition.getRules());
 
-            return competitionRepository.save(competitionInDB);
+            competition = competitionRepository.save(competitionInDB);
         }
+
+
+        if (competition.getImageCompetition() == null) {
+            ImageCompetition imageCompetition = ImageCompetition.imageCompetition(null, competition.getReference(), competition);
+            imageCompetitionRepository.save(imageCompetition);
+        }
+
+        return competition;
     }
 
     private boolean isAlreadyExist(Competition competitionInDB) {
@@ -87,7 +101,7 @@ public class CompetitionServiceImpl implements CompetitionService {
     @Transactional
     public Competition addUser(User user, String postedName, String postedPassword, boolean isPlayer) throws NoSuchAlgorithmException {
 
-        Competition competition = competitionRepository.findByReference(postedName);
+        Competition competition = competitionRepository.findByName(postedName);
 
         if (competition == null) {
             return null;
@@ -98,14 +112,14 @@ public class CompetitionServiceImpl implements CompetitionService {
             String postedSha256Password = sha256(postedPassword);
 
             if (sha256Password.equals(postedSha256Password)) {
-                competition.getUserCompetitions().add(player(user));
-                return competitionRepository.save(competition);
+                userCompetitionRepository.save(player(user, competition));
+                return competition;
             } else {
                 return null;
             }
         } else {
-            competition.getUserCompetitions().add(spectator(user));
-            return competitionRepository.save(competition);
+            userCompetitionRepository.save(spectator(user, competition));
+            return competition;
         }
     }
 
@@ -122,8 +136,13 @@ public class CompetitionServiceImpl implements CompetitionService {
     }
 
     @Override
+    public Competition findByName(String name) {
+        return competitionRepository.findByName(name);
+    }
+
+    @Override
     public List<String> findUsersByCompetition(String ref) {
-        return competitionRepository.findPlayerByCompetition(ref);
+        return competitionRepository.findPlayerByCompetition(ref).stream().sorted().collect(Collectors.toList());
     }
 
     private String sha256(String data) throws NoSuchAlgorithmException {

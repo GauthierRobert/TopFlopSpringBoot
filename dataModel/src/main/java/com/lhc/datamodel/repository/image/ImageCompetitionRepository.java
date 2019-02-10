@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 public interface ImageCompetitionRepository extends JpaRepository<ImageCompetition, Long> {
 
     @Query("Select i_c from Images_Competition i_c where i_c.competition_ref = :competition_ref")
-    ImageCompetition findByCompetition_ref(@Param("competition_ref") String competition_ref);
+    ImageCompetition findByCompetitionReference(@Param("competition_ref") String competition_ref);
 
 
 }

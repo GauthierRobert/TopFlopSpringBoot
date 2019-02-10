@@ -1,8 +1,6 @@
 package com.lhc.business.service.image.impl;
 
-import com.lhc.business.service.competition.CompetitionService;
 import com.lhc.business.service.image.ImageUploadService;
-import com.lhc.datamodel.entities.competition.Competition;
 import com.lhc.datamodel.entities.image.ImageCompetition;
 import com.lhc.datamodel.repository.image.ImageCompetitionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +23,7 @@ public class ImageUploadServiceImpl implements ImageUploadService {
 
         String asBase64 = imageCompetition.getAsBase64();
         if(imageCompetition.getCompetition_ref() !=null) {
-            imageCompetition = findByCompetition_ref(imageCompetition.getCompetition_ref());
+            imageCompetition = findByCompetitionReference(imageCompetition.getCompetition_ref());
             if(imageCompetition !=null) {
                 imageCompetition.setAsBase64(asBase64);
                 return imageCompetitionRepository.save(imageCompetition);
@@ -35,8 +33,8 @@ public class ImageUploadServiceImpl implements ImageUploadService {
     }
 
     @Override
-    public ImageCompetition findByCompetition_ref(String competition_ref) {
-        return imageCompetitionRepository.findByCompetition_ref(competition_ref);
+    public ImageCompetition findByCompetitionReference(String competition_ref) {
+        return imageCompetitionRepository.findByCompetitionReference(competition_ref);
     }
 
     @Override

@@ -9,7 +9,7 @@ public interface ImageUploadService {
 
     ImageCompetition saveOrUpdate(ImageCompetition imageCompetition);
 
-    ImageCompetition findByCompetition_ref(String competition_ref);
+    ImageCompetition findByCompetitionReference(String competition_ref);
 
     String convertToBase64(File file) throws IOException;
 

@@ -17,6 +17,10 @@ public interface CompetitionRepository extends JpaRepository<Competition, Long> 
     Competition findByReference(@Param("ref") String ref);
 
     @Query("SELECT c FROM Competitions c " +
+            "WHERE c.name = :name")
+    Competition findByName(@Param("name") String name);
+
+    @Query("SELECT c FROM Competitions c " +
             "WHERE :user = c.userCompetitions")
     List<Competition> findAllByUser(@Param("user") User user);
 
@@ -31,5 +35,6 @@ public interface CompetitionRepository extends JpaRepository<Competition, Long> 
             "JOIN uc.user u " +
             "WHERE c.reference = :ref AND uc.isPlayer = TRUE")
     List<String> findPlayerByCompetition(@Param("ref") String ref);
+
 
 }

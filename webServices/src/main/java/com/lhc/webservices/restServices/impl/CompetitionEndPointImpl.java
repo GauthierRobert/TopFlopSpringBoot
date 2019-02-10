@@ -35,7 +35,8 @@ public class CompetitionEndPointImpl implements CompetitionEndPoint {
 
         if (competitionDto.getConfirmedPassword().equals(competitionDto.getPassword())) {
             Competition competition = competitionMapperHandler.createEntityFromDTO(competitionDto);
-            competitionService.saveOrUpdate(competition, currentUser);
+            competition = competitionService.saveOrUpdate(competition, currentUser);
+            competitionDto = competitionMapperHandler.createDTOFromEntity(competition);
             return competitionDto;
         } else {
             return null;

@@ -1,8 +1,8 @@
 package com.lhc.webservices.restServices.impl;
 
+import com.lhc.business.service.competition.CompetitionService;
 import com.lhc.business.service.image.ImageUploadService;
 import com.lhc.datamodel.entities.image.ImageCompetition;
-import com.lhc.dto.CompetitionDto;
 import com.lhc.dto.ImageCompetitionDto;
 import com.lhc.mapper.mapperHandler.ImageCompetitionMapperHandler;
 import com.lhc.webservices.restServices.ImageUploadEndPoint;
@@ -16,6 +16,8 @@ public class ImageUploadEndPointImpl implements ImageUploadEndPoint {
 
     @Autowired
     private ImageUploadService imageUploadService;
+    @Autowired
+    private CompetitionService competitionService;
 
 
     @Override
@@ -23,6 +25,8 @@ public class ImageUploadEndPointImpl implements ImageUploadEndPoint {
 
         ImageCompetitionMapperHandler imageCompetitionMapperHandler = new ImageCompetitionMapperHandler();
         ImageCompetition imageCompetition = imageCompetitionMapperHandler.createEntityFromDTO(ImageCompetitionDto);
+
+        imageCompetition.setCompetition(competitionService.findByReference(ImageCompetitionDto.getCompetition_ref()));
 
         return imageCompetitionMapperHandler.createDTOFromEntity(imageUploadService.saveOrUpdate(imageCompetition));
 

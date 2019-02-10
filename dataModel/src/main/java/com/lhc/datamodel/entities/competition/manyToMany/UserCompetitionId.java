@@ -9,6 +9,6 @@ public class UserCompetitionId implements Serializable {
 
     private Long user;
 
-    private Long Competition;
+    private Long competition;
 
 }
