@@ -14,7 +14,7 @@ import java.util.List;
 public interface VoteEndPoint {
 
     @RequestMapping(
-            value = "/vote/get",
+            value = "/vote/getList",
             method = RequestMethod.GET)
     List<VoteDto> getVotesWithBallotRef(@RequestParam(value = "ballot_ref") String ballot_ref);
 }
