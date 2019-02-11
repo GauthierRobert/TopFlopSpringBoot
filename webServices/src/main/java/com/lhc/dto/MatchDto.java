@@ -31,6 +31,8 @@ public class MatchDto {
 
     private List<String> visitors;
 
+    private List<BallotDto> ballotDtos;
+
     private MatchDto(String competition_ref, String homeTeam, Integer homeScore, Integer awayScore, String awayTeam, String creatorUsername, List<String> visitors) {
         this.homeTeam = homeTeam;
         this.homeScore = homeScore;

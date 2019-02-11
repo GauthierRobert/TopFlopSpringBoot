@@ -26,12 +26,12 @@ public interface CompetitionEndPoint {
                                         @RequestParam(value = "isPlayer") boolean isPlayer) throws NoSuchAlgorithmException;
 
     @RequestMapping(
-            value = "/competition/get",
+            value = "/competition/getList",
             method = RequestMethod.GET)
     List<CompetitionDto> getCompetitionLinkToUser(@RequestParam(value = "username") String username);
 
     @RequestMapping(
-            value = "/user/get",
+            value = "/user/getList",
             method = RequestMethod.GET)
     List<String> getUsersLinkToCompetition(@RequestParam(value = "competition_ref") String competition_ref);
 }

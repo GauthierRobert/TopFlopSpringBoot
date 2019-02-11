@@ -18,12 +18,21 @@ public class MatchEndPointImpl implements MatchEndPoint {
     private MatchService matchService;
 
     @Override
-    public MatchDto postMatch(@RequestBody MatchDto matchDto){
+    public MatchDto postMatch(@RequestBody MatchDto matchDto) {
 
         MatchMapperHandler matchMapperHandler = new MatchMapperHandler();
         Match match = matchMapperHandler.createEntityFromDTO(matchDto);
-        matchService.saveOrUpdate(match);
-        return matchDto;
+        match = matchService.saveOrUpdate(match);
+        return matchMapperHandler.createDTOFromEntity(match);
+    }
+
+    @Override
+    public MatchDto getMatch(String match_ref) {
+
+        Match match = matchService.findMatchByReferenceAndHisBallots(match_ref);
+        MatchMapperHandler matchMapperHandler = new MatchMapperHandler();
+        return matchMapperHandler.createDTOFromEntity(match);
+
     }
 
     @Override
@@ -38,7 +47,7 @@ public class MatchEndPointImpl implements MatchEndPoint {
 
 
     @Override
-    public MatchDto closeMatch(@RequestParam(value = "match_ref") String match_ref){
+    public MatchDto closeMatch(@RequestParam(value = "match_ref") String match_ref) {
         Match match = matchService.close(match_ref);
         MatchMapperHandler matchMapperHandler = new MatchMapperHandler();
         MatchDto matchDto = matchMapperHandler.createDTOFromEntity(match);
@@ -46,7 +55,7 @@ public class MatchEndPointImpl implements MatchEndPoint {
     }
 
     @Override
-    public MatchDto openMatch(@RequestParam(value = "match_ref") String match_ref){
+    public MatchDto openMatch(@RequestParam(value = "match_ref") String match_ref) {
         Match match = matchService.open(match_ref);
         MatchMapperHandler matchMapperHandler = new MatchMapperHandler();
         MatchDto matchDto = matchMapperHandler.createDTOFromEntity(match);
@@ -54,7 +63,7 @@ public class MatchEndPointImpl implements MatchEndPoint {
     }
 
     @Override
-    public List<MatchDto> getMatchesWithCompetitionRef(@RequestParam(value = "competition_ref") String competition_ref){
+    public List<MatchDto> getMatchesWithCompetitionRef(@RequestParam(value = "competition_ref") String competition_ref) {
 
         List<Match> matches = matchService.findAllMatchesByCompetitionReference(competition_ref);
 

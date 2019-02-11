@@ -1,7 +1,9 @@
 package com.lhc.business.service.competition.impl;
 
+import com.lhc.business.service.competition.BallotService;
 import com.lhc.business.service.competition.CompetitionService;
 import com.lhc.business.service.competition.MatchService;
+import com.lhc.datamodel.entities.competition.Ballot;
 import com.lhc.datamodel.entities.competition.Competition;
 import com.lhc.datamodel.entities.competition.Match;
 import com.lhc.datamodel.repository.competition.MatchRepository;
@@ -17,6 +19,7 @@ public class MatchServiceImpl implements MatchService {
 
     private MatchRepository matchRepository;
     private CompetitionService competitionService;
+    private BallotService ballotService;
 
     @Autowired
     public MatchServiceImpl(MatchRepository matchRepository, CompetitionService competitionService) {
@@ -32,9 +35,19 @@ public class MatchServiceImpl implements MatchService {
     }
 
     @Override
+    public Match findMatchByReferenceAndHisBallots(String match_ref) {
+
+        Match match = matchRepository.findByReference(match_ref);
+        List<Ballot> ballots = ballotService.findAllBallotsByMatchReference(match_ref);
+        match.setBallots(ballots);
+
+        return match;
+    }
+
+    @Override
     public Match addVisitors(String match_ref, String visitors) {
         Match match = findMatchByReference(match_ref);
-        match.setVisitors(visitors);
+        match.addVisitors(visitors);
         return match;
     }
 

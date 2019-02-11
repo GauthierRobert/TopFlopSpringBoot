@@ -16,7 +16,7 @@ public interface BallotEndPoint {
     BallotDto postBallot(@RequestBody BallotDto ballotDto, @RequestParam String username);
 
     @RequestMapping(
-            value = "/ballot/get",
+            value = "/ballot/getList",
             method = RequestMethod.GET)
     List<BallotDto> getBallotsWithMatchRef(@RequestParam(value = "match_ref") String match_ref);
 }

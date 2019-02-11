@@ -16,6 +16,7 @@ import java.util.List;
 @Entity(name = "Matches")
 public class Match implements Serializable {
 
+    private static final String SEPARATOR = " § ";
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -89,4 +90,7 @@ public class Match implements Serializable {
         this.status = MatchStatus.ON_HOLD;
     }
 
+    public void addVisitors(String visitors){
+        this.visitors = this.visitors + SEPARATOR + visitors;
+    }
 }
