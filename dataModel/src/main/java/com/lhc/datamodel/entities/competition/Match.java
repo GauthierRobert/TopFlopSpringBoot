@@ -1,5 +1,7 @@
 package com.lhc.datamodel.entities.competition;
 
+import com.lhc.datamodel.entities.competition.embedded.MatchDetails;
+import com.lhc.datamodel.entities.statistic.Statistic;
 import com.lhc.datamodel.enumeration.MatchStatus;
 import lombok.Getter;
 import lombok.Setter;
@@ -28,19 +30,14 @@ public class Match implements Serializable {
     @OneToMany(mappedBy = "match", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Ballot> ballots;
 
-    private String homeTeam;
-
-    private Integer homeScore;
-
-    private String awayTeam;
-
-    private Integer awayScore;
-
-    private MatchStatus status;
+    private MatchDetails details;
 
     private LocalDate date;
 
     private LocalTime time;
+
+    @Enumerated(EnumType.STRING)
+    private MatchStatus status;
 
     private String creatorUsername;
 
@@ -51,24 +48,25 @@ public class Match implements Serializable {
 
     private String competition_ref;
 
+    @OneToMany(mappedBy="match", fetch= FetchType.LAZY, cascade= CascadeType.ALL )
+    private List<Statistic> statistics;
+
     private Match() {
     }
 
-    public Match(Long id, String reference, List<Ballot> ballots, String homeTeam, Integer homeScore, String awayTeam, Integer awayScore, MatchStatus status, LocalDate date, LocalTime time, String creatorUsername, String visitors, Competition competition, String competition_ref) {
+    private Match(Long id, String reference, List<Ballot> ballots, MatchDetails details, LocalDate date, LocalTime time, MatchStatus status, String creatorUsername, String visitors, Competition competition, String competition_ref, List<Statistic> statistics) {
         this.id = id;
         this.reference = reference;
         this.ballots = ballots;
-        this.homeTeam = homeTeam;
-        this.homeScore = homeScore;
-        this.awayTeam = awayTeam;
-        this.awayScore = awayScore;
-        this.status = status;
+        this.details = details;
         this.date = date;
         this.time = time;
+        this.status = status;
         this.creatorUsername = creatorUsername;
         this.visitors = visitors;
         this.competition = competition;
         this.competition_ref = competition_ref;
+        this.statistics = statistics;
     }
 
     public static Match match() {

@@ -1,22 +1,24 @@
 package com.lhc.datamodel.builder;
 
 import com.lhc.datamodel.entities.competition.Competition;
+import com.lhc.datamodel.enumeration.Sport;
 import org.junit.Test;
 
-import static com.lhc.datamodel.builder.CompetitionBuilder.aCompetition;
+import static com.lhc.datamodel.builder.CompetitionBuilder.aCompetitionCreatedBy;
 
 public class CompetitionBuilderTest {
 
 
-    private static Competition competitionTest = aCompetition()
+    private static Competition competitionTest = aCompetitionCreatedBy("Me")
+            .withPassword("AAAA")
+            .withConfirmedPassword("AAAA")
+            .finallySport(Sport.HOCKEY)
             .withName("Linkebeek")
             .withDivision("D1")
             .withSeason("2018")
-            .withCreatorUsername("Me")
-            .withPassword("AAAA")
-            .withConfirmedPassword("AAAA")
+            .finallyStatisicsName("Nombre de but",null, null, null, null)
             .withComments(true, true)
-            .withRules(4,2)
+            .finallyRules(4,2)
             .withTopRules(4,3,2,1)
             .withFlopRules(4,2)
             .build();

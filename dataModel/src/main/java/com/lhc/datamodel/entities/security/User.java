@@ -2,7 +2,7 @@ package com.lhc.datamodel.entities.security;
 
 
 import com.lhc.datamodel.entities.competition.Ballot;
-import com.lhc.datamodel.entities.competition.Competition;
+import com.lhc.datamodel.entities.statistic.Statistic;
 import com.lhc.datamodel.entities.competition.manyToMany.UserCompetition;
 
 import javax.persistence.*;
@@ -34,6 +34,9 @@ public class User {
 
     @OneToMany(mappedBy="user", fetch= FetchType.LAZY, cascade= CascadeType.ALL )
 	private List<Ballot> ballots;
+
+    @OneToMany(mappedBy="player", fetch= FetchType.LAZY, cascade= CascadeType.ALL )
+    private List<Statistic> statistics;
 
     public Long getId() {
         return id;

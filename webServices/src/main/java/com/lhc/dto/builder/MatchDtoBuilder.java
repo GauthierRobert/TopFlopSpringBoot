@@ -1,5 +1,6 @@
 package com.lhc.dto.builder;
 
+import com.lhc.datamodel.entities.competition.embedded.MatchDetails;
 import com.lhc.dto.MatchDto;
 
 import java.util.List;
@@ -14,22 +15,11 @@ public class MatchDtoBuilder {
     private Integer scoreAway;
     private List<String> spectators;
 
-    public static MatchDtoBuilder aMatchDto(){
+    public static MatchDtoBuilder aMatchDto() {
         return new MatchDtoBuilder();
     }
 
-    public MatchDtoBuilder withHomeTeam(String homeTeam){
-        this.homeTeam = homeTeam;
-        return this;
-    }
-
-    public MatchDtoBuilder withScore(Integer scoreHome){
-        this.scoreHome = scoreHome;
-        return this;
-    }
-
-
-    public MatchDtoBuilder createBy(String creatorUsername){
+    public MatchDtoBuilder createBy(String creatorUsername) {
         this.creatorUsername = creatorUsername;
         return this;
     }
@@ -40,33 +30,57 @@ public class MatchDtoBuilder {
     }
 
 
-    public MatchDtoBuilder inCompetiton(String competition_ref){
+    public HomeTeam inCompetiton(String competition_ref) {
         this.competition_ref = competition_ref;
-        return this;
+        return new HomeTeam();
     }
 
+    public class HomeTeam {
 
-    public AgainstTeam againstTeam(String awayTeam){
-        return new AgainstTeam(awayTeam);
+        HomeTeam(String awayTeam) {
+            MatchDtoBuilder.this.homeTeam = homeTeam;
+        }
+
+        HomeTeam() {
+
+        }
+
+        public HomeTeam withHomeTeam(String homeTeam) {
+            MatchDtoBuilder.this.homeTeam = homeTeam;
+            return this;
+        }
+
+        public AwayTeam finallyScore(Integer scoreHome) {
+            MatchDtoBuilder.this.scoreHome = scoreHome;
+            return new AwayTeam();
+        }
+
     }
 
-
-
-    public class AgainstTeam{
+    public class AwayTeam {
 
         private final MatchDtoCompletion matchDtoCompletion = new MatchDtoCompletion();
 
 
-        public AgainstTeam(String awayTeam) {
+        AwayTeam(String awayTeam) {
             MatchDtoBuilder.this.awayTeam = awayTeam;
         }
 
-        public AgainstTeam withScore(Integer scoreAway){
+        AwayTeam() {
+
+        }
+
+        public AwayTeam withAwayTeam(String awayTeam) {
+            MatchDtoBuilder.this.awayTeam = awayTeam;
+            return this;
+        }
+
+        public AwayTeam finallyScore(Integer scoreAway) {
             MatchDtoBuilder.this.scoreAway = scoreAway;
             return this;
         }
 
-        public MatchDto build(){
+        public MatchDto build() {
             return matchDtoCompletion.build();
         }
 
@@ -75,16 +89,15 @@ public class MatchDtoBuilder {
 
     public class MatchDtoCompletion {
 
-        private MatchDtoCompletion(){
+        private MatchDtoCompletion() {
         }
 
-        public MatchDto build(){
-            return MatchDto.matchDto(competition_ref, homeTeam,scoreHome, scoreAway, awayTeam, creatorUsername, spectators);
+        public MatchDto build() {
+            return MatchDto.matchDto(competition_ref,
+                    MatchDetails.matchDetails(homeTeam, scoreHome, awayTeam, scoreAway),
+                    creatorUsername, spectators);
         }
     }
-
-
-
 
 
 }

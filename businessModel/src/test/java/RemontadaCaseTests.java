@@ -1,10 +1,11 @@
 import com.lhc.business.BusinessConfig;
 import com.lhc.business.service.competition.*;
 import com.lhc.business.service.security.UserService;
+import com.lhc.datamodel.builder.CompetitionBuilder;
 import com.lhc.datamodel.entities.competition.Competition;
-import com.lhc.datamodel.entities.security.Role;
 import com.lhc.datamodel.entities.security.User;
-import com.lhc.datamodel.enumeration.RoleType;
+import com.lhc.datamodel.enumeration.Role;
+import com.lhc.datamodel.enumeration.Sport;
 import com.lhc.datamodel.repository.security.RoleRepository;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -17,8 +18,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
-
-import static com.lhc.datamodel.builder.CompetitionBuilder.aCompetition;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -48,13 +47,13 @@ public class RemontadaCaseTests {
     }
 
     public void createRole() throws ParseException {
-        Role role1 = new Role();
-        role1.setName(RoleType.ROLE_ADMIN.name());
-        role1.setId(RoleType.ROLE_ADMIN.getValue());
+        com.lhc.datamodel.entities.security.Role role1 = new com.lhc.datamodel.entities.security.Role();
+        role1.setName(Role.ROLE_ADMIN.name());
+        role1.setId(Role.ROLE_ADMIN.getValue());
 
-        Role role2 = new Role();
-        role2.setName(RoleType.ROLE_USER.name());
-        role2.setId(RoleType.ROLE_USER.getValue());
+        com.lhc.datamodel.entities.security.Role role2 = new com.lhc.datamodel.entities.security.Role();
+        role2.setName(Role.ROLE_USER.name());
+        role2.setId(Role.ROLE_USER.getValue());
 
         roleRepository.save(role1);
         roleRepository.save(role2);
@@ -138,16 +137,17 @@ public class RemontadaCaseTests {
     private static boolean COMMENTAIRE_TOP = true;
     private static boolean COMMENTAIRE_FLOP = true;
 
-    private static Competition competitionLinkebeek = aCompetition()
+    private static Competition competitionLinkebeek = CompetitionBuilder.aCompetitionCreatedBy(CREATOR)
+            .withPassword(PASSWORD_COMPETITION)
+            .withConfirmedPassword(PASSWORD_COMPETITION)
+            .finallySport(Sport.HOCKEY)
             .withName(NAME_COMPETITION)
             .withDivision(DIVISION)
             .withSeason(SEASON)
-            .withCreatorUsername(CREATOR)
-            .withPassword(PASSWORD_COMPETITION)
-            .withConfirmedPassword(PASSWORD_COMPETITION)
+            .finallyStatisicsName("Buts","Assists", null, null, null)
             .withTopFlopName(TOP_NAME, FLOP_NAME)
             .withComments(COMMENTAIRE_TOP, COMMENTAIRE_FLOP)
-            .withRules(1,1)
+            .finallyRules(1, 1)
             .withTopRules(1)
             .withFlopRules(1)
             .build();

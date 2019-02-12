@@ -1,7 +1,7 @@
 package com.lhc.mapper.rule;
 
 import com.lhc.datamodel.entities.rules.Rule;
-import com.lhc.datamodel.enumeration.LabelType;
+import com.lhc.datamodel.enumeration.Label;
 import com.lhc.dto.RuleDto;
 import com.lhc.mapper.mapperHandler.RuleMapperHandler;
 import org.junit.Test;
@@ -13,7 +13,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class RuleMapperHandlerTest {
 
     public Rule createRule(){
-        return rule(LabelType.POINT_VOTE.name(),1, 1);
+        return rule(Label.POINT_VOTE.name(),1, 1);
     }
 
 

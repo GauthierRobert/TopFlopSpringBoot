@@ -27,18 +27,18 @@ public class MatchMapperHandlerTest {
 
 
         MatchDto matchDto = aMatchDto()
-                .inCompetiton(LINKEBEEK)
                 .withSpectators(spectators)
+                .inCompetiton(LINKEBEEK)
                 .withHomeTeam(LINKEBEEK)
-                .withScore(2)
-                .againstTeam(WATERLOO)
-                .withScore(3)
+                .finallyScore(2)
+                .withAwayTeam(WATERLOO)
+                .finallyScore(3)
                 .build();
 
         MatchMapperHandler matchMapperHandler = new MatchMapperHandler();
         Match actual = matchMapperHandler.createEntityFromDTO(matchDto);
 
-        assertThat(actual.getHomeTeam()).isEqualTo(LINKEBEEK);
+        assertThat(actual.getDetails().getHomeTeam()).isEqualTo(LINKEBEEK);
         assertThat(actual.getVisitors()).contains(GAUTHIER);
 
         MatchDto actual_2 = matchMapperHandler.createDTOFromEntity(actual);

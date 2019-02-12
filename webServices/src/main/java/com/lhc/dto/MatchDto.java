@@ -1,6 +1,7 @@
 package com.lhc.dto;
 
 
+import com.lhc.datamodel.entities.competition.embedded.MatchDetails;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -13,13 +14,7 @@ public class MatchDto {
 
     private String reference;
 
-    private String homeTeam;
-
-    private Integer homeScore;
-
-    private Integer awayScore;
-
-    private String awayTeam;
+    private MatchDetails details;
     
     private String competition_ref;
 
@@ -33,12 +28,9 @@ public class MatchDto {
 
     private List<BallotDto> ballotDtos;
 
-    private MatchDto(String competition_ref, String homeTeam, Integer homeScore, Integer awayScore, String awayTeam, String creatorUsername, List<String> visitors) {
-        this.homeTeam = homeTeam;
-        this.homeScore = homeScore;
-        this.awayScore = awayScore;
-        this.awayTeam = awayTeam;
+    private MatchDto(String competition_ref, MatchDetails details, String creatorUsername, List<String> visitors) {
         this.competition_ref = competition_ref;
+        this.details = details;
         this.creatorUsername = creatorUsername;
         this.visitors = visitors;
     }
@@ -46,8 +38,8 @@ public class MatchDto {
     private MatchDto() {
     }
 
-    public static MatchDto matchDto(String competition_ref, String homeTeam, Integer homeScore, Integer awayScore, String awayTeam, String creatorUsername, List<String> visitors){
-        return new MatchDto(competition_ref, homeTeam,homeScore, awayScore,awayTeam, creatorUsername, visitors);
+    public static MatchDto matchDto(String competition_ref, MatchDetails details, String creatorUsername, List<String> visitors){
+        return new MatchDto(competition_ref, details, creatorUsername, visitors);
     }
 
     public static MatchDto matchDto(){

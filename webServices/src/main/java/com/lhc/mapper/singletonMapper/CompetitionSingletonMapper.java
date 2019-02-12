@@ -34,16 +34,12 @@ public class CompetitionSingletonMapper {
 
         mapperFactory.classMap(CompetitionDto.class, Competition.class)
                 .field("reference", "reference")
-                .field("name", "name")
-                .field("season", "season")
-                .field("division", "division")
                 .field("password", "password")
                 .field("confirmedPassword", "confirmedPassword")
                 .field("creatorUsername", "creatorUsername")
-                .field("withCommentTop","withCommentTop")
-                .field("withCommentFlop","withCommentFlop")
-                .field("topName","topName")
-                .field("flopName","flopName")
+                .field("dataName","dataName")
+                .field("topFlopDetails","topFlopDetails")
+                .field("details","details")
                 .register();
 
         return  mapperFactory.getMapperFacade();
@@ -54,16 +50,12 @@ public class CompetitionSingletonMapper {
 
         mapperFactory.classMap(Competition.class, CompetitionDto.class)
                 .field("reference", "reference")
-                .field("name", "name")
-                .field("season", "season")
-                .field("division", "division")
                 .field("password", "password")
                 .field("confirmedPassword", "confirmedPassword")
                 .field("creatorUsername", "creatorUsername")
-                .field("withCommentTop","withCommentTop")
-                .field("withCommentFlop","withCommentFlop")
-                .field("topName","topName")
-                .field("flopName","flopName")
+                .field("dataName","dataName")
+                .field("topFlopDetails","topFlopDetails")
+                .field("details","details")
                 .register();
 
         return  mapperFactory.getMapperFacade();

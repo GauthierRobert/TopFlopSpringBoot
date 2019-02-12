@@ -2,48 +2,60 @@ package com.lhc.datamodel.builder;
 
 import com.lhc.datamodel.entities.competition.Competition;
 import com.lhc.datamodel.entities.rules.Rule;
-import com.lhc.datamodel.enumeration.LabelType;
+import com.lhc.datamodel.enumeration.Label;
+import com.lhc.datamodel.enumeration.Sport;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.lhc.datamodel.entities.competition.Competition.competition;
+import static com.lhc.datamodel.entities.competition.embedded.CompetitionDetails.competitionDetails;
+import static com.lhc.datamodel.entities.competition.embedded.TopFlopDetails.topFlopDetails;
 import static com.lhc.datamodel.entities.rules.Rule.rule;
+import static com.lhc.datamodel.entities.competition.embedded.DataName.dataName;
 
 public class CompetitionBuilder {
 
 
     private Long id;
+
     private String name;
     private String season;
     private String division;
+    private Sport sport;
+
     private String password;
     private String confirmedPassword;
     private String creatorUsername;
+
+    private String dataName_1;
+    private String dataName_2;
+    private String dataName_3;
+    private String dataName_4;
+    private String dataName_5;
+
     private boolean withCommentTop;
     private boolean withCommentFlop;
     private String topName;
     private String flopName;
+
     private List<Rule> rules = new ArrayList<>();
 
-    public static CompetitionBuilder aCompetition(){
+
+
+    private static CompetitionBuilder aCompetition(){
         return new CompetitionBuilder();
     }
 
-    public CompetitionBuilder withName(String name){
-        this.name = name;
+    public static CompetitionBuilder aCompetitionCreatedBy(String creatorUsername){
+        return  aCompetition().withCreatorUsername(creatorUsername);
+    }
+
+    private CompetitionBuilder withCreatorUsername(String creatorUsername){
+        this.creatorUsername = creatorUsername;
         return this;
     }
 
-    public CompetitionBuilder withSeason(String season){
-        this.season = season;
-        return this;
-    }
-
-    public CompetitionBuilder withDivision(String division){
-        this.division = division;
-        return this;
-    }
     public CompetitionBuilder withPassword(String password){
         this.password = password;
         return this;
@@ -52,36 +64,72 @@ public class CompetitionBuilder {
         this.confirmedPassword = confirmedPassword;
         return this;
     }
-    public CompetitionBuilder withCreatorUsername(String creatorUsername){
-        this.creatorUsername = creatorUsername;
-        return this;
+
+    public CompetitionDetailsBuilder finallySport(Sport sport) {
+        return new CompetitionDetailsBuilder(sport);
     }
 
-    public CompetitionBuilder withComments(boolean top, boolean flop){
-        this.withCommentTop = top;
-        this.withCommentFlop = flop;
-        return this;
+    public class CompetitionDetailsBuilder{
+
+        CompetitionDetailsBuilder(Sport sport) {
+            CompetitionBuilder.this.sport = sport;
+        }
+
+        public CompetitionDetailsBuilder withName(String name){
+            CompetitionBuilder.this.name = name;
+            return this;
+        }
+
+        public CompetitionDetailsBuilder withSeason(String season){
+            CompetitionBuilder.this.season = season;
+            return this;
+        }
+
+        public CompetitionDetailsBuilder withDivision(String division){
+            CompetitionBuilder.this.division = division;
+            return this;}
+
+        public TopFlopDetailsBuilder finallyStatisicsName(String _1, String _2, String _3, String _4, String _5){
+            return new TopFlopDetailsBuilder(_1,_2,_3,_4,_5);
+        }
+
     }
 
-    public CompetitionBuilder withTopFlopName(String topName, String flopName){
-        this.topName = topName;
-        this.flopName = flopName;
-        return this;
+    public class TopFlopDetailsBuilder{
+
+        TopFlopDetailsBuilder(String _1, String _2, String _3, String _4, String _5) {
+            CompetitionBuilder.this.dataName_1 = _1;
+            CompetitionBuilder.this.dataName_2 = _2;
+            CompetitionBuilder.this.dataName_3 = _3;
+            CompetitionBuilder.this.dataName_4 = _4;
+            CompetitionBuilder.this.dataName_5 = _5;
+        }
+
+        public TopFlopDetailsBuilder withComments(boolean top, boolean flop){
+            CompetitionBuilder.this.withCommentTop = top;
+            CompetitionBuilder.this.withCommentFlop = flop;
+            return this;
+        }
+
+        public TopFlopDetailsBuilder withTopFlopName(String topName, String flopName){
+            CompetitionBuilder.this.topName = topName;
+            CompetitionBuilder.this.flopName = flopName;
+            return this;
+        }
+
+        public RuleBuilder finallyRules(int numberOfTopVote, int numberOfFlopVote){
+            return new RuleBuilder(numberOfTopVote, numberOfFlopVote);
+        }
     }
 
-
-    public RuleBuilder withRules(int numberOfTopVote, int numberOfFlopVote){
-
-        return new RuleBuilder(numberOfTopVote, numberOfFlopVote);
-    }
 
     public class RuleBuilder{
 
         private final CompetitionCompletion competitionCompletion = new CompetitionCompletion();
 
-        public RuleBuilder(int numberOfTopVote, int numberOfFlopVote) {
-            Rule ruleTop = rule(LabelType.NUMBER_VOTE_TOP.name(),numberOfTopVote, 0);
-            Rule ruleFlop = rule(LabelType.NUMBER_VOTE_FLOP.name(), numberOfFlopVote, 0);
+        RuleBuilder(int numberOfTopVote, int numberOfFlopVote) {
+            Rule ruleTop = rule(Label.NUMBER_VOTE_TOP.name(),numberOfTopVote, 0);
+            Rule ruleFlop = rule(Label.NUMBER_VOTE_FLOP.name(), numberOfFlopVote, 0);
             CompetitionBuilder.this.rules.add(ruleTop);
             CompetitionBuilder.this.rules.add(ruleFlop);
         }
@@ -90,7 +138,7 @@ public class CompetitionBuilder {
             int i = 0;
             for (Integer point:points) {
                 i++;
-                Rule rule = rule(LabelType.POINT_VOTE.name(),point,i);
+                Rule rule = rule(Label.POINT_VOTE.name(),point,i);
                 CompetitionBuilder.this.rules.add(rule);
             }
             return this;
@@ -100,7 +148,7 @@ public class CompetitionBuilder {
             int i = 0;
             for (Integer point:points) {
                 i++;
-                Rule rule = rule(LabelType.POINT_VOTE.name(),point,-i);
+                Rule rule = rule(Label.POINT_VOTE.name(),point,-i);
                 CompetitionBuilder.this.rules.add(rule);
             }
             return this;
@@ -112,14 +160,17 @@ public class CompetitionBuilder {
 
     }
 
-
     public class CompetitionCompletion {
 
         private  CompetitionCompletion(){
         }
 
         public Competition build(){
-            return competition(name, season, division, password, confirmedPassword, creatorUsername, topName, flopName, withCommentTop, withCommentFlop,rules);
+            return competition(
+                    competitionDetails(name, season, division,sport),
+                    topFlopDetails(withCommentTop, withCommentFlop,topName, flopName),
+                    dataName(dataName_1, dataName_2, dataName_3, dataName_4, dataName_5),
+                    password, confirmedPassword, creatorUsername,rules);
         }
     }
 

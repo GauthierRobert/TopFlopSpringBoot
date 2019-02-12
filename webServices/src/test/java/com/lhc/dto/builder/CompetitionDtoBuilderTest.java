@@ -1,24 +1,28 @@
 package com.lhc.dto.builder;
 
 import com.google.gson.Gson;
+import com.lhc.datamodel.enumeration.Sport;
 import com.lhc.dto.CompetitionDto;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Test;
 
 import static com.lhc.dto.builder.CompetitionDtoBuilder.aCompetitionDto;
+import static com.lhc.dto.builder.CompetitionDtoBuilder.aCompetitionDtoCreatedBy;
 
 public class CompetitionDtoBuilderTest {
 
-    public static CompetitionDto competitionDtoTest = aCompetitionDto()
-            .withName("Linkebeek")
-            .withDivision("D1")
-            .withSeason("2018-2019")
-            .withCreatorUsername("AAAA")
-            .withComments(true, false)
+    public static CompetitionDto competitionDtoTest = aCompetitionDtoCreatedBy("AMO")
             .withPassword("AAAA")
             .withConfirmedPassword("AAAA")
-            .withRuleDtos(4,2)
+            .finallySport(Sport.FOOTBALL)
+            .withDivision("D1")
+            .withSeason("2018-2019")
+            .withName("Linkebeek")
+            .finallyStatisticsName("Nombre de but",null, null, null, null)
+            .withComments(true, false)
+            .withTopFlopName("Carré d'as", "Floge")
+            .finallyRules(4,2)
             .withTopRuleDtos(4,3,2,1)
             .withFlopRuleDtos(4,2)
             .build();

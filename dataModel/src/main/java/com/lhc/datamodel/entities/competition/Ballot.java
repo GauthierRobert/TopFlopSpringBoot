@@ -15,15 +15,6 @@ import java.util.List;
 @Entity(name = "Ballots")
 public class Ballot implements Serializable {
 
-
-    private Ballot() {
-
-    }
-
-    public static Ballot ballot(){
-        return new Ballot();
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -50,5 +41,11 @@ public class Ballot implements Serializable {
     @ManyToOne
     private User user;
 
+    private Ballot() {
 
+    }
+
+    public static Ballot ballot(){
+        return new Ballot();
+    }
 }

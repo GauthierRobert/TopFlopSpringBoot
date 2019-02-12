@@ -1,5 +1,8 @@
+package com.lhc.mapper;
+
 import com.lhc.datamodel.entities.competition.Competition;
 import com.lhc.datamodel.entities.competition.Vote;
+import com.lhc.datamodel.enumeration.Sport;
 import com.lhc.dto.CompetitionDto;
 import com.lhc.dto.VoteDto;
 import com.lhc.mapper.mapperHandler.CompetitionMapperHandler;
@@ -10,6 +13,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.lhc.datamodel.builder.CompetitionBuilder.aCompetitionCreatedBy;
 import static com.lhc.dto.builder.CompetitionDtoBuilderTest.competitionDtoTest;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -52,7 +56,7 @@ public class MapperTests {
         List<CompetitionDto> actual = competitionMapperHandler.mapToListDtos(competitionList);
 
 
-        assertThat(actual.get(0).getName()).isEqualTo(COMPETITION_NAME);
+        assertThat(actual.get(0).getDetails().getName()).isEqualTo(COMPETITION_NAME);
         assertThat(actual.size()).isEqualTo(competitionList.size());
 
     }
@@ -63,20 +67,25 @@ public class MapperTests {
         CompetitionMapperHandler competitionMapperHandler = new CompetitionMapperHandler();
         CompetitionDto actual = competitionMapperHandler.createDTOFromEntity(competition);
 
-        assertThat(actual.getName()).isEqualTo(COMPETITION_NAME);
+        assertThat(actual.getDetails().getName()).isEqualTo(COMPETITION_NAME);
 
     }
 
     private Competition getCompetition() {
 
-        Competition competition = Competition.competition();
-        competition.setName(COMPETITION_NAME);
-        competition.setSeason("2018");
-        competition.setPassword("AAAA");
-        competition.setDivision("D1");
-        competition.setCreatorUsername("AAAA");
-
-        return competition;
+        return aCompetitionCreatedBy("Me")
+                .withPassword("AAAA")
+                .withConfirmedPassword("AAAA")
+                .finallySport(Sport.HOCKEY)
+                .withName("Linkebeek")
+                .withDivision("D1")
+                .withSeason("2018")
+                .finallyStatisicsName("Nombre de but",null, null, null, null)
+                .withComments(true, true)
+                .finallyRules(4,2)
+                .withTopRules(4,3,2,1)
+                .withFlopRules(4,2)
+                .build();
     }
 
     @Test
@@ -85,6 +94,6 @@ public class MapperTests {
         CompetitionMapperHandler competitionMapperHandler =  new CompetitionMapperHandler();
         Competition actual = competitionMapperHandler.createEntityFromDTO(competitionDtoTest);
 
-        assertThat(actual.getDivision()).isEqualTo(competitionDtoTest.getDivision());
+        assertThat(actual.getDetails().getDivision()).isEqualTo(competitionDtoTest.getDetails().getDivision());
     }
 }

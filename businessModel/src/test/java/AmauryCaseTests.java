@@ -4,9 +4,9 @@ import com.lhc.business.service.image.ImageUploadService;
 import com.lhc.business.service.security.UserService;
 import com.lhc.datamodel.entities.competition.Competition;
 import com.lhc.datamodel.entities.image.ImageCompetition;
-import com.lhc.datamodel.entities.security.Role;
 import com.lhc.datamodel.entities.security.User;
-import com.lhc.datamodel.enumeration.RoleType;
+import com.lhc.datamodel.enumeration.Role;
+import com.lhc.datamodel.enumeration.Sport;
 import com.lhc.datamodel.repository.security.RoleRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -21,7 +21,7 @@ import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 
-import static com.lhc.datamodel.builder.CompetitionBuilder.aCompetition;
+import static com.lhc.datamodel.builder.CompetitionBuilder.aCompetitionCreatedBy;
 import static com.lhc.datamodel.entities.image.ImageCompetition.imageCompetition;
 
 @RunWith(SpringRunner.class)
@@ -54,13 +54,13 @@ public class AmauryCaseTests {
     }
 
     public void createRole() throws ParseException {
-        Role role1 = new Role();
-        role1.setName(RoleType.ROLE_ADMIN.name());
-        role1.setId(RoleType.ROLE_ADMIN.getValue());
+        com.lhc.datamodel.entities.security.Role role1 = new com.lhc.datamodel.entities.security.Role();
+        role1.setName(Role.ROLE_ADMIN.name());
+        role1.setId(Role.ROLE_ADMIN.getValue());
 
-        Role role2 = new Role();
-        role2.setName(RoleType.ROLE_USER.name());
-        role2.setId(RoleType.ROLE_USER.getValue());
+        com.lhc.datamodel.entities.security.Role role2 = new com.lhc.datamodel.entities.security.Role();
+        role2.setName(Role.ROLE_USER.name());
+        role2.setId(Role.ROLE_USER.getValue());
 
         roleRepository.save(role1);
         roleRepository.save(role2);
@@ -173,16 +173,17 @@ public class AmauryCaseTests {
     private static boolean COMMENTAIRE_TOP = false;
     private static boolean COMMENTAIRE_FLOP = true;
 
-    private static Competition competitionLinkebeek = aCompetition()
+    private static Competition competitionLinkebeek = aCompetitionCreatedBy(CREATOR)
+            .withPassword(PASSWORD_COMPETITION)
+            .withConfirmedPassword(PASSWORD_COMPETITION)
+            .finallySport(Sport.HOCKEY)
             .withName(NAME_COMPETITION)
             .withDivision(DIVISION)
             .withSeason(SEASON)
-            .withCreatorUsername(CREATOR)
-            .withPassword(PASSWORD_COMPETITION)
-            .withConfirmedPassword(PASSWORD_COMPETITION)
+            .finallyStatisicsName("Buts","Assists", null, null, null)
             .withTopFlopName(TOP_NAME, FLOP_NAME)
             .withComments(COMMENTAIRE_TOP, COMMENTAIRE_FLOP)
-            .withRules(4, 0)
+            .finallyRules(4, 0)
             .withTopRules(4, 3, 2, 1)
             .build();
 

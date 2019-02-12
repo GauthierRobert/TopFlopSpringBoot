@@ -28,6 +28,9 @@ public class Training implements Serializable {
     @ManyToOne
     private Competition competition;
 
+    private Training() {
+    }
+
     private Training(Long id, String reference, LocalDate date, LocalTime time, Competition competition) {
         this.id = id;
         this.reference = reference;
@@ -38,5 +41,9 @@ public class Training implements Serializable {
 
     public static Training training(String reference, LocalDate date, LocalTime time, Competition competition){
         return new Training(null, reference, date, time, competition);
+    }
+
+    public static Training training(){
+        return new Training();
     }
 }

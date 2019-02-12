@@ -79,10 +79,7 @@ public class MatchServiceImpl implements MatchService {
     }
 
     private void updateData(Match match, Match matchInDb)    {
-        matchInDb.setAwayScore(match.getAwayScore());
-        matchInDb.setHomeScore(match.getHomeScore());
-        matchInDb.setAwayTeam(match.getAwayTeam());
-        matchInDb.setHomeTeam(match.getHomeTeam());
+        matchInDb.setDetails(match.getDetails());
     }
 
     @Override

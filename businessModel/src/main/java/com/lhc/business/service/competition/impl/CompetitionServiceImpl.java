@@ -4,7 +4,7 @@ import com.lhc.business.service.competition.CompetitionService;
 import com.lhc.datamodel.entities.competition.Competition;
 import com.lhc.datamodel.entities.image.ImageCompetition;
 import com.lhc.datamodel.entities.security.User;
-import com.lhc.datamodel.enumeration.RoleType;
+import com.lhc.datamodel.enumeration.Role;
 import com.lhc.datamodel.repository.competition.CompetitionRepository;
 import com.lhc.datamodel.repository.competition.UserCompetitionRepository;
 import com.lhc.datamodel.repository.image.ImageCompetitionRepository;
@@ -67,17 +67,15 @@ public class CompetitionServiceImpl implements CompetitionService {
 
         if (!alreadyExist) {
             competition.setPassword(sha256(competition.getPassword()));
-            user.setRoles(new HashSet<>(Arrays.asList(roleRepository.findByName(RoleType.ROLE_ADMIN.name()))));
+            user.setRoles(new HashSet<>(Arrays.asList(roleRepository.findByName(Role.ROLE_ADMIN.name()))));
             userRepository.save(user);
             competition = competitionRepository.save(competition);
             userCompetitionRepository.save(player(user, competition));
         } else {
-            competitionInDB.setName(competition.getName());
-            competitionInDB.setDivision(competition.getDivision());
+            competitionInDB.setDataName(competition.getDataName());
             competitionInDB.setReference(competition.getReference());
-            competitionInDB.setSeason(competition.getSeason());
-            competitionInDB.setWithCommentFlop(competition.getWithCommentFlop());
-            competitionInDB.setWithCommentTop(competition.getWithCommentTop());
+            competitionInDB.setDetails(competition.getDetails());
+            competitionInDB.setTopFlopDetails(competition.getTopFlopDetails());
             competitionInDB.setRules(competition.getRules());
 
             competition = competitionRepository.save(competitionInDB);

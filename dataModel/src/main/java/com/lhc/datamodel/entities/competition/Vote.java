@@ -13,25 +13,7 @@ import java.io.Serializable;
 @Table(name = "Votes")
 public class Vote  implements Serializable {
 
-    public static final Vote EMPTY_VOTE = new Vote(){
-        @Override
-        public Boolean isExist() {
-            return false;
-        }
 
-        @Override
-        public boolean equals(Object obj) {
-            return false;
-        }
-    };
-
-    private Vote(){
-
-    }
-
-    public static Vote vote(){
-        return new Vote();
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -57,7 +39,11 @@ public class Vote  implements Serializable {
     @ManyToOne
     private Ballot ballot;
 
-    public Boolean isExist(){
-        return true;
+    private Vote(){
+
+    }
+
+    public static Vote vote(){
+        return new Vote();
     }
 }

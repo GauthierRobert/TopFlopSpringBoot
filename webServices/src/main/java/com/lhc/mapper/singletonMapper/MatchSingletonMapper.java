@@ -33,10 +33,7 @@ public class MatchSingletonMapper {
         MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
 
         mapperFactory.classMap(MatchDto.class, Match.class)
-                .field("homeTeam", "homeTeam")
-                .field("homeScore", "homeScore")
-                .field("awayTeam", "awayTeam")
-                .field("awayScore", "awayScore")
+                .field("details", "details")
                 .field("competition_ref", "competition_ref")
                 .field("creatorUsername", "creatorUsername")
                 .field("reference", "reference")
@@ -48,10 +45,7 @@ public class MatchSingletonMapper {
         MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
 
         mapperFactory.classMap(Match.class, MatchDto.class)
-                .field("homeTeam", "homeTeam")
-                .field("homeScore", "homeScore")
-                .field("awayTeam", "awayTeam")
-                .field("awayScore", "awayScore")
+                .field("details", "details")
                 .field("competition_ref", "competition_ref")
                 .field("creatorUsername", "creatorUsername")
                 .field("reference", "reference")

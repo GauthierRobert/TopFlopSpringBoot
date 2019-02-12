@@ -1,13 +1,13 @@
 package com.lhc.datamodel.enumeration;
 
-public enum RoleType {
-    ROLE_ADMIN(new Long(1)),
-    ROLE_USER(new Long(2))
+public enum Role {
+    ROLE_ADMIN(1L),
+    ROLE_USER(2L)
     ;
 
     private Long value;
 
-    RoleType(Long value) {
+    Role(Long value) {
         this.value = value;
     }
 

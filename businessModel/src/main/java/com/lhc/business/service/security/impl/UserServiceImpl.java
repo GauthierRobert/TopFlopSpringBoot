@@ -1,7 +1,7 @@
 package com.lhc.business.service.security.impl;
 
 import com.lhc.business.service.security.UserService;
-import com.lhc.datamodel.enumeration.RoleType;
+import com.lhc.datamodel.enumeration.Role;
 import com.lhc.datamodel.entities.security.User;
 import com.lhc.datamodel.repository.security.RoleRepository;
 import com.lhc.datamodel.repository.security.UserRepository;
@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
 
         validate(user);
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        user.setRoles(new HashSet<>(Collections.singletonList(roleRepository.findByName(RoleType.ROLE_USER.name()))));
+        user.setRoles(new HashSet<>(Collections.singletonList(roleRepository.findByName(Role.ROLE_USER.name()))));
         user = userRepository.save(user);
 
         return user;
