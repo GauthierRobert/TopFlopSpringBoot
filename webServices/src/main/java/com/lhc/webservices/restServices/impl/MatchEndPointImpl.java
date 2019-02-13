@@ -2,6 +2,7 @@ package com.lhc.webservices.restServices.impl;
 
 import com.lhc.business.service.competition.MatchService;
 import com.lhc.datamodel.entities.competition.Match;
+import com.lhc.datamodel.entities.competition.embedded.MatchDetails;
 import com.lhc.dto.MatchDto;
 import com.lhc.mapper.mapperHandler.MatchMapperHandler;
 import com.lhc.mapper.mapperHandler.VisitorsMapper;
@@ -10,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+import static com.lhc.dto.MatchDto.matchDto;
 
 @RestController
 public class MatchEndPointImpl implements MatchEndPoint {
@@ -72,6 +75,14 @@ public class MatchEndPointImpl implements MatchEndPoint {
         MatchMapperHandler matchMapperHandler = new MatchMapperHandler();
         return matchMapperHandler.mapToListDtos(matches);
 
+    }
+
+    @Override
+    public MatchDto deleteMatch(String match_ref) {
+
+        MatchDto matchDto = matchDto();
+        matchDto.setReference(String.valueOf(matchService.deleteMatchByReference(match_ref)));
+        return matchDto;
     }
 
 }

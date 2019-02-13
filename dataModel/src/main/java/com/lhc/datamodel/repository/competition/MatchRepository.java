@@ -11,8 +11,11 @@ import java.util.List;
 @Repository
 public interface MatchRepository extends JpaRepository<Match, Long> {
 
-    @Query("Select m from Matches m where m.reference = :ref")
-    Match findByReference(@Param("ref") String ref);
+    @Query("Select m from Matches m where m.reference = :reference")
+    Match findByReference(@Param("ref") String reference);
+
+
+    Long deleteByReference(String reference);
 
 
     @Query("Select m from Matches m where m.competition.reference = :competition_ref")

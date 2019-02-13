@@ -10,6 +10,8 @@ public interface MatchService {
 
     Match findMatchByReference(String ref);
 
+    Long deleteMatchByReference(String reference);
+
     Match findMatchByReferenceAndHisBallots(String ref);
 
     Match addVisitors(String match_ref, String visitors);

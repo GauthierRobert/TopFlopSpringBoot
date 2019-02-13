@@ -36,6 +36,11 @@ public class MatchServiceImpl implements MatchService {
     }
 
     @Override
+    public Long deleteMatchByReference(String reference) {
+        return matchRepository.deleteByReference(reference);
+    }
+
+    @Override
     public Match findMatchByReferenceAndHisBallots(String match_ref) {
 
         Match match = matchRepository.findByReference(match_ref);

@@ -42,4 +42,9 @@ public interface MatchEndPoint {
             value = "/match/getList",
             method = RequestMethod.GET)
     List<MatchDto> getMatchesWithCompetitionRef(@RequestParam(value = "competition_ref") String competition_ref);
+
+    @RequestMapping(
+            value = "/match/delete",
+            method = RequestMethod.DELETE)
+    MatchDto deleteMatch(@RequestParam("match_ref") String match_ref);
 }
