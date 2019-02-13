@@ -6,6 +6,7 @@ import com.lhc.business.service.competition.MatchService;
 import com.lhc.datamodel.entities.competition.Ballot;
 import com.lhc.datamodel.entities.competition.Competition;
 import com.lhc.datamodel.entities.competition.Match;
+import com.lhc.datamodel.repository.competition.BallotRepository;
 import com.lhc.datamodel.repository.competition.MatchRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,13 +20,13 @@ public class MatchServiceImpl implements MatchService {
 
     private MatchRepository matchRepository;
     private CompetitionService competitionService;
-    private BallotService ballotService;
+    private BallotRepository ballotRepository;
 
     @Autowired
-    public MatchServiceImpl(MatchRepository matchRepository, CompetitionService competitionService, BallotService ballotService) {
+    public MatchServiceImpl(MatchRepository matchRepository, CompetitionService competitionService, BallotRepository ballotRepository) {
         this.matchRepository = matchRepository;
         this.competitionService = competitionService;
-        this.ballotService = ballotService;
+        this.ballotRepository = ballotRepository;
     }
 
     @Override
@@ -44,7 +45,7 @@ public class MatchServiceImpl implements MatchService {
     public Match findMatchByReferenceAndHisBallots(String match_ref) {
 
         Match match = matchRepository.findByReference(match_ref);
-        List<Ballot> ballots = ballotService.findAllBallotsByMatchReference(match_ref);
+        List<Ballot> ballots = ballotRepository.findAllByMatchReference(match_ref);
         match.setBallots(ballots);
 
         return match;
