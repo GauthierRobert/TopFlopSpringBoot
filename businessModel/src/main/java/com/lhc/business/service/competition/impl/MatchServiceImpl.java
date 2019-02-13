@@ -49,7 +49,7 @@ public class MatchServiceImpl implements MatchService {
     public Match addVisitors(String match_ref, String visitors) {
         Match match = findMatchByReference(match_ref);
         match.addVisitors(visitors);
-        return match;
+        return matchRepository.save(match);
     }
 
     @Override

@@ -4,6 +4,7 @@ import com.lhc.business.service.competition.MatchService;
 import com.lhc.datamodel.entities.competition.Match;
 import com.lhc.dto.MatchDto;
 import com.lhc.mapper.mapperHandler.MatchMapperHandler;
+import com.lhc.mapper.mapperHandler.VisitorsMapper;
 import com.lhc.webservices.restServices.MatchEndPoint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -38,9 +39,10 @@ public class MatchEndPointImpl implements MatchEndPoint {
     @Override
     public MatchDto addVisitors(MatchDto matchDto) {
 
+        VisitorsMapper visitorsMapper = new VisitorsMapper();
         MatchMapperHandler matchMapperHandler = new MatchMapperHandler();
-        Match match = matchMapperHandler.createEntityFromDTO(matchDto);
-        match = matchService.addVisitors(match.getReference(), match.getVisitors());
+        String visitor = visitorsMapper.mapListVisitorIntoString(matchDto.getVisitors());
+        Match match = matchService.addVisitors(matchDto.getReference(), visitor);
         MatchDto matchDtoUpdate = matchMapperHandler.createDTOFromEntity(match);
         return matchDtoUpdate;
     }

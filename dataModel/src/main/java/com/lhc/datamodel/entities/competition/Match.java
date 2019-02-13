@@ -89,6 +89,6 @@ public class Match implements Serializable {
     }
 
     public void addVisitors(String visitors){
-        this.visitors = this.visitors + SEPARATOR + visitors;
+        this.visitors = this.visitors + visitors + SEPARATOR ;
     }
 }
