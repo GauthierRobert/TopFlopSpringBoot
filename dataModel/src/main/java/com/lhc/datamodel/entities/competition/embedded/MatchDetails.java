@@ -18,6 +18,9 @@ public class MatchDetails implements Serializable {
 
     private Integer awayScore;
 
+    public MatchDetails() {
+    }
+
     public MatchDetails(String homeTeam, Integer homeScore, String awayTeam, Integer awayScore) {
         this.homeTeam = homeTeam;
         this.homeScore = homeScore;
