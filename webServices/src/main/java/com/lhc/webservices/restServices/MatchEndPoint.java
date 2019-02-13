@@ -19,11 +19,6 @@ public interface MatchEndPoint {
     MatchDto postMatch(@RequestBody MatchDto matchDto);
 
     @RequestMapping(
-            value = "/match/get",
-            method = RequestMethod.GET)
-    MatchDto getMatch(@RequestParam("match_ref") String match_ref);
-
-    @RequestMapping(
             value = "/match/addSpectator",
             method = RequestMethod.POST)
     MatchDto addVisitors(@RequestBody MatchDto matchDto);
@@ -38,7 +33,10 @@ public interface MatchEndPoint {
             method = RequestMethod.POST)
     MatchDto openMatch(@RequestParam(value = "match_ref") String match_ref);
 
-
+    @RequestMapping(
+            value = "/match/get",
+            method = RequestMethod.GET)
+    MatchDto getMatch(@RequestParam("match_ref") String match_ref);
 
     @RequestMapping(
             value = "/match/getList",

@@ -22,9 +22,10 @@ public class MatchServiceImpl implements MatchService {
     private BallotService ballotService;
 
     @Autowired
-    public MatchServiceImpl(MatchRepository matchRepository, CompetitionService competitionService) {
+    public MatchServiceImpl(MatchRepository matchRepository, CompetitionService competitionService, BallotService ballotService) {
         this.matchRepository = matchRepository;
         this.competitionService = competitionService;
+        this.ballotService = ballotService;
     }
 
     @Override
