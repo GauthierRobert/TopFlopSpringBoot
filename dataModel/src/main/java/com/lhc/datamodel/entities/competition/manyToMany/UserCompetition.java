@@ -11,8 +11,8 @@ import java.io.Serializable;
 
 @Getter
 @Setter
-@Entity(name = "users_competitions")
-@Table(name = "users_competitions")
+@Entity(name = "Users_Competitions")
+@Table(name = "Users_Competitions")
 @IdClass(UserCompetitionId.class)
 public class UserCompetition implements Serializable {
 

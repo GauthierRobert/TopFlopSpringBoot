@@ -37,6 +37,10 @@ public class CompetitionDto {
         this.matchDtos = new ArrayList<>();
     }
 
+    public CompetitionDto(String reference) {
+        this.reference = reference;
+    }
+
     public CompetitionDto(String reference, String password, String confirmedPassword, String creatorUsername, String imageAsBase64, CompetitionDetails details, TopFlopDetails topFlopDetails, DataName dataName, List<MatchDto> matchDtos, List<RuleDto> ruleDtos) {
         this.reference = reference;
         this.password = password;
@@ -62,6 +66,11 @@ public class CompetitionDto {
                 dataName,
                 new ArrayList<>(),
                 ruleDtos);
+
+    }
+
+    public static CompetitionDto competitionDto(String reference) {
+        return new CompetitionDto(reference);
 
     }
 }

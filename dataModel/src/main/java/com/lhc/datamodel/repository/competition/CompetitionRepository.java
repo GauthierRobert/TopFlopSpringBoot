@@ -37,4 +37,6 @@ public interface CompetitionRepository extends JpaRepository<Competition, Long> 
     List<String> findPlayerByCompetition(@Param("ref") String ref);
 
 
+    Long deleteByReference(String reference);
+
 }

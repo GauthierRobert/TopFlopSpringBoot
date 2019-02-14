@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
+import static com.lhc.dto.CompetitionDto.competitionDto;
+
 @RestController
 public class CompetitionEndPointImpl implements CompetitionEndPoint {
 
@@ -57,6 +59,16 @@ public class CompetitionEndPointImpl implements CompetitionEndPoint {
         CompetitionDto competitionDto = competitionMapperHandler.createDTOFromEntity(competition);
         return competitionDto;
 
+    }
+
+    @Override
+    public CompetitionDto removeUserFromCompetition(String username, String competition_ref) {
+        return competitionDto(String.valueOf(competitionService.deleteUserFromCompetition(username, competition_ref)));
+    }
+
+    @Override
+    public CompetitionDto deleteCompetition(String competition_ref) {
+        return competitionDto(String.valueOf(competitionService.deleteCompetition(competition_ref)));
     }
 
 

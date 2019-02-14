@@ -129,6 +129,16 @@ public class CompetitionServiceImpl implements CompetitionService {
     }
 
     @Override
+    public Long deleteUserFromCompetition(String username, String competition_ref) {
+        return userCompetitionRepository.delete(username, competition_ref);
+    }
+
+    @Override
+    public Long deleteCompetition(String competition_ref) {
+        return competitionRepository.deleteByReference(competition_ref);
+    }
+
+    @Override
     public Competition findByReference(String ref) {
         return competitionRepository.findByReference(ref);
     }

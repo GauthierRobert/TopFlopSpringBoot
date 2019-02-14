@@ -13,5 +13,12 @@ import java.util.List;
 @Repository
 public interface UserCompetitionRepository extends JpaRepository<UserCompetition, Long> {
 
+    @Query("DELETE FROM Users_Competitions uc " +
+            "JOIN uc.user u" +
+            "JOIN uc.competition c" +
+            "WHERE :username = u.username" +
+            "AND :competition_ref = c.reference")
+    Long delete(@Param("username") String username, @Param("competition_ref") String competition_ref );
+
 
 }
