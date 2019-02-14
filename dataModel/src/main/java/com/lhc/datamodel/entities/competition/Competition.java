@@ -1,5 +1,6 @@
 package com.lhc.datamodel.entities.competition;
 
+import com.lhc.datamodel.entities.SystemData;
 import com.lhc.datamodel.entities.competition.embedded.CompetitionDetails;
 import com.lhc.datamodel.entities.competition.embedded.DataName;
 import com.lhc.datamodel.entities.competition.embedded.TopFlopDetails;
@@ -14,6 +15,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.lhc.datamodel.entities.SystemData.systemData;
+
 @Getter
 @Setter
 @Entity(name = "Competitions")
@@ -25,14 +28,12 @@ public class Competition implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(unique=true)
-    private String reference;
+    @Embedded
+    private SystemData systemData;
 
     private String password;
     @Transient
     private String confirmedPassword;
-
-    private String creatorUsername;
 
     @Embedded
     private CompetitionDetails details;
@@ -65,16 +66,15 @@ public class Competition implements Serializable {
         this.trainings = new ArrayList<>();
     }
 
-    private Competition(Long id, String reference, CompetitionDetails details, TopFlopDetails topFlopDetails, ImageCompetition imageCompetition, String password, String confirmedPassword, String creatorUsername, DataName dataName, List<Match> matches, List<Training> trainings, List<UserCompetition> userCompetitions, List<Rule> rules) {
+    private Competition(Long id, SystemData systemData, String password, String confirmedPassword, CompetitionDetails details, TopFlopDetails topFlopDetails, DataName dataName, ImageCompetition imageCompetition, List<Match> matches, List<Training> trainings, List<UserCompetition> userCompetitions, List<Rule> rules) {
         this.id = id;
-        this.reference = reference;
-        this.details = details;
-        this.topFlopDetails = topFlopDetails;
-        this.imageCompetition = imageCompetition;
+        this.systemData = systemData;
         this.password = password;
         this.confirmedPassword = confirmedPassword;
-        this.creatorUsername = creatorUsername;
+        this.details = details;
+        this.topFlopDetails = topFlopDetails;
         this.dataName = dataName;
+        this.imageCompetition = imageCompetition;
         this.matches = matches;
         this.trainings = trainings;
         this.userCompetitions = userCompetitions;
@@ -88,14 +88,13 @@ public class Competition implements Serializable {
     public static Competition competition(CompetitionDetails details, TopFlopDetails topFlopDetails,  DataName dataName, String password, String confirmedPassword, String creatorUsername, List<Rule> rules) {
         Competition competition = new Competition(
                 null,
-                null,
-                details,
-                topFlopDetails,
-                null,
+                systemData(null, creatorUsername),
                 password,
                 confirmedPassword,
-                creatorUsername,
+                details,
+                topFlopDetails,
                 dataName,
+                null,
                 new ArrayList<>(),
                 new ArrayList<>(),
                 new ArrayList<>(),

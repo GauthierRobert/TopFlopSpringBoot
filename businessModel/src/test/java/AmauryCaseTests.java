@@ -84,7 +84,7 @@ public class AmauryCaseTests {
 
         User user = userService.findByUsername(CREATOR);
 
-        competitionService.saveOrUpdate(competitionLinkebeek, user);
+        competitionService.saveOrUpdate(competitionLinkebeek);
 
     }
 
@@ -249,7 +249,7 @@ public class AmauryCaseTests {
         ImageCompetition imageCompetition = null;
         try {
             Competition competition = competitionService.findByName(NAME_COMPETITION);
-            imageCompetition = imageCompetition(imageUploadService.convertToBase64(file), competition.getReference(), competition);
+            imageCompetition = imageCompetition(imageUploadService.convertToBase64(file), competition.getSystemData().getReference(), competition);
         } catch (IOException e) {
             e.printStackTrace();
         }

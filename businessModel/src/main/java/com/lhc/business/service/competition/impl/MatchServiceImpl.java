@@ -3,6 +3,7 @@ package com.lhc.business.service.competition.impl;
 import com.lhc.business.service.competition.BallotService;
 import com.lhc.business.service.competition.CompetitionService;
 import com.lhc.business.service.competition.MatchService;
+import com.lhc.datamodel.entities.SystemData;
 import com.lhc.datamodel.entities.competition.Ballot;
 import com.lhc.datamodel.entities.competition.Competition;
 import com.lhc.datamodel.entities.competition.Match;
@@ -69,37 +70,37 @@ public class MatchServiceImpl implements MatchService {
     @Transactional
     public Match saveOrUpdate(Match match) {
 
-        if (match.getReference() !=null) {
-            Match matchInDb = matchRepository.findByReference(match.getReference());
-            if(matchInDb != null) {
+        SystemData systemData = SystemData.systemData(UUID.randomUUID().toString(), match.getSystemData().getCreatedBy());
+        if (match.getSystemData().getReference() != null) {
+            Match matchInDb = matchRepository.findByReference(match.getSystemData().getReference());
+            if (matchInDb != null) {
                 updateData(match, matchInDb);
+                match.setSystemData(SystemData.updated(systemData, systemData.getModifiedBy()));
                 return matchRepository.save(matchInDb);
             }
-        } else {
-            match.setReference(UUID.randomUUID().toString());
         }
 
         Competition competition = competitionService.findByReference(match.getCompetition_ref());
         match.setCompetition(competition);
-
+        match.setSystemData(systemData);
         return matchRepository.save(match);
     }
 
-    private void updateData(Match match, Match matchInDb)    {
+    private void updateData(Match match, Match matchInDb) {
         matchInDb.setDetails(match.getDetails());
     }
 
     @Override
-    public Match close(String match_ref){
-        
+    public Match close(String match_ref) {
+
         Match match = findMatchByReference(match_ref);
         match.close();
         return matchRepository.save(match);
-        
+
     }
 
     @Override
-    public Match open(String match_ref){
+    public Match open(String match_ref) {
 
         Match match = findMatchByReference(match_ref);
         match.open();

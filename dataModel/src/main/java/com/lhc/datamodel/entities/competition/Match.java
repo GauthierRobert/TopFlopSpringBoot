@@ -1,5 +1,6 @@
 package com.lhc.datamodel.entities.competition;
 
+import com.lhc.datamodel.entities.SystemData;
 import com.lhc.datamodel.entities.competition.embedded.MatchDetails;
 import com.lhc.datamodel.entities.statistic.Statistic;
 import com.lhc.datamodel.enumeration.MatchStatus;
@@ -24,8 +25,8 @@ public class Match implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(unique = true)
-    private String reference;
+    @Embedded
+    private SystemData systemData;
 
     @OneToMany(mappedBy = "match", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Ballot> ballots;
@@ -38,8 +39,6 @@ public class Match implements Serializable {
 
     @Enumerated(EnumType.STRING)
     private MatchStatus status;
-
-    private String creatorUsername;
 
     private String visitors;
 
@@ -54,15 +53,13 @@ public class Match implements Serializable {
     private Match() {
     }
 
-    private Match(Long id, String reference, List<Ballot> ballots, MatchDetails details, LocalDate date, LocalTime time, MatchStatus status, String creatorUsername, String visitors, Competition competition, String competition_ref, List<Statistic> statistics) {
+    private Match(Long id, List<Ballot> ballots, MatchDetails details, LocalDate date, LocalTime time, MatchStatus status, String creatorUsername, String visitors, Competition competition, String competition_ref, List<Statistic> statistics) {
         this.id = id;
-        this.reference = reference;
         this.ballots = ballots;
         this.details = details;
         this.date = date;
         this.time = time;
         this.status = status;
-        this.creatorUsername = creatorUsername;
         this.visitors = visitors;
         this.competition = competition;
         this.competition_ref = competition_ref;

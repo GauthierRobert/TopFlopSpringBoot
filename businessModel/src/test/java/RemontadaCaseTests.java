@@ -76,7 +76,7 @@ public class RemontadaCaseTests {
 
         User user = userService.findByUsername(CREATOR);
 
-        competitionService.saveOrUpdate(competitionLinkebeek, user );
+        competitionService.saveOrUpdate(competitionLinkebeek);
 
     }
 

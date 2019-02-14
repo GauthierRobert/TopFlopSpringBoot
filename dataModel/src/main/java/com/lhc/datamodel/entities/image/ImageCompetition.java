@@ -1,5 +1,6 @@
 package com.lhc.datamodel.entities.image;
 
+import com.lhc.datamodel.entities.SystemData;
 import com.lhc.datamodel.entities.competition.Competition;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,6 +19,9 @@ public class ImageCompetition implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @Embedded
+    private SystemData systemData;
 
     @Column(columnDefinition = "MEDIUMTEXT" , name = "asBase64")
     private String asBase64;

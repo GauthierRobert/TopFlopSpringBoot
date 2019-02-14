@@ -1,6 +1,7 @@
 package com.lhc.business.service.competition.impl;
 
 import com.lhc.business.service.competition.CompetitionService;
+import com.lhc.datamodel.entities.SystemData;
 import com.lhc.datamodel.entities.competition.Competition;
 import com.lhc.datamodel.entities.image.ImageCompetition;
 import com.lhc.datamodel.entities.security.User;
@@ -54,40 +55,43 @@ public class CompetitionServiceImpl implements CompetitionService {
 
     @Override
     @Transactional
-    public Competition saveOrUpdate(Competition competition, User user) throws NoSuchAlgorithmException {
+    public Competition saveOrUpdate(Competition competition) throws NoSuchAlgorithmException {
 
         boolean alreadyExist = false;
-        Competition competitionInDB = null;
-        if (competition.getReference() != null) {
-            competitionInDB = findByReference(competition.getReference());
-            alreadyExist = isAlreadyExist(competitionInDB);
-        } else {
-            competition.setReference(UUID.randomUUID().toString());
+        Competition competitionDB = null;
+        SystemData systemData = SystemData.systemData(UUID.randomUUID().toString(), competition.getSystemData().getCreatedBy());
+        if (competition.getSystemData().getReference() != null) {
+            competitionDB = findByReference(competition.getSystemData().getReference());
+            alreadyExist = isAlreadyExist(competitionDB);
         }
 
         if (!alreadyExist) {
             competition.setPassword(sha256(competition.getPassword()));
+            User user = userRepository.findByUsername(competition.getSystemData().getCreatedBy());
             user.setRoles(new HashSet<>(Arrays.asList(roleRepository.findByName(Role.ROLE_ADMIN.name()))));
             userRepository.save(user);
             competition = competitionRepository.save(competition);
             userCompetitionRepository.save(player(user, competition));
         } else {
-            competitionInDB.setDataName(competition.getDataName());
-            competitionInDB.setReference(competition.getReference());
-            competitionInDB.setDetails(competition.getDetails());
-            competitionInDB.setTopFlopDetails(competition.getTopFlopDetails());
-            competitionInDB.setRules(competition.getRules());
-
-            competition = competitionRepository.save(competitionInDB);
+            systemData = SystemData.updated(competitionDB.getSystemData(), competition.getSystemData().getModifiedBy());
+            populateCompetitionDB(competition, competitionDB);
+            competition = competitionRepository.save(competitionDB);
         }
 
-
         if (competition.getImageCompetition() == null) {
-            ImageCompetition imageCompetition = ImageCompetition.imageCompetition(null, competition.getReference(), competition);
+            ImageCompetition imageCompetition = ImageCompetition.imageCompetition(null, competition.getSystemData().getReference(), competition);
             imageCompetitionRepository.save(imageCompetition);
         }
 
+        competition.setSystemData(systemData);
         return competition;
+    }
+
+    private void populateCompetitionDB(Competition competition, Competition competitionInDB) {
+        competitionInDB.setDataName(competition.getDataName());
+        competitionInDB.setDetails(competition.getDetails());
+        competitionInDB.setTopFlopDetails(competition.getTopFlopDetails());
+        competitionInDB.setRules(competition.getRules());
     }
 
     private boolean isAlreadyExist(Competition competitionInDB) {

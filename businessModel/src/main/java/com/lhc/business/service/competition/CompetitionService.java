@@ -12,7 +12,7 @@ public interface CompetitionService {
 
     boolean alreadyExist(String ref);
 
-    Competition saveOrUpdate(Competition competition, User user) throws NoSuchAlgorithmException;
+    Competition saveOrUpdate(Competition competition) throws NoSuchAlgorithmException;
 
     Competition addUser(User user, String postedName, String postedPassword, boolean isPlayer) throws NoSuchAlgorithmException;
 

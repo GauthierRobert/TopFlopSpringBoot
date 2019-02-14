@@ -31,13 +31,11 @@ public class CompetitionEndPointImpl implements CompetitionEndPoint {
     @Override
     public CompetitionDto postCompetition(@RequestBody CompetitionDto competitionDto) throws NoSuchAlgorithmException {
 
-        User currentUser = userService.findByUsername(competitionDto.getCreatorUsername());
-
         CompetitionMapperHandler competitionMapperHandler = new CompetitionMapperHandler();
 
         if (competitionDto.getConfirmedPassword().equals(competitionDto.getPassword())) {
             Competition competition = competitionMapperHandler.createEntityFromDTO(competitionDto);
-            competition = competitionService.saveOrUpdate(competition, currentUser);
+            competition = competitionService.saveOrUpdate(competition);
             competitionDto = competitionMapperHandler.createDTOFromEntity(competition);
             return competitionDto;
         } else {
