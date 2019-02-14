@@ -24,7 +24,7 @@ public interface CompetitionService {
 
     List<Competition> findAllByUsername(String username);
 
-    Long deleteUserFromCompetition(String username, String competition_ref )
+    Long deleteUserFromCompetition(String username, String competition_ref);
 
     Long deleteCompetition(String competition_ref);
 
