@@ -60,6 +60,11 @@ public class MatchMapperHandler implements MapperHandler<Match, MatchDto> {
         List<String> visitors = visitorsMapper.mapStringVisitorIntoList(match.getVisitors());
         matchDto.setVisitors(visitors);
 
+        BallotMapperHandler ballotMapperHandler = new BallotMapperHandler();
+        if (match.getBallots() !=null) {
+            matchDto.setBallotDtos(ballotMapperHandler.mapToListDtos(match.getBallots()));
+        }
+
         return matchDto;
 
     }
