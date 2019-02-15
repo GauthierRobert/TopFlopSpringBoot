@@ -41,7 +41,7 @@ public class CompetitionEndPointTest {
         if (competitionDto.getConfirmedPassword().equals(competitionDto.getPassword())) {
             competition = competitionMapperHandler.createEntityFromDTO(competitionDto);
             try {
-                competition = competitionService.saveOrUpdate(competition, currentUser);
+                competition = competitionService.saveOrUpdate(competition);
             } catch (NoSuchAlgorithmException e) {
                 e.printStackTrace();
             }

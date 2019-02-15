@@ -2,13 +2,14 @@ package com.lhc.webservices.restServices.impl;
 
 import com.lhc.business.service.competition.MatchService;
 import com.lhc.datamodel.entities.competition.Match;
-import com.lhc.datamodel.entities.competition.embedded.MatchDetails;
 import com.lhc.dto.MatchDto;
 import com.lhc.mapper.mapperHandler.MatchMapperHandler;
 import com.lhc.mapper.mapperHandler.VisitorsMapper;
 import com.lhc.webservices.restServices.MatchEndPoint;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -45,7 +46,7 @@ public class MatchEndPointImpl implements MatchEndPoint {
         VisitorsMapper visitorsMapper = new VisitorsMapper();
         MatchMapperHandler matchMapperHandler = new MatchMapperHandler();
         String visitor = visitorsMapper.mapListVisitorIntoString(matchDto.getVisitors());
-        Match match = matchService.addVisitors(matchDto.getReference(), visitor);
+        Match match = matchService.addVisitors(matchDto.getSystemData().getReference(), visitor);
         MatchDto matchDtoUpdate = matchMapperHandler.createDTOFromEntity(match);
         return matchDtoUpdate;
     }
@@ -81,7 +82,7 @@ public class MatchEndPointImpl implements MatchEndPoint {
     public MatchDto deleteMatch(String match_ref) {
 
         MatchDto matchDto = matchDto();
-        matchDto.setReference(String.valueOf(matchService.deleteMatchByReference(match_ref)));
+        matchDto.getSystemData().setReference(String.valueOf(matchService.deleteMatchByReference(match_ref)));
         return matchDto;
     }
 

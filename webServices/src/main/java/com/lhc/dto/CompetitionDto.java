@@ -1,6 +1,7 @@
 package com.lhc.dto;
 
 
+import com.lhc.datamodel.entities.SystemData;
 import com.lhc.datamodel.entities.competition.embedded.CompetitionDetails;
 import com.lhc.datamodel.entities.competition.embedded.TopFlopDetails;
 import com.lhc.datamodel.entities.competition.embedded.DataName;
@@ -9,16 +10,16 @@ import lombok.Data;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.lhc.datamodel.entities.SystemData.systemData;
+
 @Data
 public class CompetitionDto {
 
-    private String reference;
+    private SystemData systemData;
 
     private String password;
 
     private String confirmedPassword;
-
-    private String creatorUsername;
 
     private String imageAsBase64;
 
@@ -37,15 +38,14 @@ public class CompetitionDto {
         this.matchDtos = new ArrayList<>();
     }
 
-    public CompetitionDto(String reference) {
-        this.reference = reference;
+    public CompetitionDto(String reference, String createdBy) {
+        this.systemData = systemData(reference, createdBy);
     }
 
-    public CompetitionDto(String reference, String password, String confirmedPassword, String creatorUsername, String imageAsBase64, CompetitionDetails details, TopFlopDetails topFlopDetails, DataName dataName, List<MatchDto> matchDtos, List<RuleDto> ruleDtos) {
-        this.reference = reference;
+    public CompetitionDto(String reference, String password, String confirmedPassword, String createdBy, String imageAsBase64, CompetitionDetails details, TopFlopDetails topFlopDetails, DataName dataName, List<MatchDto> matchDtos, List<RuleDto> ruleDtos) {
+        this.systemData = systemData(reference, createdBy);
         this.password = password;
         this.confirmedPassword = confirmedPassword;
-        this.creatorUsername = creatorUsername;
         this.imageAsBase64 = imageAsBase64;
         this.details = details;
         this.topFlopDetails = topFlopDetails;
@@ -70,7 +70,7 @@ public class CompetitionDto {
     }
 
     public static CompetitionDto competitionDto(String reference) {
-        return new CompetitionDto(reference);
+        return new CompetitionDto(reference, "DELETED");
 
     }
 }

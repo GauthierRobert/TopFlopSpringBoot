@@ -16,13 +16,14 @@ public class VisitorsMapper {
     public String mapListVisitorIntoString(List<String> visitorsList) {
 
         StringBuilder visitors = new StringBuilder();
-        if(visitorsList!=null) {
+        if(visitorsList!=null && !visitorsList.isEmpty()) {
             for (String visitor : visitorsList) {
                 visitors.append(visitor).append(SEPARATOR);
             }
+            return visitors.toString();
+        } else {
+            return null;
         }
-        return visitors.toString();
-
     }
 
 

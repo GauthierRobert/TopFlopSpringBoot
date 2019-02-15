@@ -25,7 +25,7 @@ public class CompetitionMapperHandler implements MapperHandler<Competition, Comp
         }
 
         if(competitionDto.getImageAsBase64() !=null){
-            competition.setImageCompetition(imageCompetition(competitionDto.getImageAsBase64(), competitionDto.getReference(), competition));
+            competition.setImageCompetition(imageCompetition(competitionDto.getImageAsBase64(), competitionDto.getSystemData().getReference(), competition));
         }
 
         return competition;

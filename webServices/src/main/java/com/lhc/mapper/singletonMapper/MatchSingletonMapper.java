@@ -36,7 +36,7 @@ public class MatchSingletonMapper {
                 .field("details", "details")
                 .field("competition_ref", "competition_ref")
                 .field("creatorUsername", "creatorUsername")
-                .field("reference", "reference")
+                .field("systemData", "systemData")
                 .register();
         return mapperFactory.getMapperFacade();
     }
@@ -48,7 +48,7 @@ public class MatchSingletonMapper {
                 .field("details", "details")
                 .field("competition_ref", "competition_ref")
                 .field("creatorUsername", "creatorUsername")
-                .field("reference", "reference")
+                .field("systemData", "systemData")
                 .register();
         return mapperFactory.getMapperFacade();
     }

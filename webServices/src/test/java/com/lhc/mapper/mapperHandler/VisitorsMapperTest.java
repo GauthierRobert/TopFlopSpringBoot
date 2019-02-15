@@ -28,4 +28,5 @@ public class VisitorsMapperTest {
         assertThat(actual_2.size()).isEqualTo(4);
 
     }
+
 }

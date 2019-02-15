@@ -33,10 +33,9 @@ public class CompetitionSingletonMapper {
         MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
 
         mapperFactory.classMap(CompetitionDto.class, Competition.class)
-                .field("reference", "reference")
+                .field("systemData", "systemData")
                 .field("password", "password")
                 .field("confirmedPassword", "confirmedPassword")
-                .field("creatorUsername", "creatorUsername")
                 .field("dataName","dataName")
                 .field("topFlopDetails","topFlopDetails")
                 .field("details","details")
@@ -49,10 +48,9 @@ public class CompetitionSingletonMapper {
         MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
 
         mapperFactory.classMap(Competition.class, CompetitionDto.class)
-                .field("reference", "reference")
+                .field("systemData", "systemData")
                 .field("password", "password")
                 .field("confirmedPassword", "confirmedPassword")
-                .field("creatorUsername", "creatorUsername")
                 .field("dataName","dataName")
                 .field("topFlopDetails","topFlopDetails")
                 .field("details","details")
