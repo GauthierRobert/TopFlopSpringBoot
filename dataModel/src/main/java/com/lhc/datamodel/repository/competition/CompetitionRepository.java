@@ -13,8 +13,8 @@ import java.util.List;
 public interface CompetitionRepository extends JpaRepository<Competition, Long> {
 
     @Query("SELECT c FROM Competitions c " +
-            "WHERE c.system_data.reference = :ref")
-    Competition findByReference(@Param("ref") String ref);
+            "WHERE c.systemData.reference = :reference")
+    Competition findByReference(@Param("reference") String reference);
 
     @Query("SELECT c FROM Competitions c " +
             "WHERE c.details.name = :name")
@@ -26,7 +26,7 @@ public interface CompetitionRepository extends JpaRepository<Competition, Long> 
             "WHERE :username = u.username")
     List<Competition> findAllByUsername(@Param("username") String username);
 
-    @Query("SELECT c.system_data FROM Competitions c " +
+    @Query("SELECT c.systemData FROM Competitions c " +
             "JOIN c.userCompetitions uc " +
             "JOIN uc.user u " +
             "WHERE :username = u.username")
@@ -35,10 +35,11 @@ public interface CompetitionRepository extends JpaRepository<Competition, Long> 
     @Query("SELECT u.username FROM Competitions c " +
             "JOIN c.userCompetitions uc " +
             "JOIN uc.user u " +
-            "WHERE c.system_data.reference = :ref AND uc.isPlayer = TRUE")
+            "WHERE c.systemData.reference = :ref AND uc.isPlayer = TRUE")
     List<String> findPlayerByCompetition(@Param("ref") String ref);
 
-
-    Long deleteByReference(String reference);
+    @Query("DELETE FROM Competitions c " +
+            "WHERE c.systemData.reference = :reference")
+    void deleteByReference(@Param("reference") String reference);
 
 }

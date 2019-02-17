@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface BallotRepository extends JpaRepository<Ballot, Long> {
 
-    @Query("Select b from Ballots b where b.match.reference = :match_ref")
+    @Query("Select b from Ballots b where b.match.systemData.reference = :match_ref")
     List<Ballot> findAllByMatchReference(@Param("match_ref") String match_ref);
 
     @Query("Select b from Ballots b where b.reference = :ref")

@@ -1,12 +1,12 @@
 package com.lhc.mapper.singletonMapper;
 
-import com.lhc.datamodel.entities.competition.Competition;
-import com.lhc.dto.CompetitionDto;
+import com.lhc.datamodel.entities.SystemData;
+import com.lhc.dto.SystemDataDto;
 import ma.glasnost.orika.MapperFacade;
 import ma.glasnost.orika.MapperFactory;
 import ma.glasnost.orika.impl.DefaultMapperFactory;
 
-public class CompetitionSingletonMapper {
+public class SystemDataSingletonMapper {
 
 
     /** Instance unique pré-initialisée */
@@ -32,31 +32,24 @@ public class CompetitionSingletonMapper {
     private static MapperFacade getMapperFacadeEntity() {
         MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
 
-        mapperFactory.classMap(CompetitionDto.class, Competition.class)
-                .field("password", "password")
-                .field("confirmedPassword", "confirmedPassword")
-                .field("dataName","dataName")
-                .field("topFlopDetails","topFlopDetails")
-                .field("details","details")
+        mapperFactory.classMap(SystemDataDto.class, SystemData.class)
+                .field("reference", "reference")
+                .field("createdBy", "createdBy")
+                .field("modifiedBy", "modifiedBy")
                 .register();
-
-        return  mapperFactory.getMapperFacade();
+        return mapperFactory.getMapperFacade();
     }
 
     private static MapperFacade getMapperFacadeDto() {
         MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
 
-        mapperFactory.classMap(Competition.class, CompetitionDto.class)
-                .field("password", "password")
-                .field("confirmedPassword", "confirmedPassword")
-                .field("dataName","dataName")
-                .field("topFlopDetails","topFlopDetails")
-                .field("details","details")
+        mapperFactory.classMap(SystemData.class, SystemDataDto.class)
+                .field("reference", "reference")
+                .field("createdBy", "createdBy")
+                .field("modifiedBy", "modifiedBy")
                 .register();
-
-        return  mapperFactory.getMapperFacade();
+        return mapperFactory.getMapperFacade();
     }
-
 
 }
 

@@ -3,6 +3,7 @@ package com.lhc.business.service.competition.impl;
 import com.lhc.business.service.competition.CompetitionService;
 import com.lhc.datamodel.entities.SystemData;
 import com.lhc.datamodel.entities.competition.Competition;
+import com.lhc.datamodel.entities.competition.manyToMany.UserCompetition;
 import com.lhc.datamodel.entities.image.ImageCompetition;
 import com.lhc.datamodel.entities.security.User;
 import com.lhc.datamodel.enumeration.Role;
@@ -70,11 +71,13 @@ public class CompetitionServiceImpl implements CompetitionService {
             User user = userRepository.findByUsername(competition.getSystemData().getCreatedBy());
             user.setRoles(new HashSet<>(Arrays.asList(roleRepository.findByName(Role.ROLE_ADMIN.name()))));
             userRepository.save(user);
+            competition.setSystemData(systemData);
             competition = competitionRepository.save(competition);
             userCompetitionRepository.save(player(user, competition));
         } else {
             systemData = SystemData.updated(competitionDB.getSystemData(), competition.getSystemData().getModifiedBy());
             populateCompetitionDB(competition, competitionDB);
+            competitionDB.setSystemData(systemData);
             competition = competitionRepository.save(competitionDB);
         }
 
@@ -83,7 +86,6 @@ public class CompetitionServiceImpl implements CompetitionService {
             imageCompetitionRepository.save(imageCompetition);
         }
 
-        competition.setSystemData(systemData);
         return competition;
     }
 
@@ -133,13 +135,14 @@ public class CompetitionServiceImpl implements CompetitionService {
     }
 
     @Override
-    public Long deleteUserFromCompetition(String username, String competition_ref) {
-        return userCompetitionRepository.delete(username, competition_ref);
+    public void deleteUserFromCompetition(String username, String competition_ref) {
+        UserCompetition uc = userCompetitionRepository.findByUsernameAndCompetitionReference(username, competition_ref);
+        userCompetitionRepository.delete(uc);
     }
 
     @Override
-    public Long deleteCompetition(String competition_ref) {
-        return competitionRepository.deleteByReference(competition_ref);
+    public void deleteCompetition(String competition_ref) {
+        competitionRepository.deleteByReference(competition_ref);
     }
 
     @Override

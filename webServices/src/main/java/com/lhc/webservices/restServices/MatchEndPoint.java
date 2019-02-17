@@ -46,5 +46,5 @@ public interface MatchEndPoint {
     @RequestMapping(
             value = "/match/delete",
             method = RequestMethod.DELETE)
-    MatchDto deleteMatch(@RequestParam("match_ref") String match_ref);
+    void deleteMatch(@RequestParam("match_ref") String match_ref);
 }

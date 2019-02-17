@@ -40,6 +40,15 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    @Override
+    @Transactional
+    public User update(User user) {
+
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        return userRepository.save(user);
+
+    }
+
     private void validate(User user) {
         if (user !=null) {
             String username = user.getUsername();

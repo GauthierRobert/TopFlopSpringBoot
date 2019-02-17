@@ -38,8 +38,8 @@ public class MatchServiceImpl implements MatchService {
     }
 
     @Override
-    public Long deleteMatchByReference(String reference) {
-        return matchRepository.deleteByReference(reference);
+    public void deleteMatchByReference(String reference) {
+        matchRepository.deleteByReference(reference);
     }
 
     @Override

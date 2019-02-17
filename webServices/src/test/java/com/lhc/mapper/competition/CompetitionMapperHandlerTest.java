@@ -32,7 +32,7 @@ public class CompetitionMapperHandlerTest {
         entity.getSystemData().setReference("Reference");
         CompetitionMapperHandler competitionMapperHandler = new CompetitionMapperHandler();
         CompetitionDto actual = competitionMapperHandler.createDTOFromEntity(entity);
-        assertThat(actual.getSystemData().getCreatedBy()).isEqualTo(entity.getSystemData().getCreatedBy());
+        assertThat(actual.getSystemDataDto().getCreatedBy()).isEqualTo(entity.getSystemData().getCreatedBy());
 
     }
 }

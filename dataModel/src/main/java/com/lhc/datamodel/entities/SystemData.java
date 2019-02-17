@@ -35,7 +35,7 @@ public class SystemData {
     @Column(name = "COUNT_MODIFIED")
     private int countModified;
 
-    public SystemData(String reference, String createdBy, LocalDate creationDate, LocalTime creationTime, LocalDate modificationDate, LocalTime modificationTime, String modifiedBy, int countModified) {
+    private SystemData(String reference, String createdBy, LocalDate creationDate, LocalTime creationTime, LocalDate modificationDate, LocalTime modificationTime, String modifiedBy, int countModified) {
         this.reference = reference;
         this.createdBy = createdBy;
         this.creationDate = creationDate;
@@ -46,7 +46,11 @@ public class SystemData {
         this.countModified = countModified;
     }
 
-    public SystemData() {
+    private SystemData() {
+    }
+
+    public static SystemData systemData(){
+        return new SystemData();
     }
 
     public static SystemData systemData(String reference, String createdBy){

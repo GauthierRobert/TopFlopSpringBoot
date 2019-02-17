@@ -28,13 +28,13 @@ public interface CompetitionEndPoint {
     @RequestMapping(
             value = "/competition/removeUser",
             method = RequestMethod.POST)
-    CompetitionDto removeUserFromCompetition(@RequestParam(value = "username") String username,
+    void removeUserFromCompetition(@RequestParam(value = "username") String username,
                                              @RequestParam(value = "competition_ref") String competition_ref) throws NoSuchAlgorithmException;
 
     @RequestMapping(
             value = "/competition/delete",
             method = RequestMethod.POST)
-    CompetitionDto deleteCompetition(@RequestParam(value = "competition_ref") String competition_ref) throws NoSuchAlgorithmException;
+    void deleteCompetition(@RequestParam(value = "competition_ref") String competition_ref) throws NoSuchAlgorithmException;
 
     @RequestMapping(
             value = "/competition/getList",

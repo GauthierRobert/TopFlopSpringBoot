@@ -46,7 +46,7 @@ public class MatchEndPointImpl implements MatchEndPoint {
         VisitorsMapper visitorsMapper = new VisitorsMapper();
         MatchMapperHandler matchMapperHandler = new MatchMapperHandler();
         String visitor = visitorsMapper.mapListVisitorIntoString(matchDto.getVisitors());
-        Match match = matchService.addVisitors(matchDto.getSystemData().getReference(), visitor);
+        Match match = matchService.addVisitors(matchDto.getSystemDataDto().getReference(), visitor);
         MatchDto matchDtoUpdate = matchMapperHandler.createDTOFromEntity(match);
         return matchDtoUpdate;
     }
@@ -79,11 +79,9 @@ public class MatchEndPointImpl implements MatchEndPoint {
     }
 
     @Override
-    public MatchDto deleteMatch(String match_ref) {
+    public void deleteMatch(String match_ref) {
 
-        MatchDto matchDto = matchDto();
-        matchDto.getSystemData().setReference(String.valueOf(matchService.deleteMatchByReference(match_ref)));
-        return matchDto;
+        matchService.deleteMatchByReference(match_ref);
     }
 
 }

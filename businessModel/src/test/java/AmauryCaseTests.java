@@ -25,6 +25,7 @@ import java.text.ParseException;
 import static com.lhc.datamodel.builder.CompetitionBuilder.aCompetitionCreatedBy;
 import static com.lhc.datamodel.entities.image.ImageCompetition.imageCompetition;
 
+@Ignore
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @ContextConfiguration(classes = BusinessConfig.class)

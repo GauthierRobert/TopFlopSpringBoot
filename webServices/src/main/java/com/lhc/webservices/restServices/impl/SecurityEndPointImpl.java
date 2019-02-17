@@ -74,11 +74,10 @@ public class SecurityEndPointImpl implements SecurityEndPoint {
 
         if(authenticate){
             if (newPassword.equals(newConfirmedPassword)){
-                UserMapperHandler userMapperHandler = new UserMapperHandler();
-                User userForm = userMapperHandler.createEntityFromDTO(userDto);
+                User userForm= userService.findByUsername(userDto.getUsername());
                 validationService.validate(userForm);
-
-                userService.save(userForm);
+                userForm.setPassword(newPassword);
+                userService.update(userForm);
 
                 return true;
 

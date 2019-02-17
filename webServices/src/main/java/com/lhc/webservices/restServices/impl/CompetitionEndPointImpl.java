@@ -60,13 +60,13 @@ public class CompetitionEndPointImpl implements CompetitionEndPoint {
     }
 
     @Override
-    public CompetitionDto removeUserFromCompetition(String username, String competition_ref) {
-        return competitionDto(String.valueOf(competitionService.deleteUserFromCompetition(username, competition_ref)));
+    public void removeUserFromCompetition(String username, String competition_ref) {
+        competitionService.deleteUserFromCompetition(username, competition_ref);
     }
 
     @Override
-    public CompetitionDto deleteCompetition(String competition_ref) {
-        return competitionDto(String.valueOf(competitionService.deleteCompetition(competition_ref)));
+    public void deleteCompetition(String competition_ref) {
+        competitionService.deleteCompetition(competition_ref);
     }
 
 

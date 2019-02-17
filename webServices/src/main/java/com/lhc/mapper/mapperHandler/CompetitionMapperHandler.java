@@ -25,8 +25,11 @@ public class CompetitionMapperHandler implements MapperHandler<Competition, Comp
         }
 
         if(competitionDto.getImageAsBase64() !=null){
-            competition.setImageCompetition(imageCompetition(competitionDto.getImageAsBase64(), competitionDto.getSystemData().getReference(), competition));
+            competition.setImageCompetition(imageCompetition(competitionDto.getImageAsBase64(), competitionDto.getSystemDataDto().getReference(), competition));
         }
+
+        SystemDataMapperHandler systemDataMapperHandler = new SystemDataMapperHandler();
+        competition.setSystemData(systemDataMapperHandler.createEntityFromDTO(competitionDto.getSystemDataDto()));
 
         return competition;
 
@@ -60,6 +63,10 @@ public class CompetitionMapperHandler implements MapperHandler<Competition, Comp
         if(competition.getImageCompetition() !=null){
             competitionDto.setImageAsBase64(competition.getImageCompetition().getAsBase64());
         }
+
+        SystemDataMapperHandler systemDataMapperHandler = new SystemDataMapperHandler();
+        competitionDto.setSystemDataDto(systemDataMapperHandler.createDTOFromEntity(competition.getSystemData()));
+
         return competitionDto;
 
     }

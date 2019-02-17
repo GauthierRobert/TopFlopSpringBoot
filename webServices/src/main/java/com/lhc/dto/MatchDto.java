@@ -11,11 +11,12 @@ import java.util.List;
 import java.util.Set;
 
 import static com.lhc.datamodel.entities.SystemData.systemData;
+import static com.lhc.dto.SystemDataDto.systemDataDto;
 
 @Data
 public class MatchDto {
 
-    private SystemData systemData;
+    private SystemDataDto systemDataDto;
 
     private MatchDetails details;
     
@@ -30,7 +31,7 @@ public class MatchDto {
     private List<BallotDto> ballotDtos;
 
     private MatchDto(String competition_ref, MatchDetails details, String createdBy, List<String> visitors) {
-        this.systemData = systemData(null, createdBy);
+        this.systemDataDto = systemDataDto(null, createdBy);
         this.competition_ref = competition_ref;
         this.details = details;
         this.visitors = visitors;

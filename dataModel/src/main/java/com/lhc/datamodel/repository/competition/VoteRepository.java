@@ -15,7 +15,7 @@ public interface VoteRepository extends JpaRepository<Vote, Long> {
     Vote findByReference(@Param("ref") String ref);
 
     @Query("Select v from Votes v where v.ballot in " +
-            "(Select b from Ballots b where b.match.reference = :match_ref)")
+            "(Select b from Ballots b where b.match.systemData.reference = :match_ref)")
     List<Vote> findAllByMatchReference(@Param("match_ref") String match_ref);
 
     @Query("Select v from Votes v where v.ballot.reference = :ballot_ref")

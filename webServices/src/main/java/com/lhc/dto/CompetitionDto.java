@@ -11,11 +11,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.lhc.datamodel.entities.SystemData.systemData;
+import static com.lhc.dto.SystemDataDto.systemDataDto;
 
 @Data
 public class CompetitionDto {
 
-    private SystemData systemData;
+    private SystemDataDto systemDataDto;
 
     private String password;
 
@@ -39,11 +40,11 @@ public class CompetitionDto {
     }
 
     public CompetitionDto(String reference, String createdBy) {
-        this.systemData = systemData(reference, createdBy);
+        this.systemDataDto = systemDataDto(reference, createdBy);
     }
 
     public CompetitionDto(String reference, String password, String confirmedPassword, String createdBy, String imageAsBase64, CompetitionDetails details, TopFlopDetails topFlopDetails, DataName dataName, List<MatchDto> matchDtos, List<RuleDto> ruleDtos) {
-        this.systemData = systemData(reference, createdBy);
+        this.systemDataDto = systemDataDto(reference, createdBy);
         this.password = password;
         this.confirmedPassword = confirmedPassword;
         this.imageAsBase64 = imageAsBase64;

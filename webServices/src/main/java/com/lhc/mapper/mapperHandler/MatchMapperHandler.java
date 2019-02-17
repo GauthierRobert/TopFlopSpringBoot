@@ -28,6 +28,9 @@ public class MatchMapperHandler implements MapperHandler<Match, MatchDto> {
         String visitors = visitorsMapper.mapListVisitorIntoString(matchDto.getVisitors());
         match.setVisitors(visitors);
 
+        SystemDataMapperHandler systemDataMapperHandler = new SystemDataMapperHandler();
+        match.setSystemData(systemDataMapperHandler.createEntityFromDTO(matchDto.getSystemDataDto()));
+
         return match;
 
     }
@@ -64,6 +67,9 @@ public class MatchMapperHandler implements MapperHandler<Match, MatchDto> {
         if (match.getBallots() !=null) {
             matchDto.setBallotDtos(ballotMapperHandler.mapToListDtos(match.getBallots()));
         }
+
+        SystemDataMapperHandler systemDataMapperHandler = new SystemDataMapperHandler();
+        matchDto.setSystemDataDto(systemDataMapperHandler.createDTOFromEntity(match.getSystemData()));
 
         return matchDto;
 

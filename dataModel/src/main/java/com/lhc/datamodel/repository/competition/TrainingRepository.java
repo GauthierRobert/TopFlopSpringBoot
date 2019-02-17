@@ -14,7 +14,7 @@ public interface TrainingRepository extends JpaRepository<Training, Long> {
     @Query("Select m from Trainings m where m.reference = :ref")
     Training findByReference(@Param("ref") String ref);
 
-    @Query("Select m from Trainings m where m.competition.reference = :competition_ref")
+    @Query("Select m from Trainings m where m.competition.systemData.reference = :competition_ref")
     List<Training> findAllByCompetitionReference(@Param("competition_ref") String competition_ref);
 
 

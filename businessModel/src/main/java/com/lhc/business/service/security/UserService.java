@@ -13,6 +13,8 @@ public interface UserService {
 
 	User save(User user);
 
+	User update(User user);
+
 	boolean authenticate(String username, String password) throws AuthenticationException;
 
 }

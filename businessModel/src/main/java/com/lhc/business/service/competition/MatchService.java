@@ -10,7 +10,7 @@ public interface MatchService {
 
     Match findMatchByReference(String ref);
 
-    Long deleteMatchByReference(String reference);
+    void deleteMatchByReference(String reference);
 
     Match findMatchByReferenceAndHisBallots(String ref);
 
