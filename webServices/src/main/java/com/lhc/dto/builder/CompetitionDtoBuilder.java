@@ -30,6 +30,8 @@ public class CompetitionDtoBuilder {
     private String flopName;
     private boolean withCommentTop;
     private boolean withCommentFlop;
+    private boolean withValidationTop;
+    private boolean withValidationFlop;
 
     private String dataName_1;
     private String dataName_2;
@@ -109,9 +111,15 @@ public class CompetitionDtoBuilder {
             CompetitionDtoBuilder.this.dataName_5 = _5;
         }
 
-        public TopFlopDetailsDtoBuilder withComments(boolean top, boolean flop){
-            CompetitionDtoBuilder.this.withCommentTop = top;
-            CompetitionDtoBuilder.this.withCommentFlop = flop;
+        public TopFlopDetailsDtoBuilder withComments(boolean withCommentTop, boolean withCommentFlop){
+            CompetitionDtoBuilder.this.withCommentTop = withCommentTop;
+            CompetitionDtoBuilder.this.withCommentFlop = withCommentFlop;
+            return this;
+        }
+
+        public TopFlopDetailsDtoBuilder withValidation(boolean withValidationTop, boolean withValidationFlop){
+            CompetitionDtoBuilder.this.withValidationTop = withValidationTop;
+            CompetitionDtoBuilder.this.withValidationFlop = withValidationFlop;
             return this;
         }
 
@@ -174,7 +182,7 @@ public class CompetitionDtoBuilder {
         public CompetitionDto build() {
             return competitionDto(
                     competitionDetails(name, season, division,sport),
-                    topFlopDetails(withCommentTop, withCommentFlop,topName, flopName),
+                    topFlopDetails(withCommentTop, withCommentFlop, withValidationTop, withValidationFlop,topName, flopName),
                     dataName(dataName_1, dataName_2, dataName_3, dataName_4, dataName_5),
                     password, confirmedPassword, creatorUsername, imageAsBase64, ruleDtos);
         }
