@@ -35,6 +35,10 @@ public class BallotEndPointImpl implements BallotEndPoint {
         return ballotDto;
     }
 
+    @Override
+    public BallotDto updateBallot(BallotDto ballotDto) {
+        return null;
+    }
 
 
     @Override

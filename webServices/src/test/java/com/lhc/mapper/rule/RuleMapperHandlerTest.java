@@ -13,7 +13,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class RuleMapperHandlerTest {
 
     public Rule createRule(){
-        return rule(Label.POINT_VOTE.name(),1, 1);
+        return rule(Label.POINT_VOTE,1, 1);
     }
 
 
@@ -24,7 +24,7 @@ public class RuleMapperHandlerTest {
         RuleMapperHandler ruleMapperHandler = new RuleMapperHandler();
         RuleDto actual = ruleMapperHandler.createDTOFromEntity(rule);
 
-        assertThat(actual.getLabel()).isNotEmpty();
+        assertThat(actual.getLabel().getName()).isNotEmpty();
         assertThat(actual.getIndication()).isEqualTo(rule.getIndication());
     }
 }

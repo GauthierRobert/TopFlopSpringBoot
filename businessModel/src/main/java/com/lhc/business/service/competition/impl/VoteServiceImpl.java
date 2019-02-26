@@ -46,6 +46,11 @@ public class VoteServiceImpl implements VoteService {
         return voteRepository.findAllByBallotReference(ref);
     }
 
+    @Override
+    public List<Vote> findAllCountedByMatchReference(String match_ref) {
+        return  voteRepository.findAllCountedByMatchReference(match_ref);
+    }
+
 
     private Rule getRuleWithVoteIndex(List<Rule> rules, int index){
 

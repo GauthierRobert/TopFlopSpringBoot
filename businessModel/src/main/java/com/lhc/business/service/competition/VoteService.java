@@ -12,4 +12,6 @@ public interface VoteService {
     List<Vote> findAllByMatchReference(String ref);
 
     List<Vote> findAllByBallotReference(String ref);
+
+    List<Vote> findAllCountedByMatchReference(String match_ref);
 }

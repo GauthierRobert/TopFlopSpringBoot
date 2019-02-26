@@ -38,6 +38,8 @@ public class BallotSingletonMapper {
                 .field("competition_ref", "competition_ref")
                 .field("commentTop", "commentTop")
                 .field("commentFlop", "commentFlop")
+                .field("counted", "counted")
+
                 .register();
 
         return  mapperFactory.getMapperFacade();
@@ -52,6 +54,7 @@ public class BallotSingletonMapper {
                 .field("competition_ref", "competition_ref")
                 .field("commentTop", "commentTop")
                 .field("commentFlop", "commentFlop")
+                .field("counted", "counted")
                 .register();
 
         return  mapperFactory.getMapperFacade();

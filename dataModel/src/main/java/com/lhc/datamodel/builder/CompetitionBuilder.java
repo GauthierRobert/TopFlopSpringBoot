@@ -36,6 +36,8 @@ public class CompetitionBuilder {
 
     private boolean withCommentTop;
     private boolean withCommentFlop;
+    private boolean withValidationTop;
+    private boolean withValidationFlop;
     private String topName;
     private String flopName;
 
@@ -105,15 +107,21 @@ public class CompetitionBuilder {
             CompetitionBuilder.this.dataName_5 = _5;
         }
 
-        public TopFlopDetailsBuilder withComments(boolean top, boolean flop){
-            CompetitionBuilder.this.withCommentTop = top;
-            CompetitionBuilder.this.withCommentFlop = flop;
+        public TopFlopDetailsBuilder withComments(boolean withCommentTop, boolean withCommentFlop){
+            CompetitionBuilder.this.withCommentTop = withCommentTop;
+            CompetitionBuilder.this.withCommentFlop = withCommentFlop;
             return this;
         }
 
         public TopFlopDetailsBuilder withTopFlopName(String topName, String flopName){
             CompetitionBuilder.this.topName = topName;
             CompetitionBuilder.this.flopName = flopName;
+            return this;
+        }
+
+        public TopFlopDetailsBuilder withValidation(boolean withValidationTop, boolean withValidationFlop){
+            CompetitionBuilder.this.withValidationTop = withValidationTop;
+            CompetitionBuilder.this.withValidationFlop = withValidationFlop;
             return this;
         }
 
@@ -128,8 +136,8 @@ public class CompetitionBuilder {
         private final CompetitionCompletion competitionCompletion = new CompetitionCompletion();
 
         RuleBuilder(int numberOfTopVote, int numberOfFlopVote) {
-            Rule ruleTop = rule(Label.NUMBER_VOTE_TOP.name(),numberOfTopVote, 0);
-            Rule ruleFlop = rule(Label.NUMBER_VOTE_FLOP.name(), numberOfFlopVote, 0);
+            Rule ruleTop = rule(Label.NUMBER_VOTE_TOP,numberOfTopVote, 0);
+            Rule ruleFlop = rule(Label.NUMBER_VOTE_FLOP, numberOfFlopVote, 0);
             CompetitionBuilder.this.rules.add(ruleTop);
             CompetitionBuilder.this.rules.add(ruleFlop);
         }
@@ -138,7 +146,7 @@ public class CompetitionBuilder {
             int i = 0;
             for (Integer point:points) {
                 i++;
-                Rule rule = rule(Label.POINT_VOTE.name(),point,i);
+                Rule rule = rule(Label.POINT_VOTE,point,i);
                 CompetitionBuilder.this.rules.add(rule);
             }
             return this;
@@ -148,7 +156,7 @@ public class CompetitionBuilder {
             int i = 0;
             for (Integer point:points) {
                 i++;
-                Rule rule = rule(Label.POINT_VOTE.name(),point,-i);
+                Rule rule = rule(Label.POINT_VOTE,point,-i);
                 CompetitionBuilder.this.rules.add(rule);
             }
             return this;
@@ -168,7 +176,7 @@ public class CompetitionBuilder {
         public Competition build(){
             return competition(
                     competitionDetails(name, season, division,sport),
-                    topFlopDetails(withCommentTop, withCommentFlop,topName, flopName),
+                    topFlopDetails(withCommentTop, withCommentFlop, withValidationTop, withValidationFlop, topName, flopName),
                     dataName(dataName_1, dataName_2, dataName_3, dataName_4, dataName_5),
                     password, confirmedPassword, creatorUsername,rules);
         }

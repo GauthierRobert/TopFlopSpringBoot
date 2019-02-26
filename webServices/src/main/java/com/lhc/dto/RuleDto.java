@@ -1,5 +1,6 @@
 package com.lhc.dto;
 
+import com.lhc.datamodel.enumeration.Label;
 import lombok.Data;
 
 @Data
@@ -7,7 +8,8 @@ public class RuleDto {
 
     private String description;
 
-    private String label;
+
+    private Label label;
 
     private Integer points;
 
@@ -21,7 +23,7 @@ public class RuleDto {
     private RuleDto() {
     }
 
-    private RuleDto(String description, String label, Integer points, Integer indication) {
+    private RuleDto(String description, Label label, Integer points, Integer indication) {
         this.description = description;
         this.label = label;
         this.points = points;
@@ -29,7 +31,7 @@ public class RuleDto {
     }
 
 
-    public static  RuleDto ruleDto(String label, Integer points, Integer indication) {
+    public static  RuleDto ruleDto(Label label, Integer points, Integer indication) {
         return new RuleDto(null, label, points, indication);
     }
 

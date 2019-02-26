@@ -1,6 +1,7 @@
 package com.lhc.datamodel.entities.rules;
 
 import com.lhc.datamodel.entities.competition.Competition;
+import com.lhc.datamodel.enumeration.Label;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -27,7 +28,8 @@ public class Rule implements Serializable {
 
     private String description;
 
-    private String label;
+    @Enumerated(EnumType.STRING)
+    private Label label;
 
     private Integer points;
 
@@ -49,7 +51,7 @@ public class Rule implements Serializable {
 
     }
 
-    private Rule(Long id, String description, String label, Integer points, Competition competition, Integer indication) {
+    private Rule(Long id, String description, Label label, Integer points, Competition competition, Integer indication) {
         this.id = id;
         this.description = description;
         this.label = label;
@@ -58,7 +60,7 @@ public class Rule implements Serializable {
         this.indication = indication;
     }
 
-    public static Rule rule(Long id, String description, String label, Integer points, Competition competition, Integer indication){
+    public static Rule rule(Long id, String description, Label label, Integer points, Competition competition, Integer indication){
         return new Rule(id, description, label, points, competition, indication);
     }
 
@@ -66,7 +68,7 @@ public class Rule implements Serializable {
         return new Rule();
     }
 
-    public static Rule rule(String label, Integer points, Integer indication) {
+    public static Rule rule(Label label, Integer points, Integer indication) {
         return new Rule(null, null, label, points, null, indication);
     }
 

@@ -26,13 +26,15 @@ public class Ballot implements Serializable {
 
     private String competition_ref;
 
+    private boolean counted;
+
     @Column(columnDefinition = "TEXT")
     private String commentTop;
 
     @Column(columnDefinition = "TEXT")
     private String commentFlop;
 
-    @OneToMany(mappedBy="ballot", fetch= FetchType.EAGER, cascade= CascadeType.ALL )
+    @OneToMany(mappedBy="ballot", fetch= FetchType.EAGER, cascade = CascadeType.ALL )
     private List<Vote> votes;
 
     @ManyToOne
@@ -42,10 +44,14 @@ public class Ballot implements Serializable {
     private User user;
 
     private Ballot() {
-
+        counted = false;
     }
 
     public static Ballot ballot(){
         return new Ballot();
+    }
+
+    public void addVote(Vote vote){
+        votes.add(vote);
     }
 }

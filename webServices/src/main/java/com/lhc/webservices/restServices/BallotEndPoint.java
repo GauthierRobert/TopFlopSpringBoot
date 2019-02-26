@@ -10,10 +10,16 @@ import java.util.List;
 
 @Produces(MediaType.APPLICATION_JSON)
 public interface BallotEndPoint {
+
     @RequestMapping(
             value = "/ballot/save",
             method = RequestMethod.POST)
     BallotDto postBallot(@RequestBody BallotDto ballotDto, @RequestParam String username);
+
+    @RequestMapping(
+            value = "/ballot/count",
+            method = RequestMethod.POST)
+    BallotDto updateBallot(@RequestBody BallotDto ballotDto);
 
     @RequestMapping(
             value = "/ballot/getList",
