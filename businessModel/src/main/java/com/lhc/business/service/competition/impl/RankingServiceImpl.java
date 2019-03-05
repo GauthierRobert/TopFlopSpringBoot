@@ -103,6 +103,7 @@ public class RankingServiceImpl implements RankingService {
 
         Integer currentPosition = null;
         Integer previousValue = null;
+        String position_string = null;
         while (iterable.hasNext()) {
             Map.Entry<String, Integer> entry = iterable.next();
             String key = entry.getKey();
@@ -111,11 +112,15 @@ public class RankingServiceImpl implements RankingService {
             if (value != null) {
                 if (!value.equals(previousValue)) {
                     currentPosition = position;
+                    position_string = currentPosition + ".";
+                } else {
+                    position_string = currentPosition + "." + "TEMP"+ ".";
                 }
             }
 
             previousValue = value;
-            RankingCell rankingCell = new RankingCell(currentPosition + ".", key, value);
+
+            RankingCell rankingCell = new RankingCell(position_string, key, value);
             rankingCells.add(rankingCell);
             position++;
 
