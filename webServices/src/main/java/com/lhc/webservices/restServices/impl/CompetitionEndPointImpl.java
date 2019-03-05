@@ -7,15 +7,12 @@ import com.lhc.datamodel.entities.security.User;
 import com.lhc.dto.CompetitionDto;
 import com.lhc.mapper.mapperHandler.CompetitionMapperHandler;
 import com.lhc.webservices.restServices.CompetitionEndPoint;
+import java.security.NoSuchAlgorithmException;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.security.NoSuchAlgorithmException;
-import java.util.List;
-
-import static com.lhc.dto.CompetitionDto.competitionDto;
 
 @RestController
 public class CompetitionEndPointImpl implements CompetitionEndPoint {
@@ -29,7 +26,7 @@ public class CompetitionEndPointImpl implements CompetitionEndPoint {
 
 
     @Override
-    public CompetitionDto postCompetition(@RequestBody CompetitionDto competitionDto) throws NoSuchAlgorithmException {
+    public CompetitionDto saveCompetition(@RequestBody CompetitionDto competitionDto) throws NoSuchAlgorithmException {
 
         CompetitionMapperHandler competitionMapperHandler = new CompetitionMapperHandler();
 
@@ -41,6 +38,22 @@ public class CompetitionEndPointImpl implements CompetitionEndPoint {
         } else {
             return null;
         }
+    }
+
+    @Override
+    public CompetitionDto updateCompetition(CompetitionDto competitionDto) throws NoSuchAlgorithmException {
+
+        CompetitionMapperHandler competitionMapperHandler = new CompetitionMapperHandler();
+        Competition competition = Competition.competition();
+
+        if (competitionDto.getSystemDataDto().getReference() != null) {
+            competition = competitionService.findByReference(competitionDto.getSystemDataDto().getReference());
+        }
+
+        competitionMapperHandler.mapToEntity(competitionDto, competition);
+        competition = competitionService.saveOrUpdate(competition);
+
+        return competitionMapperHandler.createDTOFromEntity(competition);
     }
 
 

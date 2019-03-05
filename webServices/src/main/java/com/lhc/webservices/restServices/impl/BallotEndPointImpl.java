@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+
 @RestController
 public class BallotEndPointImpl implements BallotEndPoint {
 
@@ -22,7 +23,7 @@ public class BallotEndPointImpl implements BallotEndPoint {
     private UserService userService;
 
     @Override
-    public BallotDto postBallot(@RequestBody BallotDto ballotDto, @RequestParam String username){
+    public BallotDto postBallot(@RequestBody BallotDto ballotDto, @RequestParam String username) {
 
         User currentUser = userService.findByUsername(username);
 
@@ -37,17 +38,28 @@ public class BallotEndPointImpl implements BallotEndPoint {
 
     @Override
     public BallotDto updateBallot(BallotDto ballotDto) {
-        return null;
+
+
+        BallotMapperHandler ballotMapperHandler = new BallotMapperHandler();
+        Ballot ballot = Ballot.ballot();
+
+        if (ballotDto.getReference() != null) {
+            ballot = ballotService.findByReference(ballotDto.getReference());
+        }
+
+        ballotMapperHandler.mapToEntity(ballotDto, ballot);
+        ballotService.saveOrUpdate(ballot);
+        return ballotMapperHandler.createDTOFromEntity(ballot);
     }
 
 
     @Override
-    public List<BallotDto> getBallotsWithMatchRef(@RequestParam(value = "match_ref") String match_ref){
+    public List<BallotDto> getBallotsWithMatchRef(@RequestParam(value = "match_ref") String match_ref) {
 
         List<Ballot> ballots = ballotService.findAllBallotsByMatchReference(match_ref);
 
         BallotMapperHandler ballotMapperHandler = new BallotMapperHandler();
-        
+
         return ballotMapperHandler.mapToListDtos(ballots);
 
     }

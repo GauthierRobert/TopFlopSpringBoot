@@ -96,8 +96,8 @@ public class CompetitionServiceImpl implements CompetitionService {
         competitionInDB.setRules(competition.getRules());
     }
 
-    private boolean isAlreadyExist(Competition competitionInDB) {
-        return competitionInDB != null;
+    private boolean isAlreadyExist(Competition competition) {
+        return competition != null;
     }
 
 

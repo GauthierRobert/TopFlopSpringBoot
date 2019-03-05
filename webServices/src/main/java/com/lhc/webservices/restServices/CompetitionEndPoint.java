@@ -14,8 +14,12 @@ public interface CompetitionEndPoint {
     @RequestMapping(
             value = "/competition/save",
             method = RequestMethod.POST)
-    CompetitionDto postCompetition(@RequestBody CompetitionDto competitionDto) throws NoSuchAlgorithmException;
+    CompetitionDto saveCompetition(@RequestBody CompetitionDto competitionDto) throws NoSuchAlgorithmException;
 
+    @RequestMapping(
+            value = "/competition/update",
+            method = RequestMethod.POST)
+    CompetitionDto updateCompetition(@RequestBody CompetitionDto competitionDto) throws NoSuchAlgorithmException;
 
     @RequestMapping(
             value = "/competition/addUser",

@@ -30,9 +30,9 @@ public class RankingServiceImpl implements RankingService {
 
         final Map<String, Integer> ranking = new HashMap<>();
 
-        if (match.getBallots() !=null) {
+        if (match.getBallots() != null) {
             match.getBallots().forEach(ballot -> {
-                if (ballot.getVotes() !=null){
+                if (ballot.getVotes() != null) {
                     ballot.getVotes().forEach(vote -> {
                         putElement(ranking, vote);
                     });
@@ -49,7 +49,7 @@ public class RankingServiceImpl implements RankingService {
         final Map<String, Integer> ranking = new HashMap<>();
 
         votes.forEach(vote -> {
-            if(vote.getIndication() > 0) {
+            if (vote.getIndication() > 0) {
                 putElement(ranking, vote);
             }
         });
@@ -62,9 +62,9 @@ public class RankingServiceImpl implements RankingService {
         final Map<String, Integer> ranking = new HashMap<>();
 
         votes.forEach(vote -> {
-                if(vote.getIndication() < 0) {
-                    putElement(ranking, vote);
-                }
+            if (vote.getIndication() < 0) {
+                putElement(ranking, vote);
+            }
         });
 
         return createRankingCellList(getSortCollect(ranking));
@@ -75,7 +75,7 @@ public class RankingServiceImpl implements RankingService {
 
         if (ranking.containsKey(name)) {
             Integer actualPoints = ranking.get(name);
-            if (actualPoints !=null){
+            if (actualPoints != null) {
                 ranking.put(name, actualPoints + vote.getPoints());
             }
         } else {
@@ -84,32 +84,42 @@ public class RankingServiceImpl implements RankingService {
     }
 
 
-
     private LinkedHashMap<String, Integer> getSortCollect(Map<String, Integer> ranking) {
         return ranking.entrySet()
-                .stream()
-                .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
-                .collect(Collectors.toMap(
-                        Map.Entry::getKey,
-                        Map.Entry::getValue,
-                        (e1, e2) -> e1,
-                        LinkedHashMap::new
-                ));
+                      .stream()
+                      .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
+                      .collect(Collectors.toMap(
+                              Map.Entry::getKey,
+                              Map.Entry::getValue,
+                              (e1, e2) -> e1,
+                              LinkedHashMap::new
+                                               ));
     }
 
     private List<RankingCell> createRankingCellList(Map<String, Integer> rankingMap) {
         int position = 1;
         List<RankingCell> rankingCells = new ArrayList<>();
         Iterator<Map.Entry<String, Integer>> iterable = rankingMap.entrySet().iterator();
+
+        Integer currentPosition = null;
+        Integer previousValue = null;
         while (iterable.hasNext()) {
             Map.Entry<String, Integer> entry = iterable.next();
             String key = entry.getKey();
             Integer value = entry.getValue();
-            RankingCell rankingCell = new RankingCell(position + ".", key, value);
+
+            if (value != null) {
+                if (!value.equals(previousValue)) {
+                    currentPosition = position;
+                }
+            }
+
+            previousValue = value;
+            RankingCell rankingCell = new RankingCell(currentPosition + ".", key, value);
             rankingCells.add(rankingCell);
             position++;
-        }
 
+        }
         return rankingCells;
     }
 
