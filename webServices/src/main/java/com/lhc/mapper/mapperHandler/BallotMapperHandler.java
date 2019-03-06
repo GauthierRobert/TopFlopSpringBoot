@@ -6,8 +6,6 @@ import com.lhc.dto.BallotDto;
 import com.lhc.mapper.MapperHandler;
 import com.lhc.mapper.singletonMapper.BallotSingletonMapper;
 import ma.glasnost.orika.MapperFacade;
-import ma.glasnost.orika.MapperFactory;
-import ma.glasnost.orika.impl.DefaultMapperFactory;
 
 public class BallotMapperHandler implements MapperHandler<Ballot, BallotDto> {
 
@@ -23,7 +21,7 @@ public class BallotMapperHandler implements MapperHandler<Ballot, BallotDto> {
 
         VoteMapperHandler voteMapperHandler = new VoteMapperHandler();
         if (ballotDto.getVoteDtos() !=null) {
-            ballot.setVotes(voteMapperHandler.mapToListEntities(ballotDto.getVoteDtos()));
+            ballot.getVotes().addAll(voteMapperHandler.mapToListEntities(ballotDto.getVoteDtos()));
             for(Vote vote:  ballot.getVotes()){
                 vote.setBallot(ballot);
             }

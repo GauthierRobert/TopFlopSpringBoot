@@ -2,6 +2,7 @@ package com.lhc.datamodel.entities.competition;
 
 
 import com.lhc.datamodel.entities.security.User;
+import java.util.ArrayList;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -45,6 +46,7 @@ public class Ballot implements Serializable {
 
     private Ballot() {
         counted = false;
+        votes = new ArrayList<>();
     }
 
     public static Ballot ballot(){
