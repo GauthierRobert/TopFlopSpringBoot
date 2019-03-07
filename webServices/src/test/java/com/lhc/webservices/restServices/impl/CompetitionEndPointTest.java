@@ -1,4 +1,4 @@
-package com.lhc.webservices.restServices;
+package com.lhc.webservices.restServices.impl;
 
 import com.lhc.business.BusinessConfig;
 import com.lhc.business.service.competition.CompetitionService;
