@@ -18,6 +18,7 @@ public class BallotMapperHandlerTest {
     public void createEntityFromDTO() {
 
         BallotDto ballotDto = aBallotDto()
+                .withReference("AAA")
                 .withCompetition_ref("Linkebeek")
                 .withMatch_ref("rergrgert")
                 .withComment("AAA","BBB")
@@ -40,5 +41,16 @@ public class BallotMapperHandlerTest {
         assertThat(actual.getCompetition_ref()).isNotNull();
         assertThat(actual.getCompetition_ref()).isEqualTo(ballotDto.getCompetition_ref());
 
+        Ballot actual_2 = Ballot.ballot();
+        actual_2.setId(3L);
+        actual_2 = ballotMapperHandler.mapToEntity(ballotDto, actual_2);
+
+        assertThat(actual_2.getCompetition_ref()).isNotNull();
+        assertThat(actual_2.getId()).isEqualTo(3L);
+
+    }
+
+    @Test
+    public void name() {
     }
 }
