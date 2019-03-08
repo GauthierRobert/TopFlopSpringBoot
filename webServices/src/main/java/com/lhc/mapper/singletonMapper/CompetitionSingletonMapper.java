@@ -9,22 +9,28 @@ import ma.glasnost.orika.impl.DefaultMapperFactory;
 public class CompetitionSingletonMapper {
 
 
-    /** Instance unique pré-initialisée */
+    /**
+     * Instance unique pré-initialisée
+     */
     private static MapperFacade INSTANCE_ENTITY = getMapperFacadeEntity();
 
-    /** Point d'accès pour l'instance unique du singleton */
-    public static MapperFacade getInstanceEntity()
-    {
+    /**
+     * Point d'accès pour l'instance unique du singleton
+     */
+    public static MapperFacade getInstanceEntity() {
         return INSTANCE_ENTITY;
     }
 
 
-    /** Instance unique pré-initialisée */
+    /**
+     * Instance unique pré-initialisée
+     */
     private static MapperFacade INSTANCE_DTO = getMapperFacadeDto();
 
-    /** Point d'accès pour l'instance unique du singleton */
-    public static MapperFacade getInstanceDto()
-    {
+    /**
+     * Point d'accès pour l'instance unique du singleton
+     */
+    public static MapperFacade getInstanceDto() {
         return INSTANCE_DTO;
     }
 
@@ -33,28 +39,30 @@ public class CompetitionSingletonMapper {
         MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
 
         mapperFactory.classMap(CompetitionDto.class, Competition.class)
-                .field("password", "password")
-                .field("confirmedPassword", "confirmedPassword")
-                .field("dataName","dataName")
-                .field("topFlopDetails","topFlopDetails")
-                .field("details","details")
-                .register();
+                     .mapNulls(false).mapNullsInReverse(false)
+                     .field("password", "password")
+                     .field("confirmedPassword", "confirmedPassword")
+                     .field("dataName", "dataName")
+                     .field("topFlopDetails", "topFlopDetails")
+                     .field("details", "details")
+                     .register();
 
-        return  mapperFactory.getMapperFacade();
+        return mapperFactory.getMapperFacade();
     }
 
     private static MapperFacade getMapperFacadeDto() {
         MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
 
         mapperFactory.classMap(Competition.class, CompetitionDto.class)
-                .field("password", "password")
-                .field("confirmedPassword", "confirmedPassword")
-                .field("dataName","dataName")
-                .field("topFlopDetails","topFlopDetails")
-                .field("details","details")
-                .register();
+                     .mapNulls(false).mapNullsInReverse(false)
+                     .field("password", "password")
+                     .field("confirmedPassword", "confirmedPassword")
+                     .field("dataName", "dataName")
+                     .field("topFlopDetails", "topFlopDetails")
+                     .field("details", "details")
+                     .register();
 
-        return  mapperFactory.getMapperFacade();
+        return mapperFactory.getMapperFacade();
     }
 
 

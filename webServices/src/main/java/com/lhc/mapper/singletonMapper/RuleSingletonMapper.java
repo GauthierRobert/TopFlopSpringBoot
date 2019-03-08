@@ -8,22 +8,28 @@ import ma.glasnost.orika.impl.DefaultMapperFactory;
 
 public class RuleSingletonMapper {
 
-    /** Instance unique pré-initialisée */
+    /**
+     * Instance unique pré-initialisée
+     */
     private static MapperFacade INSTANCE_ENTITY = getMapperFacadeEntity();
 
-    /** Point d'accès pour l'instance unique du singleton */
-    public static MapperFacade getInstanceEntity()
-    {
+    /**
+     * Point d'accès pour l'instance unique du singleton
+     */
+    public static MapperFacade getInstanceEntity() {
         return INSTANCE_ENTITY;
     }
 
 
-    /** Instance unique pré-initialisée */
+    /**
+     * Instance unique pré-initialisée
+     */
     private static MapperFacade INSTANCE_DTO = getMapperFacadeDto();
 
-    /** Point d'accès pour l'instance unique du singleton */
-    public static MapperFacade getInstanceDto()
-    {
+    /**
+     * Point d'accès pour l'instance unique du singleton
+     */
+    public static MapperFacade getInstanceDto() {
         return INSTANCE_DTO;
     }
 
@@ -33,11 +39,12 @@ public class RuleSingletonMapper {
         MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
 
         mapperFactory.classMap(RuleDto.class, Rule.class)
-                .field("description", "description")
-                .field("label", "label")
-                .field("points", "points")
-                .field("indication", "indication")
-                .register();
+                     .mapNulls(false).mapNullsInReverse(false)
+                     .field("description", "description")
+                     .field("label", "label")
+                     .field("points", "points")
+                     .field("indication", "indication")
+                     .register();
 
         return mapperFactory.getMapperFacade();
 
@@ -48,11 +55,12 @@ public class RuleSingletonMapper {
         MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
 
         mapperFactory.classMap(Rule.class, RuleDto.class)
-                .field("description", "description")
-                .field("label", "label")
-                .field("points", "points")
-                .field("indication", "indication")
-                .register();
+                     .mapNulls(false).mapNullsInReverse(false)
+                     .field("description", "description")
+                     .field("label", "label")
+                     .field("points", "points")
+                     .field("indication", "indication")
+                     .register();
 
         return mapperFactory.getMapperFacade();
 

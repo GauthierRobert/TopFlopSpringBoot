@@ -39,9 +39,10 @@ public class MatchSingletonMapper {
         MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
 
         mapperFactory.classMap(MatchDto.class, Match.class)
-                .field("details", "details")
-                .field("competition_ref", "competition_ref")
-                .register();
+                     .mapNulls(false).mapNullsInReverse(false)
+                     .field("details", "details")
+                     .field("competition_ref", "competition_ref")
+                     .register();
         return mapperFactory.getMapperFacade();
     }
 
@@ -49,9 +50,10 @@ public class MatchSingletonMapper {
         MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
 
         mapperFactory.classMap(Match.class, MatchDto.class)
-                .field("details", "details")
-                .field("competition_ref", "competition_ref")
-                .register();
+                     .mapNulls(false).mapNullsInReverse(false)
+                     .field("details", "details")
+                     .field("competition_ref", "competition_ref")
+                     .register();
         return mapperFactory.getMapperFacade();
     }
 

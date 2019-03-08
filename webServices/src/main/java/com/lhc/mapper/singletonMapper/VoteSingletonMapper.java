@@ -9,22 +9,28 @@ import ma.glasnost.orika.impl.DefaultMapperFactory;
 public class VoteSingletonMapper {
 
 
-    /** Instance unique pré-initialisée */
+    /**
+     * Instance unique pré-initialisée
+     */
     private static MapperFacade INSTANCE_ENTITY = getMapperFacadeEntity();
 
-    /** Point d'accès pour l'instance unique du singleton */
-    public static MapperFacade getInstanceEntity()
-    {
+    /**
+     * Point d'accès pour l'instance unique du singleton
+     */
+    public static MapperFacade getInstanceEntity() {
         return INSTANCE_ENTITY;
     }
 
 
-    /** Instance unique pré-initialisée */
+    /**
+     * Instance unique pré-initialisée
+     */
     private static MapperFacade INSTANCE_DTO = getMapperFacadeDto();
 
-    /** Point d'accès pour l'instance unique du singleton */
-    public static MapperFacade getInstanceDto()
-    {
+    /**
+     * Point d'accès pour l'instance unique du singleton
+     */
+    public static MapperFacade getInstanceDto() {
         return INSTANCE_DTO;
     }
 
@@ -33,28 +39,30 @@ public class VoteSingletonMapper {
         MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
 
         mapperFactory.classMap(VoteDto.class, Vote.class)
-                .field("reference", "reference")
-                .field("name", "name")
-                .field("points", "points")
-                .field("indication", "indication")
-                .field("competition_ref", "competition_ref")
-                .register();
+                     .mapNulls(false).mapNullsInReverse(false)
+                     .field("reference", "reference")
+                     .field("name", "name")
+                     .field("points", "points")
+                     .field("indication", "indication")
+                     .field("competition_ref", "competition_ref")
+                     .register();
 
-        return  mapperFactory.getMapperFacade();
+        return mapperFactory.getMapperFacade();
     }
 
     private static MapperFacade getMapperFacadeDto() {
         MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
 
         mapperFactory.classMap(Vote.class, VoteDto.class)
-                .field("reference", "reference")
-                .field("name", "name")
-                .field("points", "points")
-                .field("indication", "indication")
-                .field("competition_ref", "competition_ref")
-                .register();
+                     .mapNulls(false).mapNullsInReverse(false)
+                     .field("reference", "reference")
+                     .field("name", "name")
+                     .field("points", "points")
+                     .field("indication", "indication")
+                     .field("competition_ref", "competition_ref")
+                     .register();
 
-        return  mapperFactory.getMapperFacade();
+        return mapperFactory.getMapperFacade();
     }
 
 
