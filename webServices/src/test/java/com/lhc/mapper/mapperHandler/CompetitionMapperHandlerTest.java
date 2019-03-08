@@ -1,9 +1,8 @@
-package com.lhc.mapper.competition;
+package com.lhc.mapper.mapperHandler;
 
 import com.lhc.datamodel.entities.competition.Competition;
 import com.lhc.datamodel.enumeration.Sport;
 import com.lhc.dto.CompetitionDto;
-import com.lhc.mapper.mapperHandler.CompetitionMapperHandler;
 import org.junit.Test;
 
 import static com.lhc.datamodel.builder.CompetitionBuilder.aCompetitionCreatedBy;

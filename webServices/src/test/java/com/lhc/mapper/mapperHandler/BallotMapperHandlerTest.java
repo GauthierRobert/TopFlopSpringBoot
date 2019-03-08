@@ -1,10 +1,9 @@
-package com.lhc.mapper.ballot;
+package com.lhc.mapper.mapperHandler;
 
 import com.lhc.datamodel.entities.competition.Ballot;
 import com.lhc.datamodel.entities.competition.Vote;
 import com.lhc.dto.BallotDto;
 import com.lhc.dto.VoteDto;
-import com.lhc.mapper.mapperHandler.BallotMapperHandler;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Before;
@@ -79,8 +78,9 @@ public class BallotMapperHandlerTest {
     public void mapEntityFromDto() {
 
         BallotMapperHandler ballotMapperHandler = new BallotMapperHandler();
-        Ballot actual = ballotMapperHandler.mapToEntity(ballotDto, this.ballot);
+        Ballot actual = ballotMapperHandler.mapToEntity(ballotDto, ballot);
 
+        assertThat(actual).isEqualTo(ballot);
         assertThat(actual.getVotes().size()).isEqualTo(5);
         assertThat(actual.getMatch_ref()).isEqualTo(LINK);
 

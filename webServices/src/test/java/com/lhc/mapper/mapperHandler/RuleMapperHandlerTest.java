@@ -1,4 +1,4 @@
-package com.lhc.mapper.rule;
+package com.lhc.mapper.mapperHandler;
 
 import com.lhc.datamodel.entities.rules.Rule;
 import com.lhc.datamodel.enumeration.Label;
